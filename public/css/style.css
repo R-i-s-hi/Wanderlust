@@ -1,0 +1,119 @@
+.body {
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh !important;
+}
+
+.container {
+    flex: 1 !important;
+}
+
+/* navbar */
+.navbar {
+    height: 5rem;
+    background-color: white;
+    padding-left: 85px;
+    padding-right: 85px;
+}
+.fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+}
+.wanderlust p {
+    margin-bottom: 0;
+    margin-left: 5px;
+    font-weight: 700 !important;
+    color: #fe424d;
+    font-size: 22px;
+}
+.nav-link {
+    color: #222222 !important;
+    margin-left: 10px;
+}
+.createListing {
+    background-color: rgb(246, 246, 235);
+    border-radius: 20px;
+    padding: 0.1rem;
+    font-weight: 500;
+    opacity: 0.7;
+}
+.createListing:hover {
+    opacity: 1;
+}
+/* footer */
+.f_info_links a {
+    text-decoration: none;
+    color: #222222;
+}
+.f_info_links a:hover {
+    text-decoration: underline;
+}
+.f_info {
+    text-align: center;
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+.f_info_links, .f_info_socials, .f_info_brand {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.f_info_socials i {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+/* cards */
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+}
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+.card-body {
+    padding: 0 !important;
+}
+.card-text p {
+    font-weight: 400 !important;
+}
+.card-img-overlay {
+    opacity: 0;
+}
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+/* new page */
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* edit page */
+.edit-btn {
+    background-color: #fe424d;
+    border: none !important;
+}
+
+/* show page */
+.btns {
+    display: flex;
+}
+.del-btn {
+    background-color: #fe424d;
+    border: none !important;
+}
+/* error page */
+.alert-heading {
+    text-align: center;
+}
