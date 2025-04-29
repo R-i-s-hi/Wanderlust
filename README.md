@@ -3,10 +3,10 @@
 Wanderlust is a seamless hotel booking platform built with the MERN stack, offering intuitive filters, secure authentication, and robust management tools.
 
 ## 🔧 Built With
-- **Frontend**: React.js, Bootstrap, CSS3  
+- **Frontend**: Bootstrap, Ejs, JavaScript, CSS3  
 - **Backend**: Node.js, Express.js  
 - **Database**: MongoDB  
-- **Auth**: JWT, Bcrypt  
+- **Auth**: JWT
 
 ## ✨ Key Features
 - User registration/login with JWT  
