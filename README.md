@@ -2,7 +2,7 @@
 
 Wanderlust is a seamless hotel booking platform built with the MERN stack, offering intuitive filters, secure authentication, and robust management tools.
 
-## Live Demo 
+## 🔥 Live Demo 
 
 👉 [(https://wanderlust-zdku.onrender.com)]
 
