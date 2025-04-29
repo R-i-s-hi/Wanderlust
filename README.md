@@ -1,6 +1,10 @@
-# 🏨 Wanderlust - Hotel Booking (MERN Stack Project) Live Demo 👉 [(https://wanderlust-zdku.onrender.com)]
+# 🏨 Wanderlust - Hotel Booking (MERN Stack Project) 
 
 Wanderlust is a seamless hotel booking platform built with the MERN stack, offering intuitive filters, secure authentication, and robust management tools.
+
+## Live Demo 
+
+👉 [(https://wanderlust-zdku.onrender.com)]
 
 ## 🔧 Built With
 - **Frontend**: Bootstrap, Ejs, JavaScript, CSS3  
