@@ -1,6 +1,6 @@
 # 🏨 Wanderlust - Hotel Booking (MERN Stack Project)
 
-A full-stack hotel booking web app demonstrating CRUD operations, JWT authentication, and responsive UI development.
+Wanderlust is a seamless hotel booking platform built with the MERN stack, offering intuitive filters, secure authentication, and robust management tools.
 
 ## 🔧 Built With
 - **Frontend**: React.js, Bootstrap, CSS3  
@@ -17,4 +17,7 @@ A full-stack hotel booking web app demonstrating CRUD operations, JWT authentica
 ## 🚀 Run Locally
 1. Clone repo:
    ```bash
-   git clone https://github.com/yourusername/wanderlust.git
+   git clone https://github.com/yourusername/wanderlust.
+
+## 🤝 **Contributing**
+Pull requests are welcome! For major changes, please open an issue first.
