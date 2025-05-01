@@ -110,6 +110,10 @@ app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", usersRouter);
 
+app.get("/", (req, res) => {
+    res.redirect("/listings"); // Redirects to the listings page
+});
+
 /* error middlewares */
 // ExpressError class 
 app.all("*", (req, res, next) => {

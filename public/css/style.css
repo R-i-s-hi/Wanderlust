@@ -6,16 +6,27 @@
 }
 
 .container {
+    z-index: 1 !important;
+    overflow-x: auto; /* Enables horizontal scrolling */
     flex: 1 !important;
+    min-height: 100vh !important;
+    margin-top: 5.5rem; /* To prevent overlap with fixed navbar */
 }
+
 
 /* navbar */
 .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures it stays above other content */
     height: 5rem;
     background-color: white;
-    padding-left: 85px;
-    padding-right: 85px;
+    padding-left: 5.9%;
+    padding-right: 5.9%;
 }
+
 .fa-compass {
     color: #fe424d;
     font-size: 2rem;
@@ -27,14 +38,10 @@
     color: #fe424d;
     font-size: 22px;
 }
-.nav-link {
-    color: #222222 !important;
-    margin-left: 10px;
-}
 .createListing {
     background-color: rgb(246, 246, 235);
-    border-radius: 20px;
-    padding: 0.1rem;
+    border-radius: 2rem;
+    padding: 0.1rem 0.6rem 0.25rem;
     font-weight: 500;
     opacity: 0.7;
 }
@@ -42,6 +49,11 @@
     opacity: 1;
 }
 /* footer */
+footer {
+    position: relative;
+    bottom: 0;
+}
+
 .f_info_links a {
     text-decoration: none;
     color: #222222;

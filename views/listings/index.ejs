@@ -1,89 +1,4 @@
 <% layout("/layouts/boilerplate") -%>
-    <style>
-        #filters {
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .filter {
-            width: 90px;
-            text-align: center;
-            margin-right: 0.9rem;
-            opacity: 0.7;
-            border-radius:20%;
-            padding: 0.5rem;
-        }
-        .filter .icons {
-            font-size: 20px;
-        }
-        .filter p {
-            font-size: 12px;
-        }
-        .filter:hover {
-            opacity: 1;
-            cursor: pointer;
-            background-color: rgb(246, 246, 235);
-        }
-        .tax-info {
-            display: none;
-        }
-        .tax-toggle {
-            margin-top: 4px;
-            border: 0.5px solid rgb(98, 98, 98);
-            border-radius: 1rem;
-            height: 3.4rem;
-            padding: 1rem;
-        }
-    </style>
-
-    <div id="filters">
-        <div class="filter">
-            <div class="icons"><i class="fa-solid fa-fire"></i></div>
-            <p>Trending</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-solid fa-bed"></i></div>
-            <p>Rooms</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-solid fa-mountain-city"></i></div>
-            <p>Cities</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-solid fa-mountain"></i></div>
-            <p>Mountain</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-brands fa-fort-awesome"></i></div>
-            <p>Castles</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-solid fa-person-swimming"></i></div>
-            <p>Pools</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-solid fa-campground"></i></div>
-            <p>Camping</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-solid fa-tractor"></i></div>
-            <p>Farms</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-regular fa-snowflake"></i></div>
-            <p>Arctic</p>
-        </div>
-        <div class="filter">
-            <div class="icons"><i class="fa-solid fa-filter"></i></div>
-            <p>Filter</p>
-        </div>
-        <div class="tax-toggle">
-            <div class="form-check-reverse form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault"><p style="font-size:15px; font-weight: 500;">Display total after taxes</p></label>
-            </div>
-        </div>
-    </div>
     <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 mt-2">
         <% for (let listing of allListings) {  %>
             <a href="/listings/<%= listing._id %>" style="text-decoration: none;">
@@ -94,7 +9,8 @@
                         <p class="card-text">
                         <b><%= listing.title %></b> <br>
                         &#8377; <%= listing.price.toLocaleString("en-IN") %>/night 
-                        <i class="tax-info"> &nbsp;&nbsp; +18% GST</i>
+                        <i class="tax-info"> &nbsp;-&nbsp; <b>&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</b></i> <br>
+                        <%= listing.country %>
                         </p>
                     </div>
                 </div>
