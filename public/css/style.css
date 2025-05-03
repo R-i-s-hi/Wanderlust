@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh !important;
+    background-color: #fcfcfc;
 }
 
 .container {
@@ -10,7 +11,7 @@
     overflow-x: auto; /* Enables horizontal scrolling */
     flex: 1 !important;
     min-height: 100vh !important;
-    margin-top: 5.5rem; /* To prevent overlap with fixed navbar */
+    margin-top: 5.7rem; /* To prevent overlap with fixed navbar */
 }
 
 
@@ -39,15 +40,122 @@
     font-size: 22px;
 }
 .createListing {
-    background-color: rgb(246, 246, 235);
+    
     border-radius: 2rem;
     padding: 0.1rem 0.6rem 0.25rem;
     font-weight: 500;
-    opacity: 0.7;
+    font-size: 14px;
+    color: black !important;
 }
 .createListing:hover {
-    opacity: 1;
+    background-color: rgb(246, 246, 235);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1) !important;
 }
+
+.login-submit {
+    border: 1px solid #fe424d;
+    color: #fe424d;
+}
+
+.login-submit:hover {
+    background-color: #fe424d;
+    color: white;
+}
+
+.btn-search {
+    color: #d3d3d3;
+    position: relative;
+    right: 36.7rem;
+    font-size: 14px !important;
+  }
+  .btn-search i {
+    display: inline;
+  }
+  .btn-search {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none; /* Prevent border change */
+    background-color: inherit; /* Maintain default background */
+}
+.btn-search:active {
+    outline: none;
+    box-shadow: none;
+    transform: none; /* Prevent click effect */
+}
+.btn-search:focus {
+    outline: none;
+    box-shadow: none;
+}
+input[type="search"] {
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: inherit; /* Maintain default background */
+}
+input[type="search"]:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+input[type="search"]:active {
+    outline: none;
+    box-shadow: none;
+    transform: none; /* Prevent click effect */
+}
+input[type="checkbox"]:focus {
+  outline: none;
+    box-shadow: none;
+}
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: none;
+}
+input[type="email"]:focus {
+    outline: none;
+    box-shadow: none;
+}
+input[type="password"]:focus {
+    outline: none;
+    box-shadow: none;
+}
+input[type="password"]:active {
+    outline: none;
+    box-shadow: none;
+}
+input[type="password"]:active {
+    outline: none;
+    box-shadow: none;
+}
+  .btn-input {
+    position: relative;
+    margin-left: 2.9rem;
+    height: 2.5rem;
+    min-width: 37.5rem;
+    border-radius: 3rem;
+    padding: 0.5rem 1rem 0.5rem 3.1rem;
+    font-size: 13.5px !important;
+    font-weight: 500;
+  }
+  .btn-input:hover {
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .tax-info {
+      display: none;
+  }
+  .tax-toggle label {
+      text-decoration: underline;
+  }
+  .tax-toggle label:hover {
+    color: black;
+      text-decoration: none;
+  }
+    .form-check-input:checked {
+    background-color: #fe424d;
+    border: #fe424d; /* Change color when checked */
+}
+.form-check-input:focus {
+    border: #fe424d !important; /* Change color when checked */
+}
+
 /* footer */
 footer {
     position: relative;
@@ -105,6 +213,24 @@ footer {
     background-color: white;
 }
 
+.navbar-toggler {
+    background-color: #fcfcfc; /* Change button color */
+    border: none;
+    padding: 10px;
+  }
+
+  .navbar-collapse {
+    transition: all 0.3s ease-in-out;
+    background-color: #fcfcfc;
+  }
+
+  .navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none;
+}
+
 /* new page */
 .add-btn {
     background-color: #fe424d !important;
@@ -128,4 +254,61 @@ footer {
 /* error page */
 .alert-heading {
     text-align: center;
+}
+ .login-pg {
+    margin-top: 4%; width: fit-content; margin-left: 25%; min-width: 40rem;
+ }
+
+
+@media (max-width: 1272px) {
+    .btn-input {
+        min-width: 20rem !important;
+    }
+    .btn-search {
+        right: 19.7rem;
+    }
+    .login-pg {
+        margin-left: 22%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .body .row {
+        width: max-content;
+    }
+    .navbar {
+        padding-left: 3.9%;
+        padding-right: 3.9%;
+    }
+    .btn-input {
+        display: none;
+    }
+    .btn-search {
+        display: none;
+    }
+    .createListing {
+        padding-left: 0.77rem;
+        height: 2.5rem;
+        width: 9rem;
+    }
+    .login-pg {
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 765px) {
+    .login-pg {
+        margin-left: 0;
+        min-width: 30rem;
+    }
+}
+
+@media(max-width: 380px) {
+    .login-pg {
+        margin-left: 0 !important;
+        min-width: fit-content;
+    }
+    .container {
+        margin-left: 0 !important;
+    } 
 }

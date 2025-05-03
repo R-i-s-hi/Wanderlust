@@ -1,18 +1,21 @@
 <% layout("/layouts/boilerplate") %>
 <body>
-    <div class="row mt-3">
-        <h1 class="col-6 offset-3">Login</h1>
-        <div class="col-6 offset-3">
+    <div class="row shadow border py-5 rounded-4 login-pg">
+        <span class="col-8 offset-2 ">
+            <h3 class="mb-0">Login to </h3><h2 class="fw-bold" style="color: #fe424d;">Wanderlust</h2>
+        </span>
+        <div class="col-8 offset-2">
+            <hr>
             <form action="/login" method="POST" class="needs-validation" novalidate>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" name="username" id="username" required>
                 </div>
-                <div class="mb-3">
+                <div class="mb-4">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" name="password" id="password" required>
                 </div>
-                <button class="btn btn-success">Login</button> <br><br>
+                <button class="btn login-submit px-4 py-2 rounded-pill w-100" style="font-size: 14px; font-weight: 500;">LogIn & Continue</button> <br><br>
             </form>
         </div>
     </div>
