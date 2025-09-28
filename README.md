@@ -1,6 +1,6 @@
-# 🏨 Wanderlust - Hotel Booking (MERN Stack Project) 
+# 🏨 Wanderlust - Hotel Listing (MERN Stack Project) 
 
-Wanderlust is a seamless hotel booking platform built with the MERN stack, offering intuitive filters, secure authentication, and robust management tools.
+Wanderlust is a seamless hotel listing platform built with the MERN stack, offering intuitive filters, secure authentication, and robust management tools.
 
 ## 🔥 Live Demo 
 
