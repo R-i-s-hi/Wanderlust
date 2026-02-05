@@ -246,8 +246,21 @@ footer {
 }
 .listing-single-card {
   width: 100% !important;
+  max-width: 800px;
   border: none !important;
   margin-bottom: 2rem;
+}
+
+.alert-success, .alert-danger {
+  padding-inline: 1rem;
+  padding-block: 0.6rem;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.alert-dismissible .btn-close {
+    position:inherit;
+    padding: 0;
 }
 .card-img-top {
   border-radius: 1rem !important;
@@ -255,11 +268,31 @@ footer {
   object-fit: cover !important;
 }
 .card-body {
-  padding: 0 !important;
+  margin-top: 0.5rem;
+  margin-left: 0.2rem;
 }
 .card-body .card-text {
-  font-weight: 400 !important;
+  font-size: 14px;
+  font-weight: 500;
 }
+.card-body {
+  padding: 0 !important;
+}
+
+.review-card {
+  border-radius: 10px;
+}
+.review-card .card-body {
+  margin: 0;
+  padding: 1.2rem !important;
+}
+.review-card .card-body .card-text {
+  color: #222222ba;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
 .listing-single-card .card-text {
   font-weight: 500 !important;
 }
@@ -331,11 +364,24 @@ footer {
 .delete-form {
   width: 50%;
 }
-.btns .del-btn {
-  height: 36px;
-  width: 100%;
-  font-size: 13.5px;
-  font-weight: 500;
+
+.listing-single-card .del-btn {
+    height: 36px;
+    width: 100%;
+    font-size: 13.5px;
+    font-weight: 500;
+}
+
+.del-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+.del-btn i {
+  font-size: 8px;
 }
 /* error page */
 .alert-heading {
@@ -421,12 +467,6 @@ footer {
   }
 }
 
-@media (min-width: 991.5px) {
-  .listing-single-card {
-    width: fit-content !important;
-    padding-inline: 15% !important;
-  }
-}
 @media (max-width: 991.5px) {
   .reviews-section {
     padding-inline: 0% !important;
