@@ -1,9 +1,9 @@
 <% layout("/layouts/boilerplate") -%>
 <body>
     <div class="row">
-        <div class="col-8 offset-2 mt-4">
-            <h3>Create a New Listing: </h3><br>
-            <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
+        <div class="col-8 offset-2 mt-4" style="color: #212529; font-weight: 700;">
+            <h3 style="color: #373032; font-weight: 700;">Create a New Listing: </h3><br>
+            <form method="POST" action="/listings" novalidate class="needs-validation create-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" class="form-control" name="listing[title]" id="title" required>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="url" class="form-label">Upload Image</label>
-                    <input class="form-control" type="file" name="listing[image]" id="url" required>
+                    <input style="font-size: small; color: #212529b3;" class="form-control fw-medium" type="file" name="listing[image]" id="url" required>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-4">
@@ -36,8 +36,16 @@
                     <input class="form-control" type="text" name="listing[location]" id="location" required>
                     <div class="invalid-feedback">Location should be valid!</div>
                 </div>
-                <button class="btn btn-dark mb-4 add-btn">Add</button>
+                <button class="btn btn-dark mb-3 add-btn">Add listing</button>
             </form>
+            <a href="/listings" class="nav-link">
+
+                <button class="btn btn-outline-dark mb-3 w-100 d-flex justify-content-center align-items-center gap-2" style="font-size: 13.5px; font-weight: 500;">
+                    <i class="fa-solid fa-arrow-left mt-1"></i>
+                    <span>Go Back</span>
+
+                </button>
+            </a>
         </div>
     </div>
 </body>

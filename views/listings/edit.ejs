@@ -1,9 +1,9 @@
 <% layout("/layouts/boilerplate") -%>
 <body>
     <div class="row mt-4">
-        <div class="col-8 offset-2">
-            <h3 class="mb-3">Edit your Listing: </h3>
-            <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+        <div class="col-8 offset-2" style="color: #212529; font-weight: 700;">
+            <h3 style="color: #373032; font-weight: 700; margin-bottom: 2rem;">Edit your Listing: </h3>
+            <form class="edit-form mb-5" method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
                 <div class="col mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" class="form-control" required>
@@ -11,7 +11,7 @@
                 </div>
                 <div class="col mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea id="description" name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+                    <textarea style="font-size: 13.5px; font-weight: 500; color: #222222d9;" id="description" name="listing[description]" class="form-control" required><%= listing.description %></textarea>
                     <div class="invalid-feedback">Please enter a description!</div>
                 </div>
                 <div class="col mb-3">
@@ -39,7 +39,15 @@
                     <input type="text" id="location" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
                     <div class="invalid-feedback">Location should be valid!</div>
                 </div>
-                <button class="btn btn-dark mb-3 edit-btn">Edit</button>
+                <button class="btn btn-dark mb-3 mt-4 edit-btn">Edit</button>
+                <a href="/listings" class="nav-link">
+
+                    <button class="btn btn-outline-dark mb-3 w-100 d-flex justify-content-center align-items-center gap-2" style="font-size: 13.5px; font-weight: 500;">
+                        <i class="fa-solid fa-arrow-left mt-1"></i>
+                        <span>Go Back</span>
+    
+                    </button>
+                </a>
             </form>
         </div>
     </div>

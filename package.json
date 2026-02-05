@@ -2,10 +2,11 @@
   "engines": {
     "node": "22.14.0"
   },
-  "name": "project",
+  "name": "wanderust",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

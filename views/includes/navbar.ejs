@@ -1,36 +1,52 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/listings">
-        <div class="wanderlust" style="display: flex;">
-          <i class="fa-regular fa-compass"></i>
-          <p>Wanderlust</p>
-        </div>
-        </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
-        <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-md bg-body-light sticky-top">
+    <div class="container-fluid p-0">
+      
+      <a class="navbar-brand d-flex align-items-center wanderlust" href="/listings">
+        <i class="fa-regular fa-compass me-2" style="font-size: 1.5rem;"></i>
+        <p>Wanderlust</p>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+        data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
+        aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <form class="d-flex" role="search">
-            <input class="form-control btn-input" type="search" placeholder="Search destinations">
-            <div class="btn btn-search pt-2" type="submit"><i class="fa-solid fa-magnifying-glass"></i></div>
-          </form>
-        </div>
-        <div class="navbar-nav ms-auto">
-          <div class="createListing"><a class="nav-link" href="/listings/new">Add your home</a></div>
-          <div class="tax-toggle pt-2 ms-3">
-            <div class="form-check-reverse form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault"><p style="font-size:14px; font-weight: 500; margin: 0;">Add taxes</p></label>
+
+      <div class="collapse navbar-collapse p-md-0 px-sm-5 py-sm-3 p-3" id="navbarNavAltMarkup">
+        <div class="d-flex align-items-center gap-3 nav-elements" style="width: 100%;">
+
+            <form class="d-flex align-items-center nav-form d-none d-md-flex" style="width: 70%;">
+              <div class="position-relative" style="width:90%;">
+                <input class="form-control ps-5 btn-input" type="search" placeholder="Search destinations" aria-label="Search">
+                <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3" aria-hidden="true" style="font-size: 13.4px; color: #2222224d;"></i>
+              </div>
+            </form>
+            <div class="d-block d-md-flex justify-content-end align-items-center gap-lg-4 gap-md-2 gap-sm-1 nav-buttons" style="width: 30%;">
+
+              <div class="createListing">
+                <a class="nav-link d-flex justify-content-center align-items-center gap-1" href="/listings/new">
+                  <i class="fa-solid fa-plus" style="color: #fff; font-size: 10px; padding-top: 2px;"></i>
+                  <span style="color: #fff;">home</span>
+                </a>
+              </div>
+              <div class="tax-toggle">
+                <div class="form-check form-switch d-flex align-items-center gap-1" style="color:#373032; font-size:13.5px; font-weight: 500;">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="flexSwitchCheckDefault" style="cursor: pointer;">Taxes</label>
+                </div>
+              </div>
+  
+              <% if(!currUser) { %> 
+                <a class="nav-link" href="/signup"><b>SignUp</b></a>
+                <a class="nav-link" href="/login"><b>Login</b></a>
+              <% } %> <% if(currUser) { %>
+                <a class="btn" href="/logout" style="color: #373032; font-size: 13.5px; display: flex; justify-content: center; align-items: center;"><b>Logout</b></a>
+              <% } %>
+
             </div>
-        </div>
-          <% if(!currUser) { %> 
-            <a class="nav-link ms-3" href="/signup"><b>SignUp</b></a>
-            <a class="nav-link" href="/login"><b>Login</b></a>
-          <% } %> <% if(currUser) { %>
-            <a class="btn btn-outline-secondary rounded-pill ms-3" href="/logout" style="font-size: 14px; padding: 0.6rem 1.5rem 0.5rem;"><b>Logout</b></a>
-          <% } %>
+
         </div>
       </div>
+
     </div>
 </nav>
