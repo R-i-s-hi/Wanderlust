@@ -1,4 +1,6 @@
 const Listing = require("../models/listing");
+const { getCoordinate } = require('../utils/coordinates.js');
+
 
 //  index route
 module.exports.index = async (req, res) => {
@@ -13,11 +15,16 @@ module.exports.new = (req, res) => {
 
 // create route
 module.exports.create = async (req, res, next) => {
+    
+    const result = await getCoordinate(req.body.listing.location);
+    console.log(result);
+    
     const {path, filename} = req.file;
 
     const newListing = new Listing(req.body.listing);
-    newListing.owner = req.user._id; // adds username in listing
+    newListing.owner = req.user._id;
     newListing.image = {url: path, filename};
+    newListing.geometry = result;
     await newListing.save();
     req.flash("success", "New Listing Created!");
     res.redirect("/listings");
@@ -26,7 +33,7 @@ module.exports.create = async (req, res, next) => {
 // show route
 module.exports.show = async (req, res) => {
     let { id } = req.params;
-    id = id.trim(); // Trim any leading or trailing whitespace
+    id = id.trim();
     const listing = await Listing.findById(id)
         .populate({
             path: "reviews",
