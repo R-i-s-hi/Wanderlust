@@ -1,21 +1,23 @@
 <% layout("/layouts/boilerplate") %>
 <body>
-    <div class="row shadow border py-5 rounded-4 login-pg">
-        <span class="col-8 offset-2 ">
-            <h3 class="mb-0">Login to </h3><h2 class="fw-bold" style="color: #fe424d;">Wanderlust</h2>
+    <div class="shadow border rounded-3 login-pg">
+        <span>
+            <h3 class="mb-0" style="font-weight: 700;">Login to </h3>
+            <h2 class="fw-bold" style="color: #fe424d;">Wanderlust</h2>
         </span>
-        <div class="col-8 offset-2">
-            <hr>
-            <form action="/login" method="POST" class="needs-validation" novalidate>
+        <div class="d-block justify-content-center align-items-center gap-2">
+            <hr style="color: #2222224d">
+            <form class="login-form" action="/login" method="POST" class="needs-validation" novalidate>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" name="username" id="username" required>
                 </div>
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" name="password" id="password" required>
                 </div>
-                <button class="btn login-submit px-4 py-2 rounded-pill w-100" style="font-size: 14px; font-weight: 500;">LogIn & Continue</button> <br><br>
+                <button class="btn login-submit px-4 py-2 rounded-3 w-100" style="font-size: 14px; font-weight: 500;">log in</button>
+                <p style="text-align: center; font-weight: 500; font-size: small; margin-top: 0.8rem; width: 100%;">Don't have an account? <a href="/signup">signup to wanderlust</a></p>
             </form>
         </div>
     </div>
