@@ -102,7 +102,9 @@
     <script>
         const lon = "<%- JSON.stringify(listing.geometry.coordinates[1]) %>";
         const lat = "<%- JSON.stringify(listing.geometry.coordinates[0]) %>";
-
+        const locationData = "<%- listing.location %>";
+        const countryData = "<%- listing.country %>";
+    
         let taxSwitch = document.getElementById("flexSwitchCheckDefault");
         taxSwitch.addEventListener("click", () => {
             let taxInfo =  document.getElementsByClassName("tax-info");

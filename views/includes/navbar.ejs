@@ -35,12 +35,14 @@
                   <label class="form-check-label" for="flexSwitchCheckDefault" style="cursor: pointer;">Taxes</label>
                 </div>
               </div>
-  
-              <% if(!currUser) { %>
-                <a class="nav-link" href="/login"><b>Login</b></a>
-              <% } %> <% if(currUser) { %>
-                <a class="btn" href="/logout" style="color: #373032; font-size: 13.5px; display: flex; justify-content: center; align-items: center;"><b>Logout</b></a>
-              <% } %>
+              
+              <div class="login-btn">
+                <% if(!currUser) { %>
+                  <a class="nav-link" href="/login"><b>Login</b></a>
+                <% } %> <% if(currUser) { %>
+                  <a class="btn" href="/logout" style="color: #373032; font-size: 13.5px; display: flex; justify-content: center; align-items: center;"><b>Logout</b></a>
+                <% } %>
+              </div>
 
             </div>
 

@@ -5,8 +5,7 @@ const customIcon = L.icon({
   iconAnchor: [11, 34], // anchor point so the marker tip is at the location
   popupAnchor: [0, -34] // position of popup relative to icon
 });
-
-const marker = L.marker([lon, lat], { icon: customIcon }).addTo(map).bindPopup("<b>your destination</b>");
+const marker = L.marker([lon, lat], { icon: customIcon }).addTo(map).bindPopup(`<b>${locationData}, ${countryData}</b>`);
 
 L.tileLayer('https://maps.geoapify.com/v1/tile/osm-carto/{z}/{x}/{y}.png?apiKey=2c3cbeb5be704618b33a5c652f267f69', {
   maxZoom: 20,

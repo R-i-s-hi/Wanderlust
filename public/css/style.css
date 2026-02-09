@@ -400,6 +400,18 @@ footer {
   color:#222222d9;
 }
 
+.login-btn {
+  width: 100%;
+  text-align: center;
+  font-size: 13.5px;
+  color: #373032;
+  font-weight: 400;
+}
+
+.login-btn:hover {
+  color: black;
+}
+
 .map-container {
   display: flex;
   justify-content: center;
@@ -512,6 +524,9 @@ footer {
   }
   .createListing {
     border-radius: 0.75rem;
+  }
+  .login-btn {
+    padding-top: 4px;
   }
 }
 @media (max-width: 765px) {
