@@ -1,15 +1,186 @@
 <% layout("/layouts/boilerplate") -%>
-    <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 mt-lg-3 mt-2">
+
+    <div class="d-flex justify-content-start align-items-center gap-2 my-3 mt-sm-3 mb-sm-4">
+        <button class="filter-btn" data-bs-toggle="modal" data-bs-target="#filterModal">
+            <svg width="13" height="13" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+            <path d="M4.8125 4.25C4.8125 3.42157 5.48407 2.75 6.3125 2.75H17.5625C18.3909 2.75 19.0625 3.42157 19.0625 4.25V5.61053C19.0625 6.26854 18.8462 6.9083 18.4468 7.43127L14.1203 13.0969C13.9207 13.3583 13.8125 13.6782 13.8125 14.0072V20.2455C13.8125 21.0228 12.9645 21.5029 12.298 21.103L10.7908 20.1987C10.3389 19.9276 10.0625 19.4393 10.0625 18.9124V14.0072C10.0625 13.6782 9.95433 13.3583 9.75465 13.0969L5.4282 7.43127C5.02884 6.9083 4.8125 6.26854 4.8125 5.61053V4.25Z" stroke="#212529b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            <span>
+                Filters
+            </span>
+        </button>
+        <div class="modal  fade" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-center w-100" id="exampleModalLabel" style="font-size: 1.2rem;">Filters</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 11px; width: 13px; height: 13px;"></button>
+                    </div>
+                    <div class="modal-body p-4">
+                        <h5 class="fw-bold mb-3" style="color: #212529ec;">Price Range</h5>
+                        <div class="d-flex flex-wrap gap-3">
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <span>
+                                    500-2000 &#8377;
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <span>
+                                    2000-5000 &#8377;
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <span>
+                                    5000-10000 &#8377;
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <span>
+                                    10000+ &#8377;
+                                </span>
+                            </button>
+                        </div>
+
+                        <hr class="my-4 opacity-25 border-secondary">
+
+                        <h5 class="fw-bold mb-3" style="color: #212529ec;">Amenities</h5>
+                        <div class="d-flex flex-wrap gap-3">
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <i class="fa-solid fa-wifi"></i>
+                                <span>
+                                    Wifi
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <i class="fa-solid fa-person-swimming"></i>
+                                <span>
+                                    Swimming pool
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <i class="fa-solid fa-mountain"></i>
+                                <span>
+                                    Mountains
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <i class="fa-solid fa-martini-glass"></i>
+                                <span>
+                                    Personal bar
+                                </span>
+                            </button>
+                        </div>
+
+                        <hr class="my-4 opacity-25 border-secondary">
+
+                        <h5 class="fw-bold mb-3" style="color: #212529ec;">Property type</h5>
+                        <div class="d-flex flex-wrap gap-3">
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <i class="fa-solid fa-house"></i>
+                                <span>
+                                    House
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <i class="fa-regular fa-building"></i>
+                                <span>
+                                    Flat
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <i class="fa-solid fa-tent"></i>
+                                <span>
+                                    Guest House
+                                </span>
+                            </button>
+                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                                <i class="fa-solid fa-hotel"></i>
+                                <span>
+                                    Hotel
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0" style="box-shadow: 0px -4px 18px 2px rgba(128, 128, 128, 0.194);">
+                        <button type="button" id="clearAll" class="btn btn-outline-secondary rounded-5 px-4" style="font-size: 12px;">
+                            Clear all
+                        </button>
+                        <button type="button" class="btn btn-dark rounded-5 px-4" style="font-size: 12px;">Show results</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vr my-2 mx-1"></div>
+        <div class="d-flex gap-2 overflow-x-auto optns">
+
+            <button class="filter-btn filter-badge">
+                <span>
+                    Saved
+                </span>
+            </button>
+            <button class="filter-btn filter-badge">
+                <span>
+                    Guest Favourite
+                </span>
+            </button>
+            <button class="filter-btn filter-badge">
+                <span>
+                    WiFi
+                </span>
+            </button>
+            <button class="filter-btn filter-badge">
+                <span>
+                    Swimming pool
+                </span>
+            </button>
+            <button class="filter-btn filter-badge">
+                <span>
+                    Mountains & Hills
+                </span>
+            </button>
+            <button class="filter-btn filter-badge">
+                <span>
+                    Air conditioning
+                </span>
+            </button>
+            <button class="filter-btn filter-badge">
+                <span>
+                    Beach & Tent
+                </span>
+            </button>
+            <button class="filter-btn filter-badge">
+                <span>
+                    Lake & Rivers
+                </span>
+            </button> 
+            <button class="filter-btn filter-badge">
+                <span>
+                    Boat house
+                </span>
+            </button>
+        </div>
+    </div>
+    <div class="row row-cols-lg-4 row-cols-2 mt-lg-3 mt-2">
         <% for (let listing of allListings) {  %>
             <a href="/listings/<%= listing._id %>" style="text-decoration: none;">
                 <div class="card listing-card">
-                    <img src="<%= listing.image.url %>" style="height: 20rem;" class="card-img-top" alt="listing-image">
-                    <div class="card-img-overlay"></div>
+                    <div class="img-overlay">
+                        <button class="index-save-btn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+     d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
+                            </svg>
+
+                        </button>
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-image" loading="lazy">
+                    </div>
                     <div class="card-body">
                         <p class="card-text">
-                        <b><%= listing.title %></b> <br>
+                        <b class="truncate"><%= listing.title %></b> <br>
                         &#8377; <%= listing.price.toLocaleString("en-IN") %>/night 
-                        <i class="tax-info"> &nbsp;-&nbsp; <b>&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</b></i> <br>
+                        <i class="tax-info"> &nbsp;-&nbsp; <b>&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</b></i> in
                         <%= listing.country %>
                         </p>
                     </div>
@@ -31,4 +202,22 @@
                 }
             }
         })
+
+        document.querySelectorAll(".optns .filter-badge").forEach(btn => {
+            btn.addEventListener("click", e => {
+                e.currentTarget.classList.toggle("selected");
+            });
+        });
+
+        document.querySelectorAll(".modal-body .filter-badge").forEach(btn => {
+            btn.addEventListener("click", e => {
+                e.currentTarget.classList.toggle("selected");
+            });
+        });
+
+        document.getElementById("clearAll").addEventListener("click", () => {
+            document.querySelectorAll(".modal-body .filter-badge.selected")
+                .forEach(badge => badge.classList.remove("selected"));
+        });
+
     </script>

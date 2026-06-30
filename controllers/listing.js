@@ -42,11 +42,21 @@ module.exports.show = async (req, res) => {
             }
         })
         .populate("owner");
+    
+    const reviews = listing.reviews;
+    var total_Rating = 0;
+
+    reviews.forEach(review => {
+        total_Rating += review.rating;
+    });
+    const avg_rating = reviews.length > 0 ? (total_Rating / reviews.length).toFixed(2) : 0;
+
+
     if (!listing) {
         req.flash("error", "Listing Does not Exist!");
         res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { listing });
+    res.render("listings/show.ejs", { listing, avg_rating });
 };
 
 // edit route
