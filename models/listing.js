@@ -47,6 +47,13 @@ const listingSchema = new Schema({
             type: [Number],
             required: true
         }
+    },
+    isSaved: {
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }],
+        default: [],
     }
 })
 

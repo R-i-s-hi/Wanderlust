@@ -3,9 +3,23 @@ const { getCoordinate } = require('../utils/coordinates.js');
 
 
 //  index route
+    const PAGE_SIZE = 8;
+
 module.exports.index = async (req, res) => {
-    const allListings = await Listing.find({});
-    res.render("listings/index.ejs", { allListings });
+    const page = Number(req.query.page) || 1;
+
+    const allListings = await Listing.find({})
+        .skip((page - 1) * PAGE_SIZE)
+        .limit(PAGE_SIZE);
+
+    const total = await Listing.countDocuments();
+
+    res.render("listings/index", {
+        allListings,
+        currentPage: page,
+        hasNextPage: page * PAGE_SIZE < total,
+        currUser: req.user
+    });
 };
 
 // new route
@@ -56,7 +70,7 @@ module.exports.show = async (req, res) => {
         req.flash("error", "Listing Does not Exist!");
         res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { listing, avg_rating });
+    res.render("listings/show.ejs", { listing, avg_rating, currUser: req.user });
 };
 
 // edit route
@@ -94,4 +108,35 @@ module.exports.delete = async (req, res) => {
     console.log(deletedListing);
     req.flash("success", "Listing Deleted!");
     res.redirect("/listings");
+};
+
+module.exports.toggleSave = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const userId = req.user._id; // must be logged in
+
+        const listing = await Listing.findById(id);
+        if (!listing) {
+            return res.status(404).json({ success: false, message: "Listing not found" });
+        }
+
+        let isSaved;
+        if (listing.isSaved.includes(userId)) {
+            // remove user from saved list
+            listing.isSaved.pull(userId);
+            isSaved = false;
+        } else {
+            // add user to saved list
+            listing.isSaved.push(userId);
+            isSaved = true;
+        }
+
+        await listing.save();
+
+        // return JSON so frontend fetch works
+        res.json({ success: true, isSaved });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
 };

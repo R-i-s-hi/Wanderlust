@@ -14,17 +14,22 @@
                     <img src="<%= listing.image.url %>" class="single-card-img-top" alt="listing-image">
                 </div>
                 <div class="d-block justify-content-between align-items-between mt-2">
-                    <div class="d-flex justify-content-between" style="margin-bottom: 2rem;">
+                    <div class="d-flex justify-content-between" style="margin-bottom: 2rem; gap: 1.5rem;">
                         <div>
                             <h3 class="mb-0" style="color: #373032; font-weight: 700;"><%= listing.title %></h3>
-                            <p class="card-text" style="font-size: small;"><i> Owned by @<%= listing.owner.username %></i></p>
+                            <p class="card-text" style="font-size: 10px;"><i> Owned by @<%= listing.owner.username %></i></p>
                         </div>
                         <div class=""> 
                             <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
-                                <div class="btns mb-3">
-                                    <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">Edit</a>
+                                <div class="btns">
+                                    <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">
+                                        <i class="fa-solid fa-highlighter"></i>
+                                    </a>
+                                    <div class="vr my-1"></div>
                                     <form class="delete-form" method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-                                        <button class="btn btn-dark del-btn">Delete</button>
+                                        <button class="btn del-btn">
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </button>
                                     </form>
                                 </div>
                             <% } %>
@@ -127,12 +132,26 @@
                             </p>
                             <i class="fa-solid fa-arrow-right-long"></i>
                         </button>
-                        <button class="btn save-btn btn-outline-secondary d-flex justify-content-center align-items-center gap-2 py-1" style="height: 50px; width: 50px; border-radius: 12px;">
-                            <i class="fa-regular fa-bookmark" style="font-size: 13px;"></i>
-                            <!-- <p class="card-text mb-0">
-                                Save
-                            </p> -->
-                        </button>
+
+                        <% if(currUser) { %>
+                            <% const isSavedByUser = listing.isSaved.some(id => id.equals(currUser._id)); %>
+                            
+                            <button 
+                            class="btn d-flex justify-content-center align-items-center gap-2 py-1 <%= isSavedByUser ? 'save-btn-filled' : 'save-btn-outline' %>" 
+                            onclick="toggleSave(event, '<%= listing._id %>')">
+
+                                <i class="fa-solid fa-bookmark" style="<%= isSavedByUser ? 'font-size: 13px;' : 'display:none;' %>"></i>
+                                <i class="fa-regular fa-bookmark" style="<%= isSavedByUser ? 'display:none;' : 'font-size: 13px;' %>"></i>
+                            </button>
+                        <% } else { %>
+                            <button 
+                            class="btn save-btn-outline d-flex justify-content-center align-items-center gap-2 py-1" 
+                            onclick="redirectToLogin(event)">
+                                <i class="fa-regular fa-bookmark" style="font-size: 13px;"></i>
+                            </button>
+                        <% } %>
+
+
                     </div>
                 </div>
             </div>
@@ -269,16 +288,50 @@
         const countryData = "<%- listing.country %>";
     
         let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-        taxSwitch.addEventListener("click", () => {
-            let taxInfo =  document.getElementsByClassName("tax-info");
-            for (info of taxInfo) {
-                if (info.style.display != "inline") {
-                    info.style.display = "inline";
-                } else {
-                    info.style.display = "none";
+        if(taxSwitch) {
+            taxSwitch.addEventListener("click", () => {
+                let taxInfo =  document.getElementsByClassName("tax-info");
+                for (info of taxInfo) {
+                    if (info.style.display != "inline") {
+                        info.style.display = "inline";
+                    } else {
+                        info.style.display = "none";
+                    }
                 }
-            }
-        })
+            })
+        }
+
+        function toggleSave(e, listingId) {
+            const btn = e.currentTarget;
+            const solidIcon = btn.querySelector(".fa-solid");
+            const regularIcon = btn.querySelector(".fa-regular");
+
+            fetch(`/listings/${listingId}/toggle-save`, { method: "POST" })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.isSaved) {
+                        btn.classList.remove("save-btn-outline");
+                        btn.classList.add("save-btn-filled");
+
+                        solidIcon.style.display = "inline";
+                        regularIcon.style.display = "none";
+                    } else {
+                        btn.classList.remove("save-btn-filled");
+                        btn.classList.add("save-btn-outline");
+
+                        solidIcon.style.display = "none";
+                        regularIcon.style.display = "inline";
+                    }
+                })
+                .catch(err => console.error("Error toggling save:", err));
+        }
+
+        function redirectToLogin(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = "/login";
+        }
+
     </script>
 
 </body>

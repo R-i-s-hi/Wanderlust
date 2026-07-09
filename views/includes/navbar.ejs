@@ -15,30 +15,41 @@
       <div class="collapse navbar-collapse p-md-0 px-sm-5 py-sm-3 p-3" id="navbarNavAltMarkup">
         <div class="d-flex align-items-center gap-3 nav-elements" style="width: 100%;">
 
-            <form class="d-flex align-items-center nav-form d-none d-md-flex" style="width: 70%;">
-              <div class="position-relative" style="width:90%;">
+            <form class="d-flex align-items-center nav-form d-none d-md-flex" style="width: 68%;">
+              <div class="position-relative w-100">
                 <input class="form-control ps-5 btn-input" type="search" placeholder="Search destinations" aria-label="Search">
                 <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-3" aria-hidden="true" style="font-size: 13.4px; color: #2222224d;"></i>
               </div>
             </form>
-            <div class="d-block d-md-flex justify-content-end align-items-center gap-lg-4 gap-md-2 gap-sm-1 nav-buttons" style="width: 30%;">
 
-              <div class="createListing">
-                <a class="nav-link d-flex justify-content-center align-items-center gap-1" href="/listings/new">
-                  <i class="fa-solid fa-plus" style="color: #fff; font-size: 10px; padding-top: 2px;"></i>
-                  <span style="color: #fff;">home</span>
+            <div class="d-block d-md-flex justify-content-end align-items-center nav-buttons" style="width: 32%;">
+              <button class="navbar-toggler navbar-close-btn" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
+                aria-expanded="false" aria-label="Toggle navigation"
+              >
+                  <i class="fa-solid fa-xmark"></i>
+              </button>
+
+              <div class="createListing rounded-pill">
+                <a class="nav-link d-flex justify-content-center align-items-center gap-1 h-100" href="/listings/new">
+                  <i class="fa-solid fa-house-circle-check" style="color: #fff; font-size: 12px; padding-top: 2px;"></i>
+                  <span>home</span>
                 </a>
               </div>
-              <div class="tax-toggle">
-                <div class="form-check form-switch d-flex align-items-center gap-1" style="color:#373032; font-size:13.5px; font-weight: 500;">
-                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                  <label class="form-check-label" for="flexSwitchCheckDefault" style="cursor: pointer;">Taxes</label>
-                </div>
+
+              <div class="watchlist-btn rounded-circle">
+                <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100" href="/listings/new">
+                  <i class="fa-regular fa-bookmark" style="color: #fff; font-size: 12px; padding-top: 2px;"></i>
+                </a>
               </div>
-              
-              <div class="login-btn">
+
+              <hr class="nav-hr-tag">
+
+              <div class="login-btn rounded-pill">
                 <% if(!currUser) { %>
-                  <a class="nav-link" href="/login"><b>Login</b></a>
+                  <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100" href="/login">
+                    <span class="fw-semibold" style="font-size: 13px;">Login</span>
+                  </a>
                 <% } %> <% if(currUser) { %>
                   <a class="btn" href="/logout" style="color: #373032; font-size: 13.5px; display: flex; justify-content: center; align-items: center;"><b>Logout</b></a>
                 <% } %>

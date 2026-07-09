@@ -28,6 +28,7 @@ router.route("/:id")
 // edit route
 router.get("/:id/edit", isLoggedIn, isOwner, wrapAsync(listingController.edit));
 
+router.post("/:id/toggle-save", isLoggedIn, wrapAsync(listingController.toggleSave));
 
 
 module.exports = router;

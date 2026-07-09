@@ -1,7 +1,7 @@
 <% layout("/layouts/boilerplate") -%>
 
     <div class="d-flex justify-content-start align-items-center gap-2 my-3 mt-sm-3 mb-sm-4">
-        <button class="filter-btn" data-bs-toggle="modal" data-bs-target="#filterModal">
+        <button class="filter-btn filter-modal-btn" id="optn-btn" data-bs-toggle="modal" data-bs-target="#filterModal">
             <svg width="13" height="13" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
             <path d="M4.8125 4.25C4.8125 3.42157 5.48407 2.75 6.3125 2.75H17.5625C18.3909 2.75 19.0625 3.42157 19.0625 4.25V5.61053C19.0625 6.26854 18.8462 6.9083 18.4468 7.43127L14.1203 13.0969C13.9207 13.3583 13.8125 13.6782 13.8125 14.0072V20.2455C13.8125 21.0228 12.9645 21.5029 12.298 21.103L10.7908 20.1987C10.3389 19.9276 10.0625 19.4393 10.0625 18.9124V14.0072C10.0625 13.6782 9.95433 13.3583 9.75465 13.0969L5.4282 7.43127C5.02884 6.9083 4.8125 6.26854 4.8125 5.61053V4.25Z" stroke="#212529b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -17,25 +17,25 @@
                         <h4 class="modal-title text-center w-100" id="exampleModalLabel" style="font-size: 1.2rem;">Filters</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 11px; width: 13px; height: 13px;"></button>
                     </div>
-                    <div class="modal-body p-4">
+                    <div class="modal-body p-4 pb-5">
                         <h5 class="fw-bold mb-3" style="color: #212529ec;">Price Range</h5>
                         <div class="d-flex flex-wrap gap-3">
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn modal-btn" style="width: fit-content !important;">
                                 <span>
                                     500-2000 &#8377;
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn modal-btn" style="width: fit-content !important;">
                                 <span>
                                     2000-5000 &#8377;
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn modal-btn" style="width: fit-content !important;">
                                 <span>
                                     5000-10000 &#8377;
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn modal-btn" style="width: fit-content !important;">
                                 <span>
                                     10000+ &#8377;
                                 </span>
@@ -46,25 +46,25 @@
 
                         <h5 class="fw-bold mb-3" style="color: #212529ec;">Amenities</h5>
                         <div class="d-flex flex-wrap gap-3">
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn  modal-btn" style="width: fit-content !important;">
                                 <i class="fa-solid fa-wifi"></i>
                                 <span>
                                     Wifi
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn  modal-btn" style="width: fit-content !important;">
                                 <i class="fa-solid fa-person-swimming"></i>
                                 <span>
                                     Swimming pool
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn  modal-btn" style="width: fit-content !important;">
                                 <i class="fa-solid fa-mountain"></i>
                                 <span>
                                     Mountains
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn  modal-btn" style="width: fit-content !important;">
                                 <i class="fa-solid fa-martini-glass"></i>
                                 <span>
                                     Personal bar
@@ -76,25 +76,25 @@
 
                         <h5 class="fw-bold mb-3" style="color: #212529ec;">Property type</h5>
                         <div class="d-flex flex-wrap gap-3">
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn  modal-btn" style="width: fit-content !important;">
                                 <i class="fa-solid fa-house"></i>
                                 <span>
                                     House
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn  modal-btn" style="width: fit-content !important;">
                                 <i class="fa-regular fa-building"></i>
                                 <span>
                                     Flat
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn  modal-btn" style="width: fit-content !important;">
                                 <i class="fa-solid fa-tent"></i>
                                 <span>
                                     Guest House
                                 </span>
                             </button>
-                            <button class="filter-btn filter-badge" style="width: fit-content !important;">
+                            <button class="filter-btn  modal-btn" style="width: fit-content !important;">
                                 <i class="fa-solid fa-hotel"></i>
                                 <span>
                                     Hotel
@@ -115,65 +115,81 @@
         <div class="vr my-2 mx-1"></div>
         <div class="d-flex gap-2 overflow-x-auto optns">
 
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     Saved
                 </span>
             </button>
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     Guest Favourite
                 </span>
             </button>
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     WiFi
                 </span>
             </button>
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     Swimming pool
                 </span>
             </button>
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     Mountains & Hills
                 </span>
             </button>
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     Air conditioning
                 </span>
             </button>
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     Beach & Tent
                 </span>
             </button>
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     Lake & Rivers
                 </span>
             </button> 
-            <button class="filter-btn filter-badge">
+            <button class="filter-btn optn-btn">
                 <span>
                     Boat house
                 </span>
             </button>
         </div>
     </div>
-    <div class="row row-cols-lg-4 row-cols-2 mt-lg-3 mt-2">
+    <div class="row row-cols-lg-4 row-cols-2 mt-lg-3 mt-2" id="listing-container">
         <% for (let listing of allListings) {  %>
             <a href="/listings/<%= listing._id %>" style="text-decoration: none;">
                 <div class="card listing-card">
                     <div class="img-overlay">
-                        <button class="index-save-btn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-     d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
-                            </svg>
 
-                        </button>
+                        <% if(currUser) { %>
+                            <button class="index-save-btn" onclick="toggleSave(event, '<%= listing._id %>')">
+
+                                    <% const isSavedByUser = listing.isSaved.some(id => id.equals(currUser._id)); %>
+
+                                    <svg class="filled" style="<%= isSavedByUser ? '' : 'display:none;' %>" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                        <path d="M11.8227 4.77222C9.5756 2.52515 5.93237 2.52515 3.6853 4.77222C1.43823 7.01929 1.43823 10.6625 3.6853 12.9096L10.409 19.6334C11.2877 20.5121 12.7123 20.5121 13.591 19.6334L20.3147 12.9097C22.5618 10.6626 22.5618 7.01939 20.3147 4.77232C18.0676 2.52525 14.4244 2.52525 12.1773 4.77232L12 4.94959L11.8227 4.77222Z" fill="#f00"/>
+                                    </svg>
+    
+                                    <svg class="outline" style="<%= isSavedByUser ? 'display:none;' : '' %>" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                        <path d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
+                                    </svg>
+                            </button>
+                        <% } %>
+
+                        <% if(!currUser) { %>
+                            <button class="index-save-btn" onclick="redirectToLogin(event)">
+                                    <svg class="outline" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                        <path d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
+                                    </svg>
+                            </button>
+                        <% } %>
                         <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-image" loading="lazy">
                     </div>
                     <div class="card-body">
@@ -188,36 +204,82 @@
             </a>
         <% } %>
     </div>
-
+    <% if (hasNextPage) { %>
+        <nav class="pagination">
+            <a class="pagination__next" href="/listings?page=<%= currentPage + 1 %>">
+                Next
+            </a>
+        </nav>
+    <% } %>
 
     <script>
-        let taxSwitch = document.getElementById("flexSwitchCheckDefault");
-        taxSwitch.addEventListener("click", () => {
-            let taxInfo =  document.getElementsByClassName("tax-info");
-            for (info of taxInfo) {
-                if (info.style.display != "inline") {
-                    info.style.display = "inline";
-                } else {
-                    info.style.display = "none";
-                }
-            }
-        })
 
-        document.querySelectorAll(".optns .filter-badge").forEach(btn => {
-            btn.addEventListener("click", e => {
-                e.currentTarget.classList.toggle("selected");
+        console.log("curr user", currUser);
+
+        let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+        if (taxSwitch) {
+            taxSwitch.addEventListener("click", () => {
+                let taxInfo = document.getElementsByClassName("tax-info");
+                for (info of taxInfo) {
+                    if (info.style.display != "inline") {
+                        info.style.display = "inline";
+                    } else {
+                        info.style.display = "none";
+                    }
+                }
+            });
+        }
+
+        document.querySelectorAll(".optn-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                btn.classList.toggle("optn-selected");
             });
         });
 
-        document.querySelectorAll(".modal-body .filter-badge").forEach(btn => {
-            btn.addEventListener("click", e => {
-                e.currentTarget.classList.toggle("selected");
-            });
+        document.querySelectorAll(".modal-btn").forEach(btn => {
+          btn.addEventListener("click", e => {
+            e.currentTarget.classList.toggle("modal-selected");
+          });
         });
 
         document.getElementById("clearAll").addEventListener("click", () => {
-            document.querySelectorAll(".modal-body .filter-badge.selected")
-                .forEach(badge => badge.classList.remove("selected"));
+          document.querySelectorAll(".modal-btn")
+            .forEach(badge => badge.classList.remove("modal-selected"));
+        });
+
+        function redirectToLogin(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = "/login";
+        }
+
+        function toggleSave(e, listingId) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const btn = e.currentTarget;
+
+            fetch(`/listings/${listingId}/toggle-save`, { method: "POST" })
+                .then(res => res.json())
+                .then(data => {
+                    const outline = btn.querySelector(".outline");
+                    const filled = btn.querySelector(".filled");
+
+                    if (data.isSaved) {
+                        outline.style.display = "none";
+                        filled.style.display = "inline";
+                    } else {
+                        outline.style.display = "inline";
+                        filled.style.display = "none";
+                    }
+                })
+                .catch(err => console.error("Error toggling save:", err));
+        }
+
+        let infScroll = new InfiniteScroll('#listing-container', {
+            path: '.pagination__next',
+            append: '.card-col',
+            history: false,
         });
 
     </script>

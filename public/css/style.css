@@ -21,6 +21,35 @@
   border-color: inherit !important;
 }
 
+/* auth */
+.auth-img {
+  max-width: 38%;
+  height: auto;
+}
+
+.login-container {
+  height: fit-content;
+  width: 100%;
+  margin-top: 2rem;
+  min-width: 34rem;
+  max-width: 1000px;
+  padding: 5rem 5rem 4rem;
+  color: #373032;
+  margin-inline: auto;
+}
+
+.login-form input, label {
+  color: #222222;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.login-form input {
+  font-size: 13px;
+  color:#222222d9;
+  border-radius: 0.7rem;
+}
+
 /* navbar */
 .navbar {
   position: fixed;
@@ -32,10 +61,8 @@
   background-color: white;
   padding-left: 7.4%;
   padding-right: 7.4%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 2px solid #dee2e6;
+  box-shadow: 0px 1px 20px 1px rgba(0, 0, 0, 0.1);
 }
 .navbar-collapse {
   background-color: transparent;
@@ -57,7 +84,7 @@
 }
 
 .fa-compass {
-  color: #fe424d;
+  color: #fe424d !important;
   font-size: 2rem;
 }
 .wanderlust p {
@@ -68,18 +95,60 @@
   font-size: 22px;
 }
 .createListing {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
   border-radius: 8px;
-  padding: 6px 12px;
+  height: 40px;
+  padding-inline: 18px;
   margin-top: 3.5px;
-  height: fit-content;
   font-weight: 500;
   font-size: 12px;
-  background-color: #fe424d;
-  color: #f5f5f5 !important;
+  background-color: white;
+  color: #212529 !important;
 }
 .createListing:hover {
-  background-color: #fe424fd7;
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1) !important;
+  background-color: #f2f2f2;
+}
+.createListing a span {
+  margin-top: 2px;
+}
+.createListing a span, .createListing a  i, .watchlist-btn a i {
+  color: #212529 !important;
+}
+#loader{
+    height:50px;
+}
+
+.login-btn, .watchlist-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  margin-top: 3.5px;
+  font-weight: 500;
+  font-size: 12px;
+  background-color: #f2f2f2;
+  color: #212529 !important;
+}
+.login-btn a {
+  width: 100% !important;
+  padding-inline: 1.7rem;
+}
+
+.watchlist-btn, .watchlist-btn a {
+  width: 41px !important;
+}
+
+.login-btn:hover, .watchlist-btn:hover {
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.nav-elements .nav-buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1.3rem;
 }
 
 .login-submit {
@@ -333,15 +402,43 @@ footer {
   box-shadow: 1px 2px 5px #22222278;
 }
 
-.save-btn {
+.save-btn-outline {
+  height: 50px;
+  width: 50px;
+  border-radius: 12px;
   border: none;
   border: 1.5px solid #222222e8;
   color: #222222e8;
 }
 
-.save-btn:hover {
-    border: none;
+.save-btn-outline i {
+  font-size: 13px;
+}
+
+.save-btn-outline:hover {
+  border: none;
   background-color: #222222;
+}
+
+.save-btn-outline:hover i {
+  color: white;
+}
+
+.save-btn-filled {
+  height: 50px;
+  width: 50px;
+  border-radius: 12px;
+  background-color: #222222;
+  border: none;
+}
+
+.save-btn-filled i {
+  font-size: 13px;
+  color: white !important;
+}
+
+.save-btn-filled:hover {
+  background-color: #222222e8;
 }
 
 .info-heading  {
@@ -354,8 +451,7 @@ footer {
 }
 
 /* new page */
-.add-btn,
-.edit-btn {
+.add-btn {
   background-color: #fe424d;
   border-color: #fe424d !important;
   color: #fff;
@@ -446,18 +542,44 @@ footer {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  gap: 2rem;
+  margin-top: 8px;
   align-items: center;
-}
-.delete-form {
-  width: 50%;
+  background-color: #f2f2f2;
+  border-radius: 20px;
 }
 
-.listing-single-card .del-btn {
-    height: 36px;
-    width: 100%;
-    font-size: 13.5px;
-    font-weight: 500;
+.btns .del-btn {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.btns .edit-btn {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.btns .del-btn, .btns .edit-btn {
+  height: 25px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btns .del-btn:hover {
+  background-color: rgba(125, 121, 121, 0.144);
+}
+.btns .edit-btn:hover {
+  background-color: rgba(125, 121, 121, 0.144);
+}
+
+.btns .del-btn i, .btns .edit-btn i {
+  font-size: 12px;
+  color: #222222e8;
+}
+
+.delete-form {
+  width: 50%;
 }
 
 .del-btn {
@@ -474,26 +596,6 @@ footer {
 /* error page */
 .alert-heading {
   text-align: center;
-}
-.login-pg {
-  height: fit-content;
-  width: 100%;
-  margin-top: 2rem;
-  min-width: 40rem;
-  max-width: 1000px;
-  padding: 5rem 5rem 4rem;
-  color: #373032;
-  margin-inline: auto;
-}
-
-.login-form input, label {
-  color: #222222;
-  font-weight: 500;
-}
-
-.login-form input {
-  font-size: 16px;
-  color:#222222d9;
 }
 
 .login-btn {
@@ -549,7 +651,39 @@ footer {
 }
 
 
+.filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  border: 1.3px solid #21252980;
+  color: #212529b2;
+  background-color: transparent;
+  border-radius: 25px;
+  padding: 0.3rem 1rem;
+}
 
+.filter-btn span {
+  width: max-content;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.filter-btn:hover {
+  color: #212529dd;
+  border-color: #212529dd;
+}
+
+.filter-btn.optn-selected {
+  color: #212529;
+  border-color: #212529;
+}
+
+.modal-btn.modal-selected {
+  background-color: #212529ee;
+  color: white;
+  border-color: #212529ee; 
+}
 
 @media (max-width: 1278px) {
   .reviews-section {
@@ -634,38 +768,10 @@ footer {
   }
 }
 
-.filter-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  border: 1.3px solid #21252980;
-  color: #212529b2;
-  background-color: transparent;
-  border-radius: 25px;
-  padding: 0.3rem 1rem;
-}
-
-.filter-btn span {
-  width: max-content;
-  font-size: 13px;
-  font-weight: 500;
-}
-
-.filter-btn:hover {
-  color: #212529b2;
-  border-color: #212529c4;
-}
-
 .optns {
   overflow: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-}
-
-.filter-btn.selected {
-  color: #000000d8;
-  border-color: #000000d8;
 }
 
 .optns::-webkit-scrollbar {
@@ -674,8 +780,8 @@ footer {
 
 .modal-dialog, .modal-content {
   max-height: 500px;
-  max-width: 500px;
-    border-radius: 22px;
+  max-width: 560px;
+  border-radius: 22px;
 }
 
 .modal-body {
@@ -697,40 +803,65 @@ footer {
   font-size: 15px;
 }
 
-.modal-body .filter-badge.selected {
-  background-color: #212529ee;
-  color: white;
-  border-color: #212529ee;
+#clearAll {
+  background-color: transparent;
+  color: #212529;
+  border: 1.3px solid #212529;
 }
+
+#clearAll:hover {
+  background-color: #212529;
+  color: white;
+}
+
+.navbar-close-btn, .nav-hr-tag {
+  display: none;
+}
+
+.createListing span::before {
+    content: "Add";
+    font-family: inherit;
+    font-weight: 500;
+    margin-inline: 0.3rem;
+  }
 
 @media (max-width: 991.5px) {
   .reviews-section {
     padding-inline: 0% !important;
   }
+  .auth-img {
+    display: none;
+  }
 }
 
-@media (max-width: 900px) {
+@media(max-width: 917px) {
   .nav-form {
+    width: 55% !important;
     margin-left: 1.5rem;
   }
+  .nav-buttons {
+    width: 45% !important;
+  }
 }
 
-@media (width: 768px) {
-  .nav-elements .nav-form {
-    width: 50% !important;
+@media (max-width: 817px) {
+  .nav-form {
+    margin-left: 0.5rem;
   }
+}
+
+/* @media (width: 768px) {
   .nav-elements .nav-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 50% !important;
   }
-}
+} */
 
 @media (max-width: 767px) {
   .container, .container-md, .container-sm {
     max-width: 694px;
-
   }
   .nav-elements {
     display: block !important;
@@ -742,19 +873,119 @@ footer {
     display: flex;
   }
   #navbarNavAltMarkup {
-    width: 100dvw !important;
+    width: 180px !important;
     background: rgba(254, 254, 254, 1);
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid #22222230;
     border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.25);
   }
-  .createListing {
-    border-radius: 0.75rem;
+  .navbar-toggler {
+    padding-right: 0;
+  }
+  .navbar-collapse {
+    position: absolute;
+    right: 12px;
+    top: 90%;
+    height: 100%;
+    width: 190px !important;
+    height: fit-content;
+    padding: 0.7rem 0.8rem !important;
+  }
+  .navbar-collapse .nav-buttons {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: start;
+    gap: 0.3rem;
+  }
+  .nav-hr-tag {
+    display: block;
+  }
+
+  .createListing, .watchlist-btn, .login-btn {
+    background-color: transparent;
+    color: #212529b2;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.4rem;
+    height: 35px;
+    width: 100%;
+    padding: 0.2rem 0.5rem;
+    font-size: 13.5px;
+    font-weight: 500;
+    border-radius: 8px !important;
+  }
+  .createListing span {
+    padding-left: 0 !important;
+  }
+  .createListing span::before {
+    content: "Add";
+    font-family: inherit;
+    font-weight: 500;
+    margin-inline: 0.3rem;
+  }
+
+  .watchlist-btn a, .login-btn a {
+    justify-content: start !important;
+  }
+  .watchlist-btn a, .createListing a {
+    gap: 0.4rem !important;
+  }
+  .watchlist-btn a i::after {
+    content: "See watchlist";
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    margin-left: 0.6rem;
+  }
+  .watchlist-btn span::before {
+    content: "See";
+    font-family: inherit;
+    font-weight: 500;
+    margin-inline: 0.3rem;
+  }
+
+  .nav-hr-tag {
+    width: 100%;
+    color: #22222261 !important;
+    margin-block: 0.2rem;
+    margin-inline: 0.4rem;
+  }
+
+  .login-btn {
+    font-weight: 500;
+  }
+
+  .login-btn a span::before {
+    content: "\f090";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    margin-right: 0.6rem;
+  }
+  .login-btn a span::after {
+    content: "/ Sign up";
+    font-family: inherit;
+    font-weight: 500;
+    margin-left: 0.3rem;
+  }
+  .createListing span , .createListing i, .watchlist-btn span, .watchlist-btn i {
+    color: #212529b2 !important;
+  }
+  .createListing:hover, .watchlist-btn:hover, .login-btn:hover {
+    background-color: #2125293a !important;
+    color: #000000d8 !important;
+  }
+  .createListing:hover span {
+    color: #000000d8 !important;
+  }
+  .createListing:hover i {
+    color: #000000d8 !important;
   }
   .login-btn {
     padding-top: 4px;
   }
 }
+
 @media (max-width: 765px) {
   .login-pg {
     margin-left: 0;
@@ -773,6 +1004,92 @@ footer {
 }
 
 @media (max-width: 576px) {
+
+  #navbarNavAltMarkup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 1rem !important;
+    width: 100dvw !important;
+    height: 100dvh !important;
+  }
+
+  .navbar-close-btn {
+    display: flex;
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+  }
+
+  .createListing, .watchlist-btn {
+    background-color: transparent;
+  }
+
+  .createListing a, .watchlist-btn a, .createListing a span, .watchlist-btn a span, .createListing a i, .watchlist-btn a i {
+    color: #212529b2;
+  }
+
+  .createListing, .watchlist-btn, .login-btn {
+    height: 50px;
+  }
+  .createListing a {
+    height: 100%;
+    width: 100%;
+    justify-content: start !important;
+  }
+  .watchlist-btn a i {
+    height: 100%;
+    width: 100%;
+    padding-block: calc(0.77rem - -2px) !important;
+  }
+
+  .createListing:active, .watchlist-btn:active, .createListing:hover, .watchlist-btn:hover {
+    background-color: #454b511a;
+    border-radius: 13px !important;
+  }
+
+  .login-btn {
+   background-color: #212529ee;
+    color: white !important;
+    border-radius: 40px !important;
+    justify-content: center;
+  }
+  .login-btn span {
+    width:100%;
+    height:100%;
+    padding-block: calc(0.77rem - 2px);
+  }
+
+  .login-btn a {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .login-btn:active, .login-btn:hover {
+    background-color: #212529d5 !important;
+    color: white !important;
+  }
+
+  .nav-hr-tag {
+    margin-block: 0.5rem;
+  }
+  
+  .modal-dialog {
+    margin: 0 !important;
+  }
+  .modal-body {
+    padding-bottom: 16rem !important;
+  }
+  .modal-dialog, .modal-content {
+    width: 100% !important;
+    max-height: 100dvh !important;
+    max-width: 100dvw !important;
+    border-radius: 0;
+  }
   .container {
     margin-top: 4.5rem;
   }
@@ -796,7 +1113,10 @@ footer {
   .single-card-img-top {
     max-height: 270px;
   }
-  /* box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.1); */
+  .login-container {
+    min-width: 20rem;
+    padding: 3.5rem 3.5rem 2rem;
+  }
 }
 
 @media (max-width: 512px) {
@@ -810,6 +1130,16 @@ footer {
   }
 }
 
+@media (max-width:424px) {
+  .filter-modal-btn {
+    height: 30px;
+    padding-inline: 0.6rem !important;
+  }
+  .filter-modal-btn span {
+    display: none;
+  }
+}
+
 @media (max-width: 380px) {
   .login-pg {
     margin-inline: 0 !important;
@@ -818,5 +1148,9 @@ footer {
   }
   .container {
     margin-left: 0 !important;
+  }
+  .login-container {
+    min-width: fit-content;
+    padding: 3rem 3rem 2rem;
   }
 }
