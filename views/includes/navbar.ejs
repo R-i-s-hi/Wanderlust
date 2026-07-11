@@ -38,23 +38,28 @@
               </div>
 
               <div class="watchlist-btn rounded-circle">
-                <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100" href="/listings/new">
+                <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100" href="listings/savedlistings">
                   <i class="fa-regular fa-bookmark" style="color: #fff; font-size: 12px; padding-top: 2px;"></i>
                 </a>
               </div>
 
               <hr class="nav-hr-tag">
 
+              <% if(!currUser) { %>
               <div class="login-btn rounded-pill">
-                <% if(!currUser) { %>
                   <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100" href="/login">
                     <span class="fw-semibold" style="font-size: 13px;">Login</span>
                   </a>
-                <% } %> <% if(currUser) { %>
-                  <a class="btn" href="/logout" style="color: #373032; font-size: 13.5px; display: flex; justify-content: center; align-items: center;"><b>Logout</b></a>
+                </div>
+              <% } %>
+              <div class="logout-btn rounded-pill">
+                <% if(currUser) { %>
+                  <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100 logout-tag" href="/logout" >
+                    <span class="fw-semibold" style="font-size: 13px;">Logout</span>
+                  </a>
                 <% } %>
               </div>
-
+                  
             </div>
 
         </div>

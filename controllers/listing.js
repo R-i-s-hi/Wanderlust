@@ -73,6 +73,19 @@ module.exports.show = async (req, res) => {
     res.render("listings/show.ejs", { listing, avg_rating, currUser: req.user });
 };
 
+module.exports.savedListings = async (req, res) => {
+
+    try {
+        const savedListings = await Listing.find({isSaved: req.user._id});
+        if (savedListings) {
+            res.render("listings/savedListings.ejs", {savedListings});
+        }
+    } catch (e) {
+        req.flash("error", "Something went wrong!");
+        console.log(`savedlistings error: ${e}`);
+    }
+}
+
 // edit route
 module.exports.edit = async (req, res) => {
     let { id } = req.params;

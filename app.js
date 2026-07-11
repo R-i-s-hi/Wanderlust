@@ -89,38 +89,19 @@ app.use((req, res, next) => {
     next();
 });
 
-// app.get("/register", (req, res) => {
-//     let { name = "anonymous" } = req.query;
-//     req.session.name = name;
-//     res.redirect("/hello");
-// });
-
-// app.get("/hello", (req, res) => {
-//     res.send(`hello ${req.session.name}`);
-// });
-
-// logger middleware
-// app.use((req, res, next) => {
-//     req.time = new Date(Date.now());
-//     console.log(req.method, req.hostname, req.time);
-//     next();
-// });
-
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", usersRouter);
 
 app.get("/", (req, res) => {
-    res.redirect("/listings"); // Redirects to the listings page
+    res.redirect("/listings");
 });
 
-/* error middlewares */
-// ExpressError class 
+
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));
 });
 
-// alternate of try-catch
 app.use((err, req, res, next) => {
     let { status = 500, message = "Something went wrong!" } = err;
     res.render("error.ejs", { message });

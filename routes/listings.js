@@ -17,6 +17,8 @@ router.route("/")
         next();
      }, validateListing, wrapAsync(listingController.create)); //create route
 
+router.get("/savedlistings", isLoggedIn, listingController.savedListings)
+
 // new route
 router.get("/new", isLoggedIn, listingController.new);
 

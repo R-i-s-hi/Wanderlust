@@ -37,6 +37,23 @@ const listingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
+    amenities: [
+        {
+            type: String,
+            enum: [
+                "WiFi",
+                "Swimming Pool",
+                "Air Conditioning",
+                "Mountains & Hills",
+                "Beach & Tent",
+                "Lake & Rivers",
+                "Boat House",
+                "Guest Favourite",
+                "Saved"
+            ],
+            default: []
+        }
+    ],
     geometry: {
         type: {
             type: String,

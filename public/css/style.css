@@ -120,7 +120,7 @@
     height:50px;
 }
 
-.login-btn, .watchlist-btn {
+.login-btn, .watchlist-btn, .logout-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,16 +131,18 @@
   background-color: #f2f2f2;
   color: #212529 !important;
 }
-.login-btn a {
+.login-btn a, .logout-tag {
+  margin-top: -3px;
   width: 100% !important;
   padding-inline: 1.7rem;
 }
+
 
 .watchlist-btn, .watchlist-btn a {
   width: 41px !important;
 }
 
-.login-btn:hover, .watchlist-btn:hover {
+.login-btn:hover, .logout-btn:hover, .watchlist-btn:hover {
   background-color: rgba(128, 128, 128, 0.2);
 }
 
@@ -650,8 +652,7 @@ footer {
   width: 0.8rem;
 }
 
-
-.filter-btn {
+.filter-btn, .modal-filter-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -663,20 +664,20 @@ footer {
   padding: 0.3rem 1rem;
 }
 
-.filter-btn span {
+.filter-btn span, .modal-filter-btn span {
   width: max-content;
   font-size: 13px;
   font-weight: 500;
 }
 
-.filter-btn:hover {
-  color: #212529dd;
-  border-color: #212529dd;
+.filter-btn:not(.optn-selected):hover {
+  color: #212529bb;
+  border-color: #212529bb;
 }
 
 .filter-btn.optn-selected {
-  color: #212529;
-  border-color: #212529;
+  color: #212529dd !important;
+  border-color: #212529dd !important;
 }
 
 .modal-btn.modal-selected {
@@ -793,13 +794,13 @@ footer {
   display: none;
 }
 
-.modal-body .filter-btn {
+.modal-body .modal-filter-btn {
   gap: 0.5rem;
   align-items: baseline;
   padding: 10px 21px;
 }
 
-.modal-body .filter-btn i {
+.modal-body .modal-filter-btn i {
   font-size: 15px;
 }
 
@@ -901,7 +902,7 @@ footer {
     display: block;
   }
 
-  .createListing, .watchlist-btn, .login-btn {
+  .createListing, .watchlist-btn, .login-btn, .logout-btn {
     background-color: transparent;
     color: #212529b2;
     display: flex;
@@ -909,11 +910,14 @@ footer {
     align-items: center;
     gap: 0.4rem;
     height: 35px;
-    width: 100%;
+    width: 100% !important;
     padding: 0.2rem 0.5rem;
-    font-size: 13.5px;
+    font-size: 13.5px !important;
     font-weight: 500;
     border-radius: 8px !important;
+  }
+  .watchlist-btn a {
+    width: 100% !important;
   }
   .createListing span {
     padding-left: 0 !important;
@@ -924,9 +928,12 @@ footer {
     font-weight: 500;
     margin-inline: 0.3rem;
   }
-
-  .watchlist-btn a, .login-btn a {
+  .watchlist-btn a, .login-btn a, .logout-tag {
     justify-content: start !important;
+  }
+  .logout-tag {
+    padding-inline: 0;
+    font-size: 13.5px;
   }
   .watchlist-btn a, .createListing a {
     gap: 0.4rem !important;
@@ -951,11 +958,11 @@ footer {
     margin-block: 0.2rem;
     margin-inline: 0.4rem;
   }
-
+  
   .login-btn {
     font-weight: 500;
   }
-
+  
   .login-btn a span::before {
     content: "\f090";
     font-family: "Font Awesome 6 Free";
@@ -968,10 +975,16 @@ footer {
     font-weight: 500;
     margin-left: 0.3rem;
   }
+  .logout-tag span::before {
+    content: "\f08b";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 600;
+    margin-right: 0.6rem;
+  }
   .createListing span , .createListing i, .watchlist-btn span, .watchlist-btn i {
     color: #212529b2 !important;
   }
-  .createListing:hover, .watchlist-btn:hover, .login-btn:hover {
+  .createListing:hover, .watchlist-btn:hover, .login-btn:hover, .logout-btn:hover {
     background-color: #2125293a !important;
     color: #000000d8 !important;
   }
@@ -981,7 +994,7 @@ footer {
   .createListing:hover i {
     color: #000000d8 !important;
   }
-  .login-btn {
+  .login-btn, .logout-btn {
     padding-top: 4px;
   }
 }
@@ -1033,7 +1046,7 @@ footer {
     color: #212529b2;
   }
 
-  .createListing, .watchlist-btn, .login-btn {
+  .createListing, .watchlist-btn, .login-btn, .logout-btn {
     height: 50px;
   }
   .createListing a {
@@ -1052,7 +1065,7 @@ footer {
     border-radius: 13px !important;
   }
 
-  .login-btn {
+  .login-btn, .logout-btn {
    background-color: #212529ee;
     color: white !important;
     border-radius: 40px !important;
@@ -1063,13 +1076,22 @@ footer {
     height:100%;
     padding-block: calc(0.77rem - 2px);
   }
+  .logout-tag span {
+    width:100%;
+    height:100%;
+    padding-block: calc(0.77rem - 1px);
+  }
 
-  .login-btn a {
+  .login-btn a, .logout-tag {
     justify-content: center !important;
     align-items: center !important;
   }
 
-  .login-btn:active, .login-btn:hover {
+  .logout-tag span {
+    text-align: center;
+  }
+
+  .login-btn:active, .login-btn:hover, .logout-btn:active, .logout-btn:hover {
     background-color: #212529d5 !important;
     color: white !important;
   }

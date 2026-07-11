@@ -169,7 +169,9 @@
 
     <div class="reviews-section" style="color: #212529ed; font-weight: 700;">
         <% if (currUser) { %>
+
             <h4 style="color: #373032; font-weight: 700;">Leave a Review</h4>
+            
             <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation mb-3">
                 <div class="mb-3 mt-4">
                     <label for="rating" class="form-label">Rating</label>
@@ -189,95 +191,98 @@
                 </div>
                 <div class="mb-3">
                     <label for="comment" class="form-label">Comment</label>
-                    <textarea style="font-size: 13.5px; font-weight: 500; color: #222222d9;" name="review[comment]" id="comment" cols="30" rows="4" class="form-control" required></textarea>
+                    <textarea style="border-radius: 10px;font-size: 13.5px; font-weight: 500; color: #212529e9;" name="review[comment]" id="comment" cols="30" rows="4" class="form-control" required></textarea>
                     <div class="invalid-feedback">Please add some comments!</div>
                 </div>
-                <button class="btn btn-dark mb-3 px-4 rounded-3 fw-semibold" style="font-size: 13px;">Submit</button>
+                <button class="btn btn-dark mb-3 px-4 rounded-4 fw-semibold" style="font-size: 13px;">Submit</button>
             </form>
+
         <% } %>
         <% if (listing.reviews.length !== 0) { %>
-        <h4 style="color: #373032; font-weight: 700; margin-block: 1.6rem;">
-            All Reviews (<%= listing.reviews.length %>)
-        </h4>
+        
+            <h4 style="color: #373032; font-weight: 700; margin-block: 1.6rem;">
+                All Reviews (<%= listing.reviews.length %>)
+            </h4>
 
-        <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" >
-            <div class="carousel-inner d-none d-lg-block">
-                <% for (let i = 0; i < listing.reviews.length; i += 2) { %>
-                    <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-                        <div class="row">
-                            <% for (let j = i; j < i + 2 && j < listing.reviews.length; j++) { 
-                                let review = listing.reviews[j]; %>
-                                <div class="col-12 col-lg-6 mb-3">
-                                    <div class="card h-full review-card">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between">
-                                            <h5 class="card-title">
-                                                <b>@<%= review.author.username %></b>
-                                            </h5>
-                                            <% if (currUser && currUser._id.equals(review.author._id)) { %>
-                                                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                                                <button class="btn btn-dark btn-sm del-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                </form>
-                                            <% } %>
-                                            </div>
-                                            <div class="p-2">
-                                            <p class="card-text mb-2"><%= review.comment %></p>
-                                            <p class="starability-result card-text mb-0" data-rating="<%= review.rating %>"></p>
+            <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" >
+                <div class="carousel-inner d-none d-lg-block">
+                    <% for (let i = 0; i < listing.reviews.length; i += 2) { %>
+                        <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                            <div class="row">
+                                <% for (let j = i; j < i + 2 && j < listing.reviews.length; j++) { 
+                                    let review = listing.reviews[j]; %>
+                                    <div class="col-12 col-lg-6 mb-3">
+                                        <div class="card h-full review-card">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                <h5 class="card-title">
+                                                    <b>@<%= review.author.username %></b>
+                                                </h5>
+                                                <% if (currUser && currUser._id.equals(review.author._id)) { %>
+                                                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                                                    <button class="btn btn-dark btn-sm del-btn">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                    </form>
+                                                <% } %>
+                                                </div>
+                                                <div class="p-2">
+                                                <p class="card-text mb-2"><%= review.comment %></p>
+                                                <p class="starability-result card-text mb-0" data-rating="<%= review.rating %>"></p>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+
+                <div class="carousel-inner d-block d-lg-none">
+                    <% listing.reviews.forEach((review, index) => { %>
+                        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                            <div class="card h-full review-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                    <h5 class="card-title">
+                                        <b>@<%= review.author.username %></b>
+                                    </h5>
+                                    <% if (currUser && currUser._id.equals(review.author._id)) { %>
+                                        <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                                        <button class="btn btn-dark btn-sm del-btn">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                        </form>
+                                    <% } %>
+                                    </div>
+                                    <div class="p-2">
+                                    <p class="card-text mb-2"><%= review.comment %></p>
+                                    <p class="starability-result card-text mb-0" data-rating="<%= review.rating %>"></p>
                                     </div>
                                 </div>
-                            <% } %>
+                            </div>
                         </div>
-                    </div>
-                <% } %>
-            </div>
-
-            <div class="carousel-inner d-block d-lg-none">
-                <% listing.reviews.forEach((review, index) => { %>
-                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                    <div class="card h-full review-card">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between">
-                                            <h5 class="card-title">
-                                                <b>@<%= review.author.username %></b>
-                                            </h5>
-                                            <% if (currUser && currUser._id.equals(review.author._id)) { %>
-                                                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                                                <button class="btn btn-dark btn-sm del-btn">
-                                                    <i class="fa-solid fa-trash"></i>
-                                                </button>
-                                                </form>
-                                            <% } %>
-                                            </div>
-                                            <div class="p-2">
-                                            <p class="card-text mb-2"><%= review.comment %></p>
-                                            <p class="starability-result card-text mb-0" data-rating="<%= review.rating %>"></p>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <% }) %>
                 </div>
-                <% }) %>
+
+                <div class="carousel-controls text-center my-3">
+                    <button class="carousel-control-prev custom-btn" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
+                        <i class="fa-solid fa-angle-left" style="font-size: 12px;"></i>
+                    </button>
+                    <button class="carousel-control-next custom-btn" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
+                        <i class="fa-solid fa-angle-right" style="font-size: 12px;"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="carousel-controls text-center my-3">
-                <button class="carousel-control-prev custom-btn" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
-                    <i class="fa-solid fa-angle-left" style="font-size: 12px;"></i>
-                </button>
-                <button class="carousel-control-next custom-btn" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
-                    <i class="fa-solid fa-angle-right" style="font-size: 12px;"></i>
-                </button>
-            </div>
-        </div>
         <% } %>
-
-
-
         <% if (listing.reviews.length === 0) { %>
-            <h4 class="mb-5">No Reviews Yet!</h4>
+
+            <h4 class="mb-5" style="color: #373032; font-weight: 700;">No Reviews</h4>
+        
         <% } %>
+
     </div>
 
 
