@@ -928,6 +928,9 @@ footer {
   .watchlist-btn a, .login-btn a, .logout-tag {
     justify-content: start !important;
   }
+  .login-btn a {
+    padding-inline: 0;
+  }
   .logout-tag {
     padding-inline: 0;
     font-size: 13.5px;
@@ -1071,6 +1074,7 @@ footer {
   .login-btn span {
     width:100%;
     height:100%;
+    text-align: center !important;
     padding-block: calc(0.77rem - 2px);
   }
   .logout-tag span {
