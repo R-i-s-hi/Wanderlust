@@ -1,8 +1,20 @@
 <% layout("/layouts/boilerplate") -%>
-<body>
-    <div class="row">
-        <div class="col-8 offset-2 mt-4" style="color: #212529; font-weight: 700;">
-            <h3 style="color: #373032; font-weight: 700;">Create a New Listing: </h3><br>
+<div class="d-flex justify-content-between align-items-center gap-5">
+    <div>
+        <a href="/listings" class="nav-link" style="margin-top: -60px;">
+            <i class="fa-solid fa-arrow-left mt-1"></i>
+        </a>
+        <img class="createlisting-img" src="/images/createlisting_img.gif" style="min-width: 424px;" />
+    </div>
+
+    <div class="d-flex flex-column flex-fill gap-3">
+        <div class="mt-4" style="color: #212529; font-weight: 700;">
+            <div class="d-flex align-items-center justify-comtent-center">
+                <a href="/listings" class="nav-link">
+                    <i class="fa-solid fa-arrow-left mt-1"></i>
+                </a>
+                <h3 style="color: #373032; font-weight: 700;">Add Your Property</h3><br>
+            </div>
             <form method="POST" action="/listings" novalidate class="needs-validation create-form" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -36,16 +48,10 @@
                     <input class="form-control" type="text" name="listing[location]" id="location" required>
                     <div class="invalid-feedback">Location should be valid!</div>
                 </div>
-                <button class="btn btn-dark mb-3 add-btn">Add listing</button>
+                <div class="create-form-btns d-block d-sm-flex justify-content-start gap-3">
+                    <button class="btn btn-dark mb-3 add-btn">Add listing</button>
+                </div>
             </form>
-            <a href="/listings" class="nav-link">
-
-                <button class="btn btn-outline-dark mb-3 w-100 d-flex justify-content-center align-items-center gap-2" style="font-size: 13.5px; font-weight: 500;">
-                    <i class="fa-solid fa-arrow-left mt-1"></i>
-                    <span>Go Back</span>
-
-                </button>
-            </a>
         </div>
     </div>
-</body>
+</div>

@@ -22,7 +22,7 @@
 }
 
 /* auth */
-.auth-img {
+.auth-img, .createlisting-img {
   max-width: 38%;
   height: auto;
 }
@@ -458,24 +458,21 @@ footer {
   border-color: #fe424d !important;
   color: #fff;
   height: 36px;
-  width: 50%;
   font-size: 13.5px;
   font-weight: 500;
 }
 
-.create-form .add-btn {
-  font-weight: 600;
-  margin-top: 1rem;
-  width: 100%;
-}
-
-.create-form {
-  font-size: 14.5px;
-}
-.create-form input,textarea {
+.create-form input, .create-form textarea {
   color: #222222ba;
   font-size: 13.5px;
   font-weight: 500;
+  border-radius: 9px;
+}
+
+.create-form-btns a, .create-form-btns button {
+  height: 36px;
+  width: 50%;
+  border-radius: 20px;
 }
 
 .edit-form .edit-btn {
@@ -830,7 +827,7 @@ footer {
   .reviews-section {
     padding-inline: 0% !important;
   }
-  .auth-img {
+  .auth-img, .createlisting-img {
     display: none;
   }
 }

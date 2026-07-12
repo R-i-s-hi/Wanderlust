@@ -46,19 +46,19 @@
               <hr class="nav-hr-tag">
 
               <% if(!currUser) { %>
-              <div class="login-btn rounded-pill">
+                <div class="login-btn rounded-pill">
                   <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100" href="/login">
                     <span class="fw-semibold" style="font-size: 13px;">Login</span>
                   </a>
                 </div>
-              <% } %>
-              <div class="logout-btn rounded-pill">
-                <% if(currUser) { %>
-                  <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100 logout-tag" href="/logout" >
+              <% } else { %>
+                <div class="logout-btn rounded-pill">
+                  <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100 logout-tag" href="/logout">
                     <span class="fw-semibold" style="font-size: 13px;">Logout</span>
                   </a>
-                <% } %>
-              </div>
+                </div>
+              <% } %>
+
                   
             </div>
 
