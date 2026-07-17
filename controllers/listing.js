@@ -1,9 +1,12 @@
+require("dotenv").config();
 const Listing = require("../models/listing");
+const Booking = require("../models/booking.js");
 const { getCoordinate } = require('../utils/coordinates.js');
 
 
-//  index route
-    const PAGE_SIZE = 8;
+
+
+const PAGE_SIZE = 8;
 
 module.exports.index = async (req, res) => {
     const page = Number(req.query.page) || 1;
@@ -22,12 +25,10 @@ module.exports.index = async (req, res) => {
     });
 };
 
-// new route
 module.exports.new = (req, res) => {
     res.render("listings/new.ejs");
 };
 
-// create route
 module.exports.create = async (req, res, next) => {
     
     const result = await getCoordinate(req.body.listing.location);
@@ -44,10 +45,12 @@ module.exports.create = async (req, res, next) => {
     res.redirect("/listings");
 };
 
-// show route
 module.exports.show = async (req, res) => {
     let { id } = req.params;
+    const {userId} = req.user._id;
+
     id = id.trim();
+
     const listing = await Listing.findById(id)
         .populate({
             path: "reviews",
@@ -70,15 +73,22 @@ module.exports.show = async (req, res) => {
         req.flash("error", "Listing Does not Exist!");
         res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { listing, avg_rating, currUser: req.user });
+    res.render("listings/show.ejs", { listing, avg_rating, currUser: req.user, razorpayKey: process.env.RAZORPAY_KEY_ID });
 };
 
 module.exports.savedListings = async (req, res) => {
 
     try {
-        const savedListings = await Listing.find({isSaved: req.user._id});
-        if (savedListings) {
-            res.render("listings/savedListings.ejs", {savedListings});
+        const savedListings = await Listing.find({isSaved: req.user._id})
+
+        const bookings = await Booking.find({user: req.user._id}).populate("listing");
+        let bookedListings = [];
+        if(bookings.length > 0) {
+            bookedListings = bookings.map(b => b.listing);
+        }
+
+        if (savedListings || bookedListings) {
+            res.render("listings/savedListings.ejs", {savedListings, bookedListings});
         }
     } catch (e) {
         req.flash("error", "Something went wrong!");
@@ -86,7 +96,6 @@ module.exports.savedListings = async (req, res) => {
     }
 }
 
-// edit route
 module.exports.edit = async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
@@ -99,7 +108,6 @@ module.exports.edit = async (req, res) => {
     res.render("listings/edit.ejs", { listing, originalImageUrl });
 };
 
-// update route 
 module.exports.update = async (req, res) => {
     let { id } = req.params;
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
@@ -114,7 +122,6 @@ module.exports.update = async (req, res) => {
     res.redirect(`/listings/${id}`);
 };
 
-// delete route
 module.exports.delete = async (req, res) => {
     let {id} = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id)

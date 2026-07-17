@@ -306,7 +306,7 @@ footer {
 /* cards */
 .listing-card {
   border: none !important;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 
@@ -320,7 +320,10 @@ footer {
 .alert-success, .alert-danger {
   padding-inline: 1rem;
   padding-block: 0.6rem;
-  font-size: 13.5px;
+  max-width: fit-content;
+  margin-inline: inherit;
+  border-radius: 10px !important;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -395,7 +398,7 @@ footer {
 }
 
 .book-btn {
-  background-color: #222222e8;
+  background-color: #3c3c3c;
   border: none;
 }
 
@@ -430,7 +433,7 @@ footer {
   height: 50px;
   width: 50px;
   border-radius: 12px;
-  background-color: #222222;
+  background-color: #3c3c3c;
   border: none;
 }
 
@@ -440,7 +443,7 @@ footer {
 }
 
 .save-btn-filled:hover {
-  background-color: #222222e8;
+  background-color: #282828;
 }
 
 .info-heading  {
@@ -469,10 +472,39 @@ footer {
   border-radius: 9px;
 }
 
+.create-form-btns {
+  padding-top: 1rem;
+}
+
 .create-form-btns a, .create-form-btns button {
   height: 36px;
-  width: 50%;
   border-radius: 20px;
+}
+
+.create-form-btns button {
+  flex: 1;
+}
+
+.form-check {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-check input {
+  border: 1.5px solid #212529b7;
+}
+
+.form-check-label {
+  margin-top: -1px;
+  color: #212529;
+}
+
+.create-form-heading-container a {
+  display: none;
+}
+
+.create-form-btns a {
+  display: none;
 }
 
 .edit-form .edit-btn {
@@ -683,6 +715,57 @@ footer {
   border-color: #212529ee; 
 }
 
+.pill-toggle {
+  position: relative;
+  background-color: #f2f2f2;
+  padding: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  isolation: isolate;
+}
+
+/* the sliding "pill" */
+.pill-toggle::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background-color: #fe424d;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(230, 51, 95, 0.35);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+}
+
+/* when the second radio is checked, slide the pill to the right */
+.pill-toggle:has(#btnradio2:checked)::before {
+  transform: translateX(100%);
+}
+
+.pill-toggle .btn {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background-color: transparent;
+  color: #6b6f76;
+  font-weight: 500;
+  font-size: 13px;
+  transition: color 0.3s ease;
+}
+
+.pill-toggle .btn-check:checked + .btn {
+  color: #fff;
+}
+
+.pill-toggle .btn:hover {
+  color: #fe424d;
+}
+
+.pill-toggle .btn-check:checked + .btn:hover {
+  color: #fff;
+}
+
 @media (max-width: 1278px) {
   .reviews-section {
     padding-inline: 5% !important;
@@ -827,8 +910,26 @@ footer {
   .reviews-section {
     padding-inline: 0% !important;
   }
-  .auth-img, .createlisting-img {
+  .auth-img, .create-img-container {
     display: none;
+  }
+  .login-container {
+    box-shadow: 1px 1px 10px rgba(128, 128, 128, 0.2);
+  }
+  .create-form-btns a {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    background-color: #f2f2f2;
+    color: #212529 !important;
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  
+  .create-form-btns a:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+    border-color: rgba(128, 128, 128, 0.2);
   }
 }
 
@@ -939,7 +1040,7 @@ footer {
     gap: 0.4rem !important;
   }
   .watchlist-btn a i::after {
-    content: "See watchlist";
+    content: "My stays";
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 600;
     font-size: 13.5px;
@@ -1160,6 +1261,13 @@ footer {
   }
   .filter-modal-btn span {
     display: none;
+  }
+  .create-form-btns {
+    flex-direction: column;
+    gap: 0 !important;
+  }
+  .create-form-btns a {
+    width: 100%;
   }
 }
 

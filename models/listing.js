@@ -71,6 +71,12 @@ const listingSchema = new Schema({
             ref: "User"
         }],
         default: [],
+    },
+    bookedUsers: { 
+        type: [{
+            type: Schema.Types.ObjectId,
+            ref: "Booking"
+        }]
     }
 })
 

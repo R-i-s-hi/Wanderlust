@@ -2,6 +2,9 @@ if(process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
 
+const KEY_ID = process.env.RAZORPAY_KEY_ID;
+const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -15,6 +18,7 @@ const ExpressError = require("./utils/expressError.js");
 const listingsRouter = require("./routes/listings.js");
 const reviewsRouter = require("./routes/reviews.js");
 const usersRouter = require("./routes/users.js");
+const paymentsRouter = require("./routes/payments.js");
 
 // flash and sessions
 const session = require("express-session");
@@ -40,6 +44,7 @@ async function main() {
 }
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(methodOverride("_method"));
@@ -54,7 +59,7 @@ const store = MongoStore.create({
     touchAfter: 24 * 3600,
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
     console.log("ERROR in MONGO SESSION STORE", err);
 })
 
@@ -89,14 +94,14 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use("/", usersRouter);
+app.use("/payments", paymentsRouter);
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
-app.use("/", usersRouter);
 
 app.get("/", (req, res) => {
     res.redirect("/listings");
 });
-
 
 app.all("*", (req, res, next) => {
     next(new ExpressError(404, "Page Not Found"));

@@ -1,16 +1,29 @@
 <% layout("/layouts/boilerplate") -%>
 <body>
-        <div class="d-flex justify-content-start align-items-center gap-2 my-3 mt-sm-3 mb-sm-4">
 
+    <div class="d-flex justify-content-center">
+        <div class="btn-group rounded-pill my-3 pill-toggle" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-md rounded-start-pill px-4" for="btnradio1" onclick="toggleBooking(false)">Watchlist</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-md rounded-end-pill px-4" for="btnradio2" onclick="toggleBooking(true)">Bookings</label>
+        </div>
+    </div>
+
+    <div id="savedlisting-container" class="savedlisting-container" style="display: flex; flex-direction: column;">
+        
+        <div class="d-flex justify-content-start align-items-center gap-2 my-3 mt-sm-3 mb-sm-4">
+    
             <a class="filter-btn optn-btn" href="/listings" style="text-decoration: none; padding: 9px;">
                 <i class="fa-solid fa-arrow-left" style="font-size: 11px; margin-bottom: -2px;"></i>
             </a>
-
+    
             <div class="vr my-2 mx-1"></div>
-
+    
             <div class="d-flex gap-2 overflow-x-auto optns">
-
-
+    
+    
                 <button class="filter-btn optn-btn">
                     <span>
                         Guest Favourite
@@ -52,12 +65,11 @@
                     </span>
                 </button>
             </div>
-
+    
         </div>
-
         
         <div class="row row-cols-lg-3 row-cols-2 mt-lg-3 mt-2" id="listing-container">
-
+    
             <% for (let listing of savedListings) {  %>
                 <a href="/listings/<%= listing._id %>" style="text-decoration: none;">
                     <div class="card listing-card">
@@ -99,7 +111,64 @@
                 </a>
             <% } %>
         </div>
-        <script>
+
+    </div>
+
+    <div id="booking-container" class="booking-container" style="display: none;">
+
+        <a class="filter-btn optn-btn my-3 mt-sm-3 mb-sm-4" href="/listings" style="display: flex; align-items: center; padding: 5px 12px; width: fit-content; text-decoration: none;">
+            <i class="fa-solid fa-arrow-left" style="font-size: 11px; margin-bottom: -3.8px;"></i>
+            <span style="font-size: 11px; ">Back to home</span>
+        </a>
+
+        <div class="row row-cols-lg-3 row-cols-2 mt-lg-3 mt-2" id="listing-container">
+    
+            <% for (let listing of bookedListings) {  %>
+
+                <a href="/listings/<%= listing._id %>" style="text-decoration: none;">
+                    <div class="card listing-card">
+                        <div class="img-overlay">
+    
+                            <% if(currUser) { %>
+                                <button class="index-save-btn" onclick="toggleSave(event, '<%= listing._id %>')">
+    
+                                        <% const isSavedByUser = listing.isSaved.some(id => id.equals(currUser._id)); %>
+    
+                                        <svg class="filled" style="<%= isSavedByUser ? '' : 'display:none;' %>" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                            <path d="M11.8227 4.77222C9.5756 2.52515 5.93237 2.52515 3.6853 4.77222C1.43823 7.01929 1.43823 10.6625 3.6853 12.9096L10.409 19.6334C11.2877 20.5121 12.7123 20.5121 13.591 19.6334L20.3147 12.9097C22.5618 10.6626 22.5618 7.01939 20.3147 4.77232C18.0676 2.52525 14.4244 2.52525 12.1773 4.77232L12 4.94959L11.8227 4.77222Z" fill="#fe424d"/>
+                                        </svg>
+        
+                                        <svg class="outline" style="<%= isSavedByUser ? 'display:none;' : '' %>" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                            <path d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
+                                        </svg>
+                                </button>
+                            <% } %>
+    
+                            <% if(!currUser) { %>
+                                <button class="index-save-btn" onclick="redirectToLogin(event)">
+                                        <svg class="outline" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                            <path d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
+                                        </svg>
+                                </button>
+                            <% } %>
+                            <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-image" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                            <b class="truncate"><%= listing.title %></b> <br>
+                            &#8377; <%= listing.price.toLocaleString("en-IN") %>/night 
+                            <i class="tax-info"> &nbsp;-&nbsp; <b>&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</b></i> in
+                            <%= listing.country %>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            <% } %>
+        </div>
+
+    </div>
+
+    <script>
             
         document.addEventListener("DOMContentLoaded", () => {
             document.querySelectorAll(".optn-btn").forEach(btn => {
@@ -141,5 +210,21 @@
                 .catch(err => console.error("Error toggling save:", err));
         }
 
-        </script>
+        let booked = false;
+        function toggleBooking(value) {
+            booked = value;
+
+            const bookingContainer = document.getElementById("booking-container");
+            const savedListingContainer = document.getElementById("savedlisting-container");
+
+            if (booked) {
+                bookingContainer.style.display = "block";
+                savedListingContainer.style.display = "none";
+            } else {
+                bookingContainer.style.display = "none";
+                savedListingContainer.style.display = "block";
+            }
+        }
+
+    </script>
 </body>
