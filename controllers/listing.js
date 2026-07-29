@@ -6,24 +6,65 @@ const { getCoordinate } = require('../utils/coordinates.js');
 
 
 
-const PAGE_SIZE = 8;
-
 module.exports.index = async (req, res) => {
-    const page = Number(req.query.page) || 1;
+  try {
+    const query = {};
 
-    const allListings = await Listing.find({})
-        .skip((page - 1) * PAGE_SIZE)
-        .limit(PAGE_SIZE);
+    // Parse filters from query or body
+    const priceRange = req.query.priceRange
+    ? req.query.priceRange.split(",")
+    : [];
 
-    const total = await Listing.countDocuments();
+    const amenities = req.query.amenities
+    ? req.query.amenities.split(",")
+    : [];
+
+    const propertyType = req.query.propertyType
+    ? req.query.propertyType.split(",")
+    : [];
+
+    // Build query dynamically
+    if (amenities.length) {
+      query.amenities = { $all: amenities }; // OR $in for "any"
+    }
+    if (propertyType.length) {
+      query.propertyType = { $all: propertyType };
+    }
+    if (priceRange.length) {
+        query.$or = priceRange.map(r => {
+            const [minStr, maxStr] = r.split("-");
+            const min = Number(minStr);
+            const max = Number(maxStr);
+            if (Number.isFinite(min) && Number.isFinite(max)) {
+            return { price: { $gte: min, $lte: max } };
+            }
+            return null;
+        }).filter(Boolean);
+    }
+
+
+    // Fetch listings
+    const allListings = await Listing.find(query);
+
+    if (allListings.length === 0) {
+      req.flash("error", "Can't find listings, change filters!");
+      return res.redirect("/listings");
+    }
 
     res.render("listings/index", {
-        allListings,
-        currentPage: page,
-        hasNextPage: page * PAGE_SIZE < total,
-        currUser: req.user
+      allListings,
+      currUser: req.user,
+      selectedAmenities: amenities,
+      selectedPropertyType: propertyType,
+      selectedPriceRange: priceRange
     });
+  } catch (e) {
+    console.error(e);
+    req.flash("error", "Something went wrong!");
+    res.redirect("/listings");
+  }
 };
+
 
 module.exports.new = (req, res) => {
     res.render("listings/new.ejs");
@@ -160,3 +201,47 @@ module.exports.toggleSave = async (req, res) => {
         res.status(500).json({ success: false, message: "Server error" });
     }
 };
+
+module.exports.searchByFilter = async (req, res) => {
+    try {
+
+        const amenities = req.body.amenities
+            ? JSON.parse(req.body.amenities)
+            : [];
+
+        const propertyType = req.body.propertyType
+            ? JSON.parse(req.body.propertyType)
+            : [];
+
+        const priceRange = req.body.priceRange
+            ? JSON.parse(req.body.priceRange)
+            : [];
+
+        const query = {};
+
+        if (amenities.length) {
+            query.amenities = {$all: amenities};
+        }
+        if (propertyType.length) {
+            query.propertyType = {$all: propertyType};
+        }
+        if (priceRange.length) {
+            query.$or = priceRange.map(r => {
+                const [min, max] = r.split("-").map(Number);
+                return { price: { $gte: min, $lte: max } };
+            });;
+        }
+
+        const allListings = await Listing.find(query);
+
+        if(allListings.length === 0) {
+            req.flash("error", "Can't find listings, change filters!");
+            return res.redirect("/listings");
+        }
+
+        res.render("listings/index", {allListings})
+
+    } catch (e) {
+        console.log(e);
+    }
+}

@@ -4,215 +4,176 @@
        
         <button class="filter-btn filter-modal-btn" id="optn-btn" data-bs-toggle="modal" data-bs-target="#filterModal">
             <i class="fa-solid fa-sliders" style="font-size: 12px;"></i>
-
             <span>
                 Filters
             </span>
         </button>
-        <div class="modal  fade" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        
+        <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title text-center w-100" id="exampleModalLabel" style="font-size: 1.2rem;">Filters</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 11px; width: 13px; height: 13px;"></button>
                     </div>
-                    <div class="modal-body p-4 pb-5">
-                        <h5 class="fw-bold mb-3" style="color: #212529ec;">Price Range</h5>
-                        <div class="d-flex flex-wrap gap-3">
-                            <button class="modal-filter-btn modal-btn" style="width: fit-content !important;">
-                                <span>
-                                    500-2000 &#8377;
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn modal-btn" style="width: fit-content !important;">
-                                <span>
-                                    2000-5000 &#8377;
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn modal-btn" style="width: fit-content !important;">
-                                <span>
-                                    5000-10000 &#8377;
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn modal-btn" style="width: fit-content !important;">
-                                <span>
-                                    10000+ &#8377;
-                                </span>
-                            </button>
+                    <form action="/listings" method="GET" style="overflow-y: auto;">
+                        <div class="modal-body p-4 pb-5">
+                            
+                            <h5 class="fw-bold mb-3" style="color: #212529ec;">Price Range</h5>
+                            <div class="d-flex flex-wrap gap-3">
+                                <% const prices = ["500-2000", "2000-5000", "5000-10000"] %>
+                                <% for(const price of prices) { %>
+                                    <button type="button" class="modal-filter-btn modal-btn <%= selectedPriceRange.includes(price) ? "modal-selected" : "" %>" data-price="<%= price %>" style="width: fit-content !important;">
+                                        <span>
+                                            <%= price %> &#8377;
+                                        </span>
+                                    </button>
+                                <% } %>
+                                <button type="button" class="modal-filter-btn modal-btn <%= selectedPriceRange.includes("10000-999999999") ? "modal-selected" : "" %>" data-price="10000-999999999" style="width: fit-content !important;">
+                                    <span>
+                                        10000+ &#8377;
+                                    </span>
+                                </button>
+                            </div>
+    
+                            <hr class="my-4 opacity-25 border-secondary">
+    
+                            <h5 class="fw-bold mb-3" style="color: #212529ec;">Amenities</h5>
+                            <div class="d-flex flex-wrap gap-3">
+                                <% const amenities = [
+                                    ['<i class="fa-solid fa-wifi"></i>', "WiFi"],
+                                    ['<i class="fa-solid fa-person-swimming"></i>', "Swimming Pool"],
+                                    ['<i class="fa-solid fa-mountain"></i>', "Mountains & Hills"],
+                                    ['<i class="fa-solid fa-martini-glass"></i>', "Personal Bar"]
+                                ]; %>
+                                <% for(const amenity of amenities) { %>
+                                    <button type="button" class="modal-filter-btn modal-btn <%= selectedAmenities.includes(amenity[1]) ? 'modal-selected' : '' %>" data-amenities="<%= amenity[1] %>" style="width: fit-content !important;">
+                                       <%- amenity[0] %>
+                                        <span>
+                                            <%= amenity[1] %>
+                                        </span>
+                                    </button>
+                                <% } %>
+                            </div>
+    
+                            <hr class="my-4 opacity-25 border-secondary">
+    
+                            <h5 class="fw-bold mb-3" style="color: #212529ec;">Property type</h5>
+                            <div class="d-flex flex-wrap gap-3">
+                                <% const propertyTypes = [
+                                    ['<i class="fa-solid fa-hotel"></i>', "Hotel"],
+                                    ['<i class="fa-solid fa-house"></i>', "House"],
+                                    ['<i class="fa-regular fa-building"></i>', "Flat"],
+                                    ['<i class="fa-solid fa-tent"></i>', "Guest House"]
+                                ]; %>
+                                <% for(const property of propertyTypes) { %>
+                                    <button type="button" class="modal-filter-btn modal-btn <%= selectedPropertyType.includes(property[1]) ? 'modal-selected' : '' %>" data-propertyType="<%= property[1] %>" style="width: fit-content !important;">
+                                        <%- property[0] %>
+                                        <span>
+                                            <%= property[1] %>
+                                        </span>
+                                    </button>
+                                <% } %>
+                            </div>
+    
                         </div>
 
-                        <hr class="my-4 opacity-25 border-secondary">
+                        <input type="hidden" name="priceRange" id="priceRangeInput">
+                        <input type="hidden" name="amenities" id="amenitiesInput">
+                        <input type="hidden" name="propertyType" id="propertyTypeInput">
 
-                        <h5 class="fw-bold mb-3" style="color: #212529ec;">Amenities</h5>
-                        <div class="d-flex flex-wrap gap-3">
-                            <button class="modal-filter-btn  modal-btn" style="width: fit-content !important;">
-                                <i class="fa-solid fa-wifi"></i>
-                                <span>
-                                    Wifi
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn  modal-btn" style="width: fit-content !important;">
-                                <i class="fa-solid fa-person-swimming"></i>
-                                <span>
-                                    Swimming pool
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn  modal-btn" style="width: fit-content !important;">
-                                <i class="fa-solid fa-mountain"></i>
-                                <span>
-                                    Mountains
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn  modal-btn" style="width: fit-content !important;">
-                                <i class="fa-solid fa-martini-glass"></i>
-                                <span>
-                                    Personal bar
-                                </span>
-                            </button>
-                        </div>
-
-                        <hr class="my-4 opacity-25 border-secondary">
-
-                        <h5 class="fw-bold mb-3" style="color: #212529ec;">Property type</h5>
-                        <div class="d-flex flex-wrap gap-3">
-                            <button class="modal-filter-btn  modal-btn" style="width: fit-content !important;">
-                                <i class="fa-solid fa-house"></i>
-                                <span>
-                                    House
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn  modal-btn" style="width: fit-content !important;">
-                                <i class="fa-regular fa-building"></i>
-                                <span>
-                                    Flat
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn  modal-btn" style="width: fit-content !important;">
-                                <i class="fa-solid fa-tent"></i>
-                                <span>
-                                    Guest House
-                                </span>
-                            </button>
-                            <button class="modal-filter-btn  modal-btn" style="width: fit-content !important;">
-                                <i class="fa-solid fa-hotel"></i>
-                                <span>
-                                    Hotel
-                                </span>
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                     <div class="modal-footer border-0" style="box-shadow: 0px -4px 18px 2px rgba(128, 128, 128, 0.194);">
-                        <button type="button" id="clearAll" class="btn btn-outline-secondary rounded-5 px-4" style="font-size: 12px;">
-                            Clear all
-                        </button>
-                        <button type="button" class="btn btn-dark rounded-5 px-4" style="font-size: 12px;">Show results</button>
+                        <button type="button" id="clearAll" class="px-3">Clear all</button>
+                        <button type="submit" class="btn btn-dark searchByFilter rounded-5 px-4" style="font-size: 13px; padding-block: 10px; font-weight: 600;">Show results</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="vr my-2 mx-1"></div>
-
+        
         <div class="d-flex gap-2 overflow-x-auto optns">
-
+            <% const filters = ["WiFi", "Swimming Pool", "Mountains & Hills", "Air Conditioning", "Beach & Tent", "Lake & Rivers", "Boat House"]; %>
             <a class="filter-btn optn-btn" href="/listings/savedlistings" style="text-decoration: none;">
                 <span>
                     Saved
                 </span>
             </a>
             <button class="filter-btn optn-btn">
-                <span>
+                <span data-amenities="guest favourite">
                     Guest Favourite
                 </span>
             </button>
-            <button class="filter-btn optn-btn">
-                <span>
-                    WiFi
-                </span>
-            </button>
-            <button class="filter-btn optn-btn">
-                <span>
-                    Swimming pool
-                </span>
-            </button>
-            <button class="filter-btn optn-btn">
-                <span>
-                    Mountains & Hills
-                </span>
-            </button>
-            <button class="filter-btn optn-btn">
-                <span>
-                    Air conditioning
-                </span>
-            </button>
-            <button class="filter-btn optn-btn">
-                <span>
-                    Beach & Tent
-                </span>
-            </button>
-            <button class="filter-btn optn-btn">
-                <span>
-                    Lake & Rivers
-                </span>
-            </button> 
-            <button class="filter-btn optn-btn">
-                <span>
-                    Boat house
-                </span>
-            </button>
+            <% for (const filter of filters) { %>
+                <button class="filter-btn optn-btn <%= selectedAmenities.includes(filter) ? 'optn-selected' : '' %>" data-amenities="<%= filter %>">
+                    <span>
+                        <%= filter %>
+                    </span>
+                </button>
+            <% } %>
         </div>
 
     </div>
 
     <div class="row row-cols-lg-4 row-cols-2 mt-lg-3 mt-2" id="listing-container">
-        <% for (let listing of allListings) {  %>
-            <a href="/listings/<%= listing._id %>" style="text-decoration: none;">
-                <div class="card listing-card">
-                    <div class="img-overlay">
-
-                        <% if(currUser) { %>
-                            <button class="index-save-btn" onclick="toggleSave(event, '<%= listing._id %>')">
-
-                                    <% const isSavedByUser = listing.isSaved.some(id => id.equals(currUser._id)); %>
-
-                                    <svg class="filled" style="<%= isSavedByUser ? '' : 'display:none;' %>" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                        <path d="M11.8227 4.77222C9.5756 2.52515 5.93237 2.52515 3.6853 4.77222C1.43823 7.01929 1.43823 10.6625 3.6853 12.9096L10.409 19.6334C11.2877 20.5121 12.7123 20.5121 13.591 19.6334L20.3147 12.9097C22.5618 10.6626 22.5618 7.01939 20.3147 4.77232C18.0676 2.52525 14.4244 2.52525 12.1773 4.77232L12 4.94959L11.8227 4.77222Z" fill="#fe424d"/>
-                                    </svg>
+        <% allListings.forEach(listing => { %>
+            
+            <div class="col">
+                
+                <a href="/listings/<%= listing._id %>" style="text-decoration: none;" data-amenities="<%= listing.amenities.join(',') %>">
+                    <div class="card listing-card" data-amenities="<%= listing.amenities.join(',') %>">
+                        <div class="img-overlay">
     
-                                    <svg class="outline" style="<%= isSavedByUser ? 'display:none;' : '' %>" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                        <path d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
-                                    </svg>
-                            </button>
-                        <% } %>
+                            <% if(currUser) { %>
+                                <button class="index-save-btn" onclick="toggleSave(event, '<%= listing._id %>')">
+    
+                                        <% const isSavedByUser = listing.isSaved.some(id => id.equals(currUser._id)); %>
+    
+                                        <svg class="filled" style="<%= isSavedByUser ? '' : 'display:none;' %>" width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                            <path d="M11.8227 4.77222C9.5756 2.52515 5.93237 2.52515 3.6853 4.77222C1.43823 7.01929 1.43823 10.6625 3.6853 12.9096L10.409 19.6334C11.2877 20.5121 12.7123 20.5121 13.591 19.6334L20.3147 12.9097C22.5618 10.6626 22.5618 7.01939 20.3147 4.77232C18.0676 2.52525 14.4244 2.52525 12.1773 4.77232L12 4.94959L11.8227 4.77222Z" fill="#fe424d"/>
+                                        </svg>
+        
+                                        <svg class="outline" style="<%= isSavedByUser ? 'display:none;' : '' %>" width="25" height="25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                            <path d="M11.8227 4.77222C9.5756 2.52515 5.93237 2.52515 3.6853 4.77222C1.43823 7.01929 1.43823 10.6625 3.6853 12.9096L10.409 19.6334C11.2877 20.5121 12.7123 20.5121 13.591 19.6334L20.3147 12.9097C22.5618 10.6626 22.5618 7.01939 20.3147 4.77232C18.0676 2.52525 14.4244 2.52525 12.1773 4.77232L12 4.94959L11.8227 4.77222Z" stroke="rgba(255,255,255, 0.9)" stroke-width="1.5" fill="rgba(0,0,0,0.3)""/>
+                                        </svg>
+                                </button>
+                            <% } %>
+    
+                            <% if(!currUser) { %>
+                                <button class="index-save-btn" onclick="redirectToLogin(event)">
+                                        <svg class="outline" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
+                                            <path d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
+                                        </svg>
+                                </button>
+                            <% } %>
 
-                        <% if(!currUser) { %>
-                            <button class="index-save-btn" onclick="redirectToLogin(event)">
-                                    <svg class="outline" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                        <path d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
-                                    </svg>
-                            </button>
-                        <% } %>
-                        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-image" loading="lazy">
+                            <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-image" loading="lazy">
+                        
+                        </div>
+
+                        <div class="card-body">
+
+                            <p class="card-text">
+
+                                <b class="truncate"><%= listing.title %></b>
+                                
+                                <br>
+
+                                &#8377; <%= listing.price.toLocaleString("en-IN") %>/night 
+                                <i class="tax-info"> &nbsp;-&nbsp; <b>&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</b></i> in
+                                
+                                <%= listing.country %>
+
+                            </p>
+
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                        <b class="truncate"><%= listing.title %></b> <br>
-                        &#8377; <%= listing.price.toLocaleString("en-IN") %>/night 
-                        <i class="tax-info"> &nbsp;-&nbsp; <b>&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</b></i> in
-                        <%= listing.country %>
-                        </p>
-                    </div>
-                </div>
-            </a>
-        <% } %>
+                </a>
+            </div>
+        <% }) %>
     </div>
-    <% if (hasNextPage) { %>
-        <nav class="pagination">
-            <a class="pagination__next" href="/listings?page=<%= currentPage + 1 %>">
-                Next
-            </a>
-        </nav>
-    <% } %>
+    
 
     <script>
 
@@ -231,22 +192,63 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            const selected = new Set();
+
             document.querySelectorAll(".optn-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
-                btn.classList.toggle("optn-selected");
+                    btn.classList.toggle("optn-selected");
+                    const amenity = btn.dataset.amenities;
+
+                    if (btn.classList.contains("optn-selected")) {
+                        selected.add(amenity);
+                    } else {
+                        selected.delete(amenity);
+                    }
+
+                    const params = [...selected]
+                        .map(a => `amenity=${encodeURIComponent(a)}`)
+                        .join("&");
+
+                    window.location.href = `/listings${params ? "?" + params : ""}`;
                 });
             });
         });
+    
+        document.addEventListener("DOMContentLoaded", () => {
 
-        document.querySelectorAll(".modal-btn").forEach(btn => {
-          btn.addEventListener("click", e => {
-            e.currentTarget.classList.toggle("modal-selected");
-          });
-        });
+            document.querySelectorAll(".modal-btn").forEach(btn => {
+                btn.addEventListener("click", e => {
+                    e.currentTarget.classList.toggle("modal-selected");
+                });
+            });
 
-        document.getElementById("clearAll").addEventListener("click", () => {
-          document.querySelectorAll(".modal-btn")
-            .forEach(badge => badge.classList.remove("modal-selected"));
+            document.getElementById("clearAll").addEventListener("click", () => {
+                document.querySelectorAll(".modal-btn")
+                    .forEach(badge => badge.classList.remove("modal-selected"));
+            });
+
+
+            document.querySelector(".modal-footer .searchByFilter").addEventListener("click", async () => {
+                
+                const priceRanges = Array.from(document.querySelectorAll("[data-price].modal-selected"))
+                .map(el => el.dataset.price);
+                
+                const amenities = Array.from(document.querySelectorAll("[data-amenities].modal-selected"))
+                .map(el => el.dataset.amenities);
+                
+                const propertyType = Array.from(document.querySelectorAll("[data-propertyType].modal-selected"))
+                .map(el => el.dataset.propertyType);
+
+                document.getElementById("priceRangeInput").value = priceRanges.join(",");
+                document.getElementById("amenitiesInput").value = amenities.join(",");
+                document.getElementById("propertyTypeInput").value = propertyType.join(",");
+
+                console.log(priceRanges);
+                console.log(amenities);
+                console.log(propertyType);
+                
+                document.querySelector("#filterModal form").submit();
+            });
         });
 
         function redirectToLogin(e) {

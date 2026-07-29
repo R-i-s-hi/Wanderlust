@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
@@ -9,6 +10,26 @@ const bookingSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: Number,
+        required: true
+    },
+    checkin: {
+        type: Date,
+        required: true
+    },
+    checkout: {
+        type: Date,
+        required: true
     },
     order_id: String,
     payment_id: String,

@@ -19,6 +19,8 @@ router.route("/")
 
 router.get("/savedlistings", isLoggedIn, listingController.savedListings)
 
+router.post("/search-by-filter", wrapAsync(listingController.searchByFilter));
+
 // new route
 router.get("/new", isLoggedIn, listingController.new);
 

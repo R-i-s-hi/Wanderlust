@@ -129,22 +129,73 @@
                         <% if(currUser) { %>    
                             <% const bookedIds = listing.bookedUsers.map(id => id.toString()); %>
                             <% const isBooked = bookedIds.includes(currUser._id.toString()); %>
-                                <button 
-                                    class="btn book-btn btn-secondary d-flex justify-content-center align-items-center gap-2 py-1"
-                                    style="height: 50px; flex: 1; border-radius: 12px;"
-                                    onclick="<%= !currUser ? `window.location.href='/login'` : `placeOrder('${listing._id}')` %>"
-                                    <%= isBooked && "disabled" %>
-                                >
-                                    <p class="card-text mb-0">
-                                        <% if(isBooked) { %>
-                                            you already booked this
-                                        <% } else { %>
-                                            Book at &#8377; <%= listing.price.toLocaleString('en-IN') %> / night
-                                            <i class="tax-info">&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</i>
-                                        <% } %>
-                                    </p>
-                                    <i class="fa-solid fa-arrow-right-long"></i>
-                                </button>
+                            
+                            <button 
+                                class="btn book-btn btn-secondary d-flex justify-content-center align-items-center gap-2 py-1"
+                                style="height: 50px; flex: 1; border-radius: 12px;"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#bookingModal"
+                                <%= isBooked && "disabled" %>
+                            >
+                                <p class="card-text mb-0">
+                                    <% if(isBooked) { %>
+                                        you already booked this
+                                    <% } else { %>
+                                        Book at &#8377; <%= listing.price.toLocaleString('en-IN') %> / night
+                                        <i class="tax-info">&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</i>
+                                    <% } %>
+                                </p>
+                                <i class="fa-solid fa-arrow-right-long"></i>
+                            </button>
+
+                            <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content overflow-y">
+                                        <form id="bookingForm" class="needs-validation" action="/" method="POST" novalidate>
+                                            
+                                            <div class="modal-header">
+                                                <h4 class="modal-title text-center w-100 fw-bold" id="exampleModalLabel" style="font-size: 1.2rem;">Confirm booking</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 11px; width: 13px; height: 13px;"></button>
+                                            </div>
+
+                                            <div class="modal-body p-4 pb-5">
+
+                                                <div class="mb-3">
+                                                    <label for="name" class="form-label">Name</label>
+                                                    <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">E-mail</label>
+                                                    <input type="text" id="email" class="form-control" placeholder="Enter your email" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="phone-no" class="form-label">Phone number</label>
+                                                    <input type="tel" id="phone-no" class="form-control" inputmode="numeric" maxlength="10"  placeholder="Enter phone number" required>
+                                                </div>
+
+                                                <div class="d-flex justify-content-between gap-3">
+                                                    <div class="mb-3 w-50">
+                                                        <label for="checkin" class="form-label">Check-in Date</label>
+                                                        <input type="text" id="book-checkin" class="form-control" name="checkin" placeholder="select check-in" required>
+                                                    </div>
+                                                    <div class="mb-3 w-50">
+                                                        <label for="checkout" class="form-label">Check-out Date</label>
+                                                        <input type="text" id="book-checkout" class="form-control" name="checkout" placeholder="select check-out" required>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="modal-footer border-0" style="box-shadow: 0px -4px 18px 2px rgba(128, 128, 128, 0.194);">
+                                                <button type="button" class="btn btn-outline-secondary rounded-5 px-4" style="font-size: 12px;" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-dark rounded-5 px-4" style="font-size: 12px;">Confirm & Pay</button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                         <% } %>
 
                         <% if(currUser) { %>
@@ -320,6 +371,12 @@
             })
         };
 
+        function redirectToLogin(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.href = "/login";
+        }
+
         function toggleSave(e, listingId) {
             const btn = e.currentTarget;
             const solidIcon = btn.querySelector(".fa-solid");
@@ -345,55 +402,76 @@
                 .catch(err => console.error("Error toggling save:", err));
         };
 
+        document.addEventListener("DOMContentLoaded", function() {
+            flatpickr("#book-checkin", {
+                dateFormat: "Y-m-d",
+                minDate: "today",
+            });
+
+            flatpickr("#book-checkout", {
+                dateFormat: "Y-m-d",
+                minDate: "today",
+            });
+        });
+
         async function placeOrder(id) {
             try {
-
-                const response = await fetch(`/payments/${id}/create-order`, {
-                    method: "POST"
-                });
-                const order = await response.json();
-
-                const options = {
-
-                    key: "<%= razorpayKey %>",
-                    amount: order.amount,
-                    currency: order.currency,
-                    name: "WanderLust",
-                    description: "Booking Payment",
-                    order_id: order.id,
-                    handler: async function (response) {
-
-                        const verifyResponse = await fetch(`/payments/${id}/verify-payment`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({
-                                razorpay_payment_id: response.razorpay_payment_id,
-                                razorpay_order_id: response.razorpay_order_id,
-                                razorpay_signature: response.razorpay_signature
-                            })
-                        });
-
-                        const result = await verifyResponse.json();
-
-                        console.log(result);
-
-                    },
-                    modal: {
-                        ondismiss: async function () {
-                        // user closed popup without paying
-                        await fetch("/payments/mark-failed", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({ order_id: order.id })
-                        });
-                        }
-                    }
+                const bookingData = {
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    phone: document.getElementById("phone-no").value,
+                    checkin: document.getElementById("book-checkin").value,
+                    checkout: document.getElementById("book-checkout").value
                 };
 
-                const razorpay = new Razorpay(options);
-                razorpay.open();
+                const response = await fetch(`/payments/${id}/create-order`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+                const order = await response.json();
+                
+                if(order.status == "created") {
+                    const options = {
+    
+                        key: "<%= razorpayKey %>",
+                        amount: order.amount,
+                        currency: order.currency,
+                        name: "WanderLust",
+                        description: "Booking Payment",
+                        order_id: order.id,
+                        handler: 
+                        async function (response) {
+    
+                            const verifyResponse = await fetch(`/payments/${id}/verify-payment`, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_signature: response.razorpay_signature
+                                })
+                            });
+                            const result = await verifyResponse.json();
+                        },
+                        modal: {
+                            ondismiss: 
+                            async function () {
+                                await fetch("/payments/mark-failed", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({ order_id: order.id })
+                                });
+                            }
+                        }
+                    };
+                    const razorpay = new Razorpay(options);
+                    razorpay.open();
+                }
 
             } catch (err) {
                 console.log(err);
@@ -401,10 +479,24 @@
 
         }
 
-        function redirectToLogin(e) {
+        document.getElementById("bookingForm").addEventListener("submit", async function(e) {
             e.preventDefault();
-            e.stopPropagation();
-            window.location.href = "/login";
-        }
+
+            if (!bookingForm.checkValidity()) {
+                e.stopPropagation();
+                bookingForm.classList.add("was-validated");
+                return;
+            }
+
+            await placeOrder("<%= listing._id %>");
+
+            bookingForm.reset();
+            bookingForm.classList.remove("was-validated");
+            
+            var modal = bootstrap.Modal.getInstance(document.getElementById("bookingModal"));
+            modal.hide();
+
+
+        });
 
     </script>

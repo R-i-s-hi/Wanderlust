@@ -8,11 +8,13 @@ const crypto = require("crypto");
 const KEY_ID = process.env.RAZORPAY_KEY_ID;
 const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
 const razorpay = new Razorpay({ key_id: KEY_ID, key_secret: KEY_SECRET })
+const {sendBookingEmail, sendReceiptEmail, sendBookingAbandonEmail} = require("../utils/mails.js");
 
 
 module.exports.createOrder = async(req, res) => {
 
     const {id} = req.params;
+    const { name, email, phone, checkin, checkout } = req.body;
     
     try {
         const listing = await Listing.findById(id);
@@ -31,14 +33,23 @@ module.exports.createOrder = async(req, res) => {
 
         const order = await razorpay.orders.create(options);
 
+        console.log(order);
         const booking = await Booking.create({
             listing: id,
             user: req.user._id,
+            name,
+            email,
+            phone,
+            checkin: new Date(checkin),
+            checkout: new Date(checkout),
             order_id: order.id,
             status: "pending"
         });
 
-        
+        const bookingForEmail = await Booking.findById(booking._id).populate("listing");
+
+        await sendBookingEmail(bookingForEmail);
+        req.flash("success", "Booking Initialised!")
         res.json(order);
 
     } catch (e) {
@@ -74,6 +85,8 @@ module.exports.verifyPayment = async (req, res) => {
             
             await Listing.findByIdAndUpdate(id, { $push: { bookedUsers: booking.user } });
             
+            await sendReceiptEmail(booking);
+
             req.flash("success", "Booking Successful");
             res.redirect(`/listings/${id}`);
 
@@ -97,13 +110,14 @@ module.exports.verifyPayment = async (req, res) => {
 
 };
 
-
 module.exports.markFailure = async (req, res) => {
   const { order_id } = req.body;
-  const booking = await Booking.findOne({ order_id: order_id });
+  const booking = await Booking.findOne({ order_id: order_id }).populate("listing");
   if (booking) {
     booking.status = "failed";
     await booking.save();
   }
+  await sendBookingAbandonEmail(booking);
+  req.flash("error", "Payment was Unsuccessfull")
   res.json({ success: true });
 }

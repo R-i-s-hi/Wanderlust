@@ -69,18 +69,45 @@
 }
 .navbar-toggler {
   border: none;
-  padding: 10px;
 }
 
 .navbar-collapse {
   transition: all 0.3s ease-in-out;
 }
 
-.navbar-toggler:focus,
-.navbar-toggler:active {
+.sidebar-toggle, .mobile-search-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 34px;
+  height: 34px;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.sidebar-toggle .navbar-toggler-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.sidebar-toggle:hover, .mobile-search-btn:hover {
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.sidebar-toggle:focus,
+.sidebar-toggle:active,
+.mobile-search-btn:focus,
+.mobile-search-btn:active {
+  background-color: rgba(128, 128, 128, 0.2);
+  transform: translate(0.97);
   outline: none !important;
   box-shadow: none !important;
   border: none;
+}
+
+.mobile-search-btn {
+  display: none;
 }
 
 .fa-compass {
@@ -191,11 +218,23 @@
 input[type="search"]:focus,
 input[type="text"]:focus,
 input[type="email"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus {
   outline: none !important;
   box-shadow: none !important;
   background-color: inherit;
   border: 1px solid #22222224 !important;
+}
+
+input[type=number]:focus {
+  border: none !important;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .btn-input {
@@ -236,7 +275,7 @@ input[type="password"]:focus {
     box-shadow 0.2s ease;
 }
 
-/* Checked state */
+
 .form-check-input:checked {
   background-color: #fe424d;
   border: 1px solid #fe424d;
@@ -249,24 +288,25 @@ input[type="password"]:focus {
   outline: none !important;
 }
 
-/* Focus + Checked (red border only when ON) */
+
 .form-check-input:focus:checked {
   border: 1px solid #fe424d;
   box-shadow: none;
   outline: none;
 }
 
-/* Focus + Unchecked (neutral border when OFF) */
+
 .form-check-input:focus:not(:checked) {
-  border: 1px solid #2222224d; /* subtle gray */
+  border: 1px solid #2222224d;
   box-shadow: none;
   outline: none;
 }
 
-/* Base focus (catch-all, no forced red) */
+
 .form-check-input:focus {
-  outline: none; /* removes black outline */
+  outline: none;
 }
+
 
 /* footer */
 footer {
@@ -342,17 +382,27 @@ footer {
 
 .index-save-btn {
   position: absolute;
-  right: 0.4rem;
+  right: 0.5rem;
   top: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: rgba(0, 0, 0, 0.4);
+  height: 36px;
+  width: 36px;
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);  
   color: white;
-  padding-block: 0.3rem;
+  box-shadow: 0px 0px 1px #212121;
 }
+
+.index-save-btn:focus {
+  outline: none !important;
+  border: 0.5px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0px 0px 1px #212121 !important;
+}
+
 
 .index-save-btn:hover svg {
   transform: scale(1.04);
@@ -361,7 +411,7 @@ footer {
 .card-img-top {
   height: 18rem;
   width: 100%;
-  border-radius: 1rem;
+  border-radius: 1.4rem;
 }
 
 .card-body {
@@ -766,6 +816,44 @@ footer {
   color: #fff;
 }
 
+#bookingForm input {
+  font-size: 13px;
+    border-radius: 10px;
+    font-weight: 500;
+    color: #212529ee;
+    padding-block: 6px;
+}
+
+.flatpickr-calendar {
+  border-radius: 20px;
+}
+.flatpickr-months .flatpickr-prev-month svg, .flatpickr-months .flatpickr-next-month svg {
+  width: 11px;
+  height: 11px;
+  margin-top: -12px;
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months, .flatpickr-current-month input.cur-year {
+  font-weight: 500;
+  font-size: 14px;
+}
+.flatpickr-months {
+  margin-block: 5px;
+}
+.flatpickr-months .flatpickr-prev-month.flatpickr-next-month, .flatpickr-months .flatpickr-next-month.flatpickr-next-month, .flatpickr-months .flatpickr-prev-month.flatpickr-prev-month, .flatpickr-months .flatpickr-next-month.flatpickr-prev-month {
+  margin-top: 5px;
+}
+.flatpickr-calendar .flatpickr-weekdays {
+  padding-inline: 10px;
+}
+.flatpickr-calendar .dayContainer {
+  padding-inline: 10px;
+  padding-bottom: 10px;
+}
+.flatpickr-day.selected, .flatpickr-day.selected:hover {
+  background-color: #fe424d;
+  border-color: #fe424d;
+}
+
 @media (max-width: 1278px) {
   .reviews-section {
     padding-inline: 5% !important;
@@ -864,6 +952,9 @@ footer {
   max-width: 560px;
   border-radius: 22px;
 }
+#bookingModal .modal-content, #bookingModal .modal-dialog {
+  max-height: fit-content;
+}
 
 .modal-body {
   border-radius: 22px;
@@ -885,14 +976,15 @@ footer {
 }
 
 #clearAll {
+  font-size: 13px;
+  font-weight: 600;
   background-color: transparent;
-  color: #212529;
-  border: 1.3px solid #212529;
+  color: #212529b2;
+  border: none !important;
 }
 
 #clearAll:hover {
-  background-color: #212529;
-  color: white;
+  color: #212529;
 }
 
 .navbar-close-btn, .nav-hr-tag {
@@ -978,9 +1070,6 @@ footer {
     border-radius: 16px;
     box-shadow: 0 0 8px -2px rgba(0, 0, 0, 0.25);
   }
-  .navbar-toggler {
-    padding-right: 0;
-  }
   .navbar-collapse {
     position: absolute;
     right: 12px;
@@ -999,7 +1088,12 @@ footer {
   .nav-hr-tag {
     display: block;
   }
-
+  .mobile-search-btn {
+    display: flex;
+  }
+  .mobile-search-btn:active {
+    transform: scale(0.97);
+  }
   .createListing, .watchlist-btn, .login-btn, .logout-btn {
     background-color: transparent;
     color: #212529b2;
@@ -1043,7 +1137,7 @@ footer {
     content: "My stays";
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 600;
-    font-size: 13.5px;
+    font-size: 13.4px;
     margin-left: 0.6rem;
   }
   .watchlist-btn span::before {
@@ -1208,6 +1302,9 @@ footer {
   .modal-body {
     padding-bottom: 16rem !important;
   }
+  #bookingModal .modal-body {
+    padding-bottom: 16.2rem !important;
+  }
   .modal-dialog, .modal-content {
     width: 100% !important;
     max-height: 100dvh !important;
@@ -1229,10 +1326,6 @@ footer {
   }
   .wanderlust p {
     font-size: 19px !important;
-  }
-  .navbar-toggler-icon {
-    width: 1em;
-    height: 1em;
   }
   .single-card-img-top {
     max-height: 270px;
@@ -1268,6 +1361,9 @@ footer {
   }
   .create-form-btns a {
     width: 100%;
+  }
+  .map-container #map {
+    height: 250px;
   }
 }
 
