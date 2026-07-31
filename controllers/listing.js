@@ -8,42 +8,57 @@ const { getCoordinate } = require('../utils/coordinates.js');
 
 module.exports.index = async (req, res) => {
   try {
-    const query = {};
+    const filters = [];
 
-    // Parse filters from query or body
-    const priceRange = req.query.priceRange
-    ? req.query.priceRange.split(",")
-    : [];
+    const priceRange = req.query.priceRange ? req.query.priceRange.split(",") : [];
+    const amenities = req.query.amenities ? req.query.amenities.split(",") : [];
+    const propertyType = req.query.propertyType ? req.query.propertyType.split(",") : [];
+    const guests = req.query.guestNum ? req.query.guestNum : 0;
+    const destination = req.query.destination ? req.query.destination : "";
 
-    const amenities = req.query.amenities
-    ? req.query.amenities.split(",")
-    : [];
-
-    const propertyType = req.query.propertyType
-    ? req.query.propertyType.split(",")
-    : [];
-
-    // Build query dynamically
+    // Amenities
     if (amenities.length) {
-      query.amenities = { $all: amenities }; // OR $in for "any"
+      filters.push({ amenities: { $all: amenities } });
     }
+
+    // Property type
     if (propertyType.length) {
-      query.propertyType = { $all: propertyType };
+      filters.push({ propertyType: { $all: propertyType } });
     }
+
+    // Price ranges
     if (priceRange.length) {
-        query.$or = priceRange.map(r => {
-            const [minStr, maxStr] = r.split("-");
-            const min = Number(minStr);
-            const max = Number(maxStr);
-            if (Number.isFinite(min) && Number.isFinite(max)) {
+      filters.push({
+        $or: priceRange.map(r => {
+          const [minStr, maxStr] = r.split("-");
+          const min = Number(minStr);
+          const max = Number(maxStr);
+          if (Number.isFinite(min) && Number.isFinite(max)) {
             return { price: { $gte: min, $lte: max } };
-            }
-            return null;
-        }).filter(Boolean);
+          }
+          return null;
+        }).filter(Boolean)
+      });
     }
 
+    // Guest capacity
+    if (guests > 0) {
+      filters.push({ guest_Capacity: { $gte: guests } });
+    }
 
-    // Fetch listings
+    // Destination
+    if (destination && destination.length > 0) {
+      filters.push({
+        $or: [
+          { location: { $regex: destination, $options: "i" } },
+          { country: { $regex: destination, $options: "i" } }
+        ]
+      });
+    }
+
+    // Final query
+    const query = filters.length ? { $and: filters } : {};
+
     const allListings = await Listing.find(query);
 
     if (allListings.length === 0) {
@@ -58,6 +73,7 @@ module.exports.index = async (req, res) => {
       selectedPropertyType: propertyType,
       selectedPriceRange: priceRange
     });
+
   } catch (e) {
     console.error(e);
     req.flash("error", "Something went wrong!");
@@ -87,35 +103,49 @@ module.exports.create = async (req, res, next) => {
 };
 
 module.exports.show = async (req, res) => {
+  try {
     let { id } = req.params;
-    const {userId} = req.user._id;
-
     id = id.trim();
 
     const listing = await Listing.findById(id)
-        .populate({
-            path: "reviews",
-            populate: {
-                path: "author",
-            }
-        })
-        .populate("owner");
-    
-    const reviews = listing.reviews;
-    var total_Rating = 0;
-
-    reviews.forEach(review => {
-        total_Rating += review.rating;
-    });
-    const avg_rating = reviews.length > 0 ? (total_Rating / reviews.length).toFixed(2) : 0;
-
+      .populate({
+        path: "reviews",
+        populate: { path: "author" }
+      })
+      .populate("owner");
 
     if (!listing) {
-        req.flash("error", "Listing Does not Exist!");
-        res.redirect("/listings");
+      req.flash("error", "Listing Does not Exist!");
+      return res.redirect("/listings");
     }
-    res.render("listings/show.ejs", { listing, avg_rating, currUser: req.user, razorpayKey: process.env.RAZORPAY_KEY_ID });
+
+    // Calculate average rating
+    const reviews = listing.reviews || [];
+    let total_Rating = 0;
+    reviews.forEach(review => {
+      total_Rating += review.rating;
+    });
+    const avg_rating = reviews.length > 0
+      ? (total_Rating / reviews.length).toFixed(2)
+      : 0;
+
+    // Safe userId (null if logged out)
+    const userId = req.user?._id || null;
+
+    res.render("listings/show.ejs", {
+      listing,
+      avg_rating,
+      currUser: req.user || null,
+      userId,
+      razorpayKey: process.env.RAZORPAY_KEY_ID
+    });
+  } catch (err) {
+    console.error(err);
+    req.flash("error", "Something went wrong!");
+    res.redirect("/listings");
+  }
 };
+
 
 module.exports.savedListings = async (req, res) => {
 

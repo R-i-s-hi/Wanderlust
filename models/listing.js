@@ -30,6 +30,10 @@ const listingSchema = new Schema({
         type: Number,
         required: true,
     },
+    guest_Capacity: {
+        type: Number,
+        required: true
+    },
     // interiorInfo: {
     //     capacity: {
     //         type: Number,

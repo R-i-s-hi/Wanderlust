@@ -100,23 +100,23 @@
                     Saved
                 </span>
             </a>
-            <button class="filter-btn optn-btn">
-                <span data-amenities="guest favourite">
+            <button class="filter-btn optn-btn" data-amenities="guest favourite">
+                <span>
                     Guest Favourite
                 </span>
             </button>
-            <% for (const filter of filters) { %>
+            <% filters.forEach(filter => { %>
                 <button class="filter-btn optn-btn <%= selectedAmenities.includes(filter) ? 'optn-selected' : '' %>" data-amenities="<%= filter %>">
                     <span>
                         <%= filter %>
                     </span>
                 </button>
-            <% } %>
+            <% }) %>
         </div>
 
     </div>
 
-    <div class="row row-cols-lg-4 row-cols-2 mt-lg-3 mt-2" id="listing-container">
+    <div class="row row-cols-md-4 row-cols-2 mt-lg-3 mt-2" id="listing-container">
         <% allListings.forEach(listing => { %>
             
             <div class="col">
@@ -195,8 +195,10 @@
             const selected = new Set();
 
             document.querySelectorAll(".optn-btn").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    btn.classList.toggle("optn-selected");
+                
+
+                btn.addEventListener("click", e => {
+                    e.currentTarget.classList.toggle("optn-selected");
                     const amenity = btn.dataset.amenities;
 
                     if (btn.classList.contains("optn-selected")) {
@@ -205,11 +207,9 @@
                         selected.delete(amenity);
                     }
 
-                    const params = [...selected]
-                        .map(a => `amenity=${encodeURIComponent(a)}`)
-                        .join("&");
+                    const params = [...selected].join(",");
+                    window.location.href = `/listings${params ? "?amenities=" + encodeURIComponent(params) : ""}`;
 
-                    window.location.href = `/listings${params ? "?" + params : ""}`;
                 });
             });
         });

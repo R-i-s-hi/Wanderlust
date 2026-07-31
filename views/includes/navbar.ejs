@@ -80,14 +80,14 @@
         <h4 class="modal-title flex-fill text-center" id="staticBackdropLabel" style="font-size: 1.2rem;">Search Hotels</h4>
         <button type="button" class="btn-close" style="font-size: 10px;" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="padding-inline: 1.5rem !important;">
         <div class="d-flex justify-content-start align-items-center gap-2">
-          <i class="fa-solid fa-route"></i>
-          <h4 class="my-3" style="color: #222222; font-size: 1.2rem;">Select Location and Time</h4>
+          <i class="fa-solid fa-route" style="color: #fe424d;"></i>
+          <h4 class="my-3" style="color: #222222; font-size: 1.2rem; font-weight: 700;">Select Location and Time</h4>
         </div>
           <div class="mb-3">
             <label for="dest" class="form-label">Destination</label>
-            <input id="dest" class="form-control px-3 btn-input" type="search" placeholder="Ex. Jaipur, India" aria-label="Search" style="height: 37.6px; border-radius: 11px;" required>
+            <input id="dest" class="form-control fw-medium" type="search" placeholder="Ex. Jaipur, India" aria-label="Search" style="font-size: 13.5px !important; height: 37.6px; border-radius: 11px;" required>
           </div>
           <div class="mb-3">
               <label for="checkin" class="form-label" >Check-in Date</label>
@@ -107,25 +107,25 @@
         <div>
           <div class="collapse collapse-horizontal border-0" id="collapseWidthExample">
             
-            <div class="my-4" style="line-height: 1;">
+            <div class="my-4" style="line-height: 0.8;">
                 <div class="d-flex justify-content-start align-items-center gap-2">
-                  <i class="fa-solid fa-person-walking-luggage"></i>
-                  <h4 class="mb-0" style="color: #222222; font-size: 1.2rem;">Select Guests</h4>
+                  <i class="fa-solid fa-person-walking-luggage" style="color: #fe424d;"></i>
+                  <h4 class="mb-0" style="color: #222222; font-size: 1.2rem; font-weight: 700;">Select Guests</h4>
                 </div>
-                <small class="fw-medium" style="font-size: 11px; color: #676767; margin-left: 1.5rem;">*max adults, children & pets are 6</small>
+                <small class="fw-medium" style="font-size: 11px; color: #67676791; margin-left: 1.5rem;">*max adults, children & pets are 6</small>
               </div>
             <div class="card card-body border-1 rounded-4">
               <ul class="list-group py-4 px-3">
                 <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
                   <span class="mb-0 fw-medium" style="line-height: 1.5; color: #212529e5;">
                     Adults <br>
-                    <p class="mb-0" style="font-size: 12px; color: #676767;">13 or above</p>
+                    <p class="mb-0" style="font-size: 11px; color: #676767;">13 or above</p>
                   </span>
                   <div class="btn-group" role="group" aria-label="Basic example">
                     <button type="button" id="decrement" class="decrement btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="height: 32px; width: 32px;">
                       <i class="fa-solid fa-minus" style="font-size: 12px;"></i>
                     </button>
-                    <input id="travelerCount" type="number" class="travelerCount form-control border-0 text-center" value="1" min="0" max="6" readonly style="height: 32px; width: 32px; margin-inline: 2px 0px; padding-inline: 9px 0px;">
+                    <input id="travelerCount" type="number" class="travelerCount form-control border-0 text-center" value="1" min="0" max="6" readonly style="height: 32px; width: 32px; font-weight: 500; color: #212529e5; padding-inline: 10px;">
                     <button type="button" id="increment" class="increment btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="height: 32px; width: 32px;">
                       <i class="fa-solid fa-plus" style="font-size: 12px;"></i>
                     </button>
@@ -137,13 +137,13 @@
                 <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
                     <span class="mb-0 fw-medium" style="line-height: 1.5; color: #212529e5;">
                       Child <br>
-                      <p class="mb-0" style="font-size: 12px; color: #676767;">12 or below</p>
+                      <p class="mb-0" style="font-size: 11px; color: #676767;">12 or below</p>
                     </span>
                     <div class="btn-group" role="group" aria-label="Basic example">
                       <button type="button" id="decrement" class="decrement btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="height: 32px; width: 32px;">
                         <i class="fa-solid fa-minus" style="font-size: 12px;"></i>
                       </button>
-                      <input id="travelerCount" type="number" class="travelerCount form-control border-0 text-center" value="1" min="0" max="6" readonly style="height: 32px; width: 32px; margin-inline: 2px 0px; padding-inline: 9px 0px;">
+                      <input id="travelerCount" type="number" class="travelerCount form-control border-0 text-center" value="1" min="0" max="6" readonly style="height: 32px; width: 32px; font-weight: 500; color: #212529e5; padding-inline: 10px;">
                       <button type="button" id="increment" class="increment btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="height: 32px; width: 32px;">
                         <i class="fa-solid fa-plus" style="font-size: 12px;"></i>
                       </button>
@@ -153,13 +153,13 @@
                 <li class="list-group-item border-0 d-flex justify-content-between align-items-center">
                     <span class="mb-0 fw-medium" style="line-height: 1.5; color: #212529e5;">
                       Pets <br>
-                      <p class="mb-0" style="font-size: 12px; color: #676767;">Dog, Cat, etc.</p>
+                      <p class="mb-0" style="font-size: 11px; color: #676767;">Dog, Cat, etc.</p>
                     </span>
                     <div class="btn-group" role="group" aria-label="Basic example">
                       <button type="button" id="decrement" class="decrement btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="height: 32px; width: 32px;">
                         <i class="fa-solid fa-minus" style="font-size: 12px;"></i>
                       </button>
-                      <input id="travelerCount" type="number" class="travelerCount form-control border-0 text-center" value="1" min="0" max="6" readonly style="height: 32px; width: 32px; margin-inline: 2px 0px; padding-inline: 9px 0px;">
+                      <input id="travelerCount" type="number" class="travelerCount form-control border-0 text-center" value="1" min="0" max="6" readonly style="height: 32px; width: 32px; font-weight: 500; color: #212529e5; padding-inline: 10px;">
                       <button type="button" id="increment" class="increment btn btn-outline-secondary rounded-circle d-flex align-items-center justify-content-center" style="height: 32px; width: 32px;">
                         <i class="fa-solid fa-plus" style="font-size: 12px;"></i>
                       </button>
@@ -171,8 +171,11 @@
         </div>
       </div>
       <div class="modal-footer border-0" style="box-shadow: 0px -4px 18px 2px rgba(128, 128, 128, 0.194);">
-          <button type="button" class="btn btn-outline-secondary rounded-5 px-4" style="font-size: 12px;" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-dark rounded-5 px-4" style="font-size: 12px;">Search Hotels</button>
+          <button type="button" id="cancelSearchButton" class="btn px-2" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" id="searchButton" class="btn btn-dark rounded-5 px-4 searchButton" onclick="collectSearchData()">
+            <i class="fa-solid fa-magnifying-glass" style="font-size: 11px; margin-bottom: -3px;"></i>
+            <span>Find Stays</span>
+          </button>
       </div>
     </div>
   </div>
@@ -183,23 +186,46 @@
     flatpickr("#nav-checkin", { dateFormat: "Y-m-d", minDate: "today", closeOnSelect: false });
     flatpickr("#nav-checkout", { dateFormat: "Y-m-d", minDate: new Date().fp_incr(1), closeOnSelect: false });
   });
+ 
+  function collectSearchData() {
+    const dest = document.getElementById("dest").value.trim();
+    const checkin = document.getElementById("nav-checkin").value.trim();
+    const checkout = document.getElementById("nav-checkout").value.trim();
+    const totalGuests = 
+      parseInt(document.querySelectorAll(".travelerCount")[0].value) +
+      parseInt(document.querySelectorAll(".travelerCount")[1].value) +
+      parseInt(document.querySelectorAll(".travelerCount")[2].value);
 
-  document.querySelectorAll(".list-group-item").forEach(item => {
-    const input = item.querySelector(".travelerCount");
-    const dec = item.querySelector(".decrement");
-    const inc = item.querySelector(".increment");
-    const MAX = parseInt(input.max, 10);
-    const MIN = parseInt(input.min, 10);
-
-    inc.addEventListener("click", () => {
-      let value = parseInt(input.value, 10);
-      if (value < MAX) input.value = value + 1;
+    // Build query string
+    const params = new URLSearchParams({
+      destination: dest,
+      checkin,
+      checkout,
+      guestNum: totalGuests
     });
 
-    dec.addEventListener("click", () => {
-      let value = parseInt(input.value, 10);
-      if (value > MIN) input.value = value - 1;
-    });
+    window.location.href = `/listings?${params.toString()}`;
+  } 
+  
+  document.addEventListener("DOMContentLoaded", () => {
+ 
+    document.querySelectorAll(".list-group-item").forEach(item => {
+      const input = item.querySelector(".travelerCount");
+      const dec = item.querySelector(".decrement");
+      const inc = item.querySelector(".increment");
+      const MAX = parseInt(input.max, 10);
+      const MIN = parseInt(input.min, 10);
+  
+      inc.addEventListener("click", () => {
+        let value = parseInt(input.value, 10);
+        if (value < MAX) input.value = value + 1;
+      });
+  
+      dec.addEventListener("click", () => {
+        let value = parseInt(input.value, 10);
+        if (value > MIN) input.value = value - 1;
+      });
+    }); 
   });
 
 </script>

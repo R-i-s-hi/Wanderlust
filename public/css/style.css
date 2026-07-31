@@ -376,7 +376,7 @@ footer {
   position: relative;
   overflow: hidden;
   width: 100%;
-  height: 18rem;
+  height: auto;
   border-radius: 1rem;
 }
 
@@ -409,9 +409,10 @@ footer {
 }
 
 .card-img-top {
-  height: 18rem;
   width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: 1.4rem;
+  object-fit: cover;
 }
 
 .card-body {
@@ -461,39 +462,41 @@ footer {
   height: 50px;
   width: 50px;
   border-radius: 12px;
-  border: none;
-  border: 1.5px solid #222222e8;
+  border: 1.5px solid #dee2e6;
   color: #222222e8;
+  background: #f2f2f2;
 }
 
 .save-btn-outline i {
   font-size: 13px;
+  color: #212529e8;
 }
 
 .save-btn-outline:hover {
-  border: none;
-  background-color: #222222;
-}
-
-.save-btn-outline:hover i {
-  color: white;
+  background-color: rgba(128, 128, 128, 0.2);
+  box-shadow: none;
 }
 
 .save-btn-filled {
   height: 50px;
   width: 50px;
   border-radius: 12px;
-  background-color: #3c3c3c;
+  border: 1.5px solid #dee2e6 !important;
+  background-color: rgba(128, 128, 128, 0.2);
   border: none;
 }
 
 .save-btn-filled i {
   font-size: 13px;
-  color: white !important;
+  color: #212529e8 !important;
 }
 
 .save-btn-filled:hover {
-  background-color: #282828;
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+.save-btn-outline:active , .save-btn-outline:focus, .save-btn-filled:active, .save-btn-filled:focus {
+  border-color: #dee2e6 !important;
 }
 
 .info-heading  {
@@ -689,24 +692,52 @@ footer {
 .login-btn:hover {
   color: black;
 }
+.show-hr {
+  margin: 3.7rem auto 3rem;
+  max-width: 1008px;
+  border: none;              
+  height: 1px;
+  background-color: #898c8f;
+  border-radius: 2px;
+}
 
 .map-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: top;
+  gap: 2rem;
+  max-width: 1008px;
+  margin-inline: auto;
+  padding-top: 0.8rem;
 }
 .map-container #map {
   height: 400px;
   width: 100%;
   max-width: 800px;
+  margin-top: 2rem;
+  border-radius: 1rem;
+}
+.map-container .maps-card {
+  padding-block: 1.6rem;
+  padding-inline: 1.5rem;
+  min-width: 350px;
+  height: fit-content;
   margin-block: 2rem;
-  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 1rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
 }
-
+.map-container .maps-card p, .map-container .maps-card a {
+  font-size: 13px;
+  font-weight: 500;
+}
 .reviews-section {
-  padding-inline: 11.5%;
+  max-width: 1008px;
+  margin-inline: auto;
 }
-
+.no-review img {
+  max-height: 300px;
+}
 .carousel-controls {
   display: flex;
   justify-content: center;
@@ -879,7 +910,7 @@ footer {
 
 @media (max-width: 1277px) {
   .btn-input {
-    min-width: 20rem !important;
+    min-width: 16rem !important;
   }
   .btn-search {
     right: 19.7rem;
@@ -975,7 +1006,7 @@ footer {
   font-size: 15px;
 }
 
-#clearAll {
+#clearAll, #cancelSearchButton {
   font-size: 13px;
   font-weight: 600;
   background-color: transparent;
@@ -985,6 +1016,33 @@ footer {
 
 #clearAll:hover {
   color: #212529;
+}
+#cancelSearchButton:hover {
+  color: #212529;
+}
+
+#searchButton {
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #fe424d;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+}
+
+#searchButton:hover {
+  background-color: #ff4f5a;
+}
+
+#increment , #decrement {
+  border-color: #212529e5;
+  color: #212529e5;
+}
+#increment:hover , #decrement:hover {
+  background-color: #212529e5;
+  color: white;
 }
 
 .navbar-close-btn, .nav-hr-tag {
@@ -997,8 +1055,31 @@ footer {
     font-weight: 500;
     margin-inline: 0.3rem;
   }
-
+@media(min-width: 991.5px) {
+  .map-vr {
+    display: none;
+  }
+}
 @media (max-width: 991.5px) {
+  .map-container {
+    gap: 0rem;
+  }
+  .map-container .maps-card {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .map-container .maps-card .card-body {
+    flex-direction: row !important;
+    row-gap: 2rem !important;
+    /* row-gap: 1.1rem !important; */
+    justify-content: space-between;
+  }
+  .map-container .maps-card .card-body .item {
+    width: 30%;
+    justify-content: center !important;
+  }
   .reviews-section {
     padding-inline: 0% !important;
   }
@@ -1018,7 +1099,6 @@ footer {
     font-size: 13px;
     font-weight: 500;
   }
-  
   .create-form-btns a:hover {
     background-color: rgba(128, 128, 128, 0.2);
     border-color: rgba(128, 128, 128, 0.2);
@@ -1314,9 +1394,9 @@ footer {
   .container {
     margin-top: 4.5rem;
   }
-  .card-img-top, .img-overlay {
+  /* .card-img-top, .img-overlay {
     height: 10rem;
-  }
+  } */
   .navbar {
     height: 4.3rem;
   }
@@ -1348,6 +1428,19 @@ footer {
 }
 
 @media (max-width:424px) {
+  .map-container .maps-card h4 {
+    display: none;
+  }
+  .map-container .maps-card .card-body .item {
+    width: 45%;
+    justify-content: start !important;
+  }
+  .map-container .maps-card .card-body {
+    flex-wrap: wrap;
+  }
+  .map-vr {
+    display: none;
+  }
   .filter-modal-btn {
     height: 30px;
     padding-inline: 0.6rem !important;
