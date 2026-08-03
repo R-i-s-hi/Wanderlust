@@ -135,12 +135,11 @@
                                 class="btn book-btn btn-secondary d-flex justify-content-center align-items-center gap-2 py-1"
                                 style="height: 50px; flex: 1; border-radius: 12px;"
                                 data-bs-toggle="modal" 
-                                data-bs-target="#bookingModal"
-                                <%= isBooked && "disabled" %>
+                                data-bs-target="<%= isBooked ? '#cancelModal' : '#bookingModal' %>"
                             >
                                 <p class="card-text mb-0">
                                     <% if(isBooked) { %>
-                                        you already booked this
+                                        Cancel your booking
                                     <% } else { %>
                                         Book at &#8377; <%= listing.price.toLocaleString('en-IN') %> / night
                                         <i class="tax-info">&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</i>
@@ -193,6 +192,28 @@
                                             </div>
 
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="cancelModal" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content overflow-y" style="margin-inline: 1rem; border-radius: 22px;">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title text-center w-100 fw-bold" id="exampleModalLabel" style="font-size: 1.2rem;">Cancel booking</h4>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 11px; width: 13px; height: 13px;"></button>
+                                        </div>
+
+                                        <div class="modal-body p-4 pb-5 fw-medium" style="font-size: 13px; padding-bottom: 1rem !important;">
+                                            <p class="text-center">Are you sure you want to cancel your booking for this listing?</p>
+                                        </div>
+
+                                        <div class="modal-footer border-0" style="box-shadow: 0px -4px 18px 2px rgba(128, 128, 128, 0.194);">
+                                            <button type="button" class="btn btn-outline-secondary rounded-5 px-4 fw-medium" style="font-size: 12px;" data-bs-dismiss="modal">No</button>
+                                            <form method="POST" action="/payments/<%= listing._id %>/create-refund">
+                                                <button type="submit" class="btn btn-dark rounded-5 px-4 fw-medium" style="font-size: 12px;">Yes, Cancel</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -283,8 +304,9 @@
                                 <path d="M8.88726 11.6214C9.25651 12.1052 9.62365 12.5169 9.93896 12.8435V18.5475L14.6925 17.4066V12.8501C15.0086 12.5217 15.3779 12.1061 15.7493 11.6168C15.8938 11.4266 16.0431 11.2192 16.1925 10.9958L16.1925 17.412L19.8836 18.316C20.3561 18.4317 20.812 18.074 20.812 17.5875V7.17618C20.812 6.83068 20.576 6.52989 20.2404 6.4477L17.8411 5.8601C17.824 5.29617 17.7225 4.75346 17.5488 4.24419L20.5972 4.99076C21.604 5.23731 22.312 6.13969 22.312 7.17618V17.5875C22.312 19.0468 20.9443 20.1201 19.5268 19.7729L15.612 18.8142C15.4959 18.7858 15.3747 18.7855 15.2585 18.8134L9.71606 20.1436C9.36747 20.2273 9.00393 20.2264 8.65574 20.1412L4.02728 19.0076C3.02055 18.7611 2.3125 17.8587 2.3125 16.8222V6.41088C2.3125 4.95156 3.68027 3.87833 5.09771 4.22547L6.94725 4.67842C6.83851 5.1112 6.78076 5.56422 6.78076 6.03072C6.78076 6.08145 6.78129 6.132 6.78233 6.18236L4.7409 5.68241C4.26842 5.5667 3.8125 5.92444 3.8125 6.41088V16.8222C3.8125 17.1677 4.04852 17.4685 4.38409 17.5507L8.43896 18.5437V10.9962C8.59011 11.2213 8.74122 11.4301 8.88726 11.6214Z" fill="#212529"/>
                             </svg>
                             <div>
+                                <% const [lng, lat] = listing.geometry.coordinates; %>
                                 <span style="color: #212529; font-size: 15px;">Maps</span><br>
-                                <a href="https://www.google.com">
+                                <a href="https://www.google.com/maps/search/?api=1&query=<%= lat %>,<%= lng %>" target="_blank" class="my-0" style="color: rgba(0, 0, 255, 0.787);">
                                     click here
                                 </a>
                             </div>
@@ -295,12 +317,12 @@
         </div>
     </div>
 
-    <div class="w-100">
-        <hr class="show-hr">
-    </div>
-
+    
     <div class="reviews-section" style="color: #212529ed; font-weight: 700;">
         <% if (currUser) { %>
+            <div class="w-100">
+                <hr class="show-hr">
+            </div>
 
             <h4 style="color: #373032; font-weight: 700;">Leave a Review</h4>
             
@@ -323,90 +345,55 @@
                 </div>
                 <div class="mb-3">
                     <label for="comment" class="form-label">Comment</label>
-                    <textarea style="border-radius: 10px;font-size: 13.5px; font-weight: 500; color: #212529e9;" name="review[comment]" id="comment" cols="30" rows="4" class="form-control" required></textarea>
+                    <textarea style="max-height: 210px; border-radius: 10px;font-size: 13.5px; font-weight: 500; color: #212529e9;" name="review[comment]" id="comment" cols="30" rows="4" class="form-control" required></textarea>
                     <div class="invalid-feedback">Please add some comments!</div>
                 </div>
                 <button class="btn btn-dark mb-3 px-4 rounded-pill fw-semibold" style="font-size: 13px;">Submit</button>
             </form>
 
         <% } %>
+
         <hr class="show-hr">
+
         <% if (listing.reviews.length !== 0) { %>
             
-            <h4 style="color: #373032; font-weight: 700; margin-block: 1.6rem;">
-                All Reviews (<%= listing.reviews.length %>)
-            </h4>
-
-            <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel" >
-                <div class="carousel-inner d-none d-lg-block">
-                    <% for (let i = 0; i < listing.reviews.length; i += 2) { %>
-                        <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
-                            <div class="row">
-                                <% for (let j = i; j < i + 2 && j < listing.reviews.length; j++) { 
-                                    let review = listing.reviews[j]; %>
-                                    <div class="col-12 col-lg-6 mb-3">
-                                        <div class="card h-full review-card">
-                                            <div class="card-body">
-                                                <div class="d-flex justify-content-between">
-                                                <h5 class="card-title">
-                                                    <b>@<%= review.author.username %></b>
-                                                </h5>
-                                                <% if (currUser && currUser._id.equals(review.author._id)) { %>
-                                                    <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                                                    <button class="btn btn-dark btn-sm del-btn">
-                                                        <i class="fa-solid fa-trash"></i>
-                                                    </button>
-                                                    </form>
-                                                <% } %>
-                                                </div>
-                                                <div class="p-2">
-                                                <p class="card-text mb-2"><%= review.comment %></p>
-                                                <p class="starability-result card-text mb-0" data-rating="<%= review.rating %>"></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% } %>
-                </div>
-
-                <div class="carousel-inner d-block d-lg-none">
-                    <% listing.reviews.forEach((review, index) => { %>
-                        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                            <div class="card h-full review-card">
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between">
-                                    <h5 class="card-title">
-                                        <b>@<%= review.author.username %></b>
-                                    </h5>
-                                    <% if (currUser && currUser._id.equals(review.author._id)) { %>
-                                        <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                                        <button class="btn btn-dark btn-sm del-btn">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                        </form>
-                                    <% } %>
-                                    </div>
-                                    <div class="p-2">
-                                    <p class="card-text mb-2"><%= review.comment %></p>
-                                    <p class="starability-result card-text mb-0" data-rating="<%= review.rating %>"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <% }) %>
-                </div>
-
-                <div class="carousel-controls text-center my-3">
-                    <button class="carousel-control-prev custom-btn" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
-                        <i class="fa-solid fa-angle-left" style="font-size: 12px;"></i>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 style="color: #373032; font-weight: 700; margin-block: 1.6rem;">
+                    All Reviews (<%= listing.reviews.length %>)
+                </h4>
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                    <button id="prevBtn" class="btn btn-dark btn-sm">
+                        <i class="fa-solid fa-angle-left"></i>
                     </button>
-                    <button class="carousel-control-next custom-btn" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
-                        <i class="fa-solid fa-angle-right" style="font-size: 12px;"></i>
+                    <button id="nextBtn" class="btn btn-dark btn-sm">
+                        <i class="fa-solid fa-angle-right"></i>
                     </button>
                 </div>
+            </div>
+
+            <div id="reviewStrip" class="d-flex justify-content-start align-items-center gap-md-3 gap-2">
+                <% listing.reviews.forEach((review, index) => { %>
+                    <div class="card review-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                            <h5 class="card-title">
+                                <b>@<%= review.author.username %></b>
+                            </h5>
+                            <% if (currUser && currUser._id.equals(review.author._id)) { %>
+                                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                                <button class="btn btn-dark btn-sm del-btn">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                </form>
+                            <% } %>
+                            </div>
+                            <div class="p-2">
+                                <p class="card-text mb-2"><%= review.comment %></p>
+                                <p class="starability-result card-text mb-0" data-rating="<%= review.rating %>"></p>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
             </div>
 
         <% } %>
@@ -439,6 +426,25 @@
                 }
             })
         };
+
+        const strip = document.getElementById('reviewStrip');
+        const cards = strip.querySelectorAll('.review-card');
+        let activeIndex = 0;
+
+        function scrollToCard(index) {
+        if (index < 0 || index >= cards.length) return;
+        activeIndex = index;
+        cards[activeIndex].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+        scrollToCard(activeIndex - 1);
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+        scrollToCard(activeIndex + 1);
+        });
+
 
         function redirectToLogin(e) {
             e.preventDefault();

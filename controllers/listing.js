@@ -16,17 +16,14 @@ module.exports.index = async (req, res) => {
     const guests = req.query.guestNum ? req.query.guestNum : 0;
     const destination = req.query.destination ? req.query.destination : "";
 
-    // Amenities
     if (amenities.length) {
       filters.push({ amenities: { $all: amenities } });
     }
 
-    // Property type
     if (propertyType.length) {
       filters.push({ propertyType: { $all: propertyType } });
     }
 
-    // Price ranges
     if (priceRange.length) {
       filters.push({
         $or: priceRange.map(r => {
@@ -41,12 +38,10 @@ module.exports.index = async (req, res) => {
       });
     }
 
-    // Guest capacity
     if (guests > 0) {
       filters.push({ guest_Capacity: { $gte: guests } });
     }
 
-    // Destination
     if (destination && destination.length > 0) {
       filters.push({
         $or: [
@@ -56,7 +51,6 @@ module.exports.index = async (req, res) => {
       });
     }
 
-    // Final query
     const query = filters.length ? { $and: filters } : {};
 
     const allListings = await Listing.find(query);
@@ -146,20 +140,15 @@ module.exports.show = async (req, res) => {
   }
 };
 
-
 module.exports.savedListings = async (req, res) => {
 
     try {
         const savedListings = await Listing.find({isSaved: req.user._id})
 
-        const bookings = await Booking.find({user: req.user._id}).populate("listing");
-        let bookedListings = [];
-        if(bookings.length > 0) {
-            bookedListings = bookings.map(b => b.listing);
-        }
-
-        if (savedListings || bookedListings) {
-            res.render("listings/savedListings.ejs", {savedListings, bookedListings});
+        const bookings = await Booking.find({user: req.user._id}).populate("listing").sort({ createdAt: -1 });
+        
+        if (savedListings || bookings) {
+            res.render("listings/savedListings.ejs", {savedListings, bookings});
         }
     } catch (e) {
         req.flash("error", "Something went wrong!");

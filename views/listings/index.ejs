@@ -116,7 +116,7 @@
 
     </div>
 
-    <div class="row row-cols-md-4 row-cols-2 mt-lg-3 mt-2" id="listing-container">
+    <div class="row row-cols-sm-4 row-cols-2 mt-lg-3 mt-2" id="listing-container">
         <% allListings.forEach(listing => { %>
             
             <div class="col">
@@ -237,7 +237,8 @@
                 .map(el => el.dataset.amenities);
                 
                 const propertyType = Array.from(document.querySelectorAll("[data-propertyType].modal-selected"))
-                .map(el => el.dataset.propertyType);
+                .map(el => el.dataset.propertytype);
+
 
                 document.getElementById("priceRangeInput").value = priceRanges.join(",");
                 document.getElementById("amenitiesInput").value = amenities.join(",");

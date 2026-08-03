@@ -8,7 +8,7 @@
 
 .container {
   z-index: 1 !important;
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
   flex: 1 !important;
   min-height: 100vh !important;
@@ -61,6 +61,10 @@
   background-color: white;
   padding-left: 7.4%;
   padding-right: 7.4%;
+  box-shadow: 0px 1px 20px 1px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled {
   border-bottom: 2px solid #dee2e6;
   box-shadow: 0px 1px 20px 1px rgba(0, 0, 0, 0.1);
 }
@@ -144,9 +148,8 @@
   color: #212529 !important;
 }
 #loader{
-    height:50px;
+  height:50px;
 }
-
 .login-btn, .watchlist-btn, .logout-btn {
   display: flex;
   justify-content: center;
@@ -235,6 +238,14 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+button {
+  transition: transform 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.97);
 }
 
 .btn-input {
@@ -358,6 +369,10 @@ footer {
 }
 
 .alert-success, .alert-danger {
+      position: absolute;
+    left: translateX(1/2);
+    top: 14%;
+    z-index: 999;
   padding-inline: 1rem;
   padding-block: 0.6rem;
   max-width: fit-content;
@@ -428,19 +443,56 @@ footer {
 }
 
 .review-card {
-  border-radius: 10px;
-  height: 100%;
+  border-radius: 1rem;
+  height: stretch;
+  min-width: 250px;
+  max-width: 300px;
+  flex: 0 0 auto;
 }
 .review-card .card-body {
   margin: 0;
-  padding: 1.2rem !important;
+  padding: 1.8rem 1.5rem !important;
 }
 .review-card .card-body .card-text {
   color: #222222ba;
   font-size: 13px;
   font-weight: 500;
 }
+#prevBtn, #nextBtn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+  border: 1px solid #dee2e6;
+  color: #212529e8;
+  transition: transform 0.1s ease;
+}
+#prevBtn:hover,
+#nextBtn:hover {
+  background-color: rgba(128, 128, 128, 0.2);
+}
 
+#prevBtn:active, #nextBtn:active{
+  transform: scale(0.97);
+  border: 1px solid #dee2e6 !important;
+}
+#nextBtn:focus, #prevBtn:focus {
+  border: 1px solid #dee2e6 !important;
+}
+#reviewStrip {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  margin-bottom: 3.3rem;
+}
+#reviewStrip::-webkit-scrollbar {
+  display: none;
+}
+#reviewStrip {
+  scrollbar-width: none;
+}
+#reviewStrip {
+  -ms-overflow-style: none;
+}
 
 .listing-single-card .card-text {
   font-size: 13.5px;
@@ -738,29 +790,6 @@ footer {
 .no-review img {
   max-height: 300px;
 }
-.carousel-controls {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  position: static;
-  height: 30px;
-  width: 45px;
-  background-color: #222222e8 !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  opacity: 1;
-}
-
-.carousel-control-next-icon,
-.carousel-control-prev-icon {
-  width: 0.8rem;
-}
 
 .filter-btn, .modal-filter-btn {
   display: flex;
@@ -883,6 +912,53 @@ footer {
 .flatpickr-day.selected, .flatpickr-day.selected:hover {
   background-color: #fe424d;
   border-color: #fe424d;
+}
+
+.booked-badge, .cancel-badge {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 21px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.booked-badge i, .cancel-badge i {
+  font-size: 13px;
+}
+
+.booked-badge {
+  background-color: #0eb10e;
+}
+
+.cancel-badge {
+  background-color: #f2454f;
+}
+
+#booking-container .status-container {
+  position: absolute;
+  width: fit-content;
+  color: white;
+  right: 3%;
+  top: 3%;
+}
+
+#booking-container .date-container {
+  position: absolute;
+  width: fit-content;
+  color: white;
+  right: 0.5rem;
+  bottom: 0.5rem;
+}
+
+.date-container p {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
 }
 
 @media (max-width: 1278px) {
@@ -1121,15 +1197,6 @@ footer {
   }
 }
 
-/* @media (width: 768px) {
-  .nav-elements .nav-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50% !important;
-  }
-} */
-
 @media (max-width: 767px) {
   .container, .container-md, .container-sm {
     max-width: 694px;
@@ -1144,7 +1211,7 @@ footer {
     display: flex;
   }
   #navbarNavAltMarkup {
-    width: 180px !important;
+    width: 150px !important;
     background: rgba(254, 254, 254, 1);
     border: 1px solid #22222230;
     border-radius: 16px;
@@ -1157,7 +1224,7 @@ footer {
     height: 100%;
     width: 190px !important;
     height: fit-content;
-    padding: 0.7rem 0.8rem !important;
+    padding: 0.7rem !important;
   }
   .navbar-collapse .nav-buttons {
     display: flex !important;
@@ -1183,10 +1250,11 @@ footer {
     gap: 0.4rem;
     height: 35px;
     width: 100% !important;
-    padding: 0.2rem 0.5rem;
+    padding: 0rem 0.5rem;
     font-size: 13.5px !important;
     font-weight: 500;
     border-radius: 8px !important;
+    margin-top: 0;
   }
   .watchlist-btn a {
     width: 100% !important;
@@ -1199,6 +1267,7 @@ footer {
     font-family: inherit;
     font-weight: 500;
     margin-inline: 0.3rem;
+    font-size: 12px;
   }
   .watchlist-btn a, .login-btn a, .logout-tag {
     justify-content: start !important;
@@ -1217,14 +1286,8 @@ footer {
     content: "My stays";
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 600;
-    font-size: 13.4px;
-    margin-left: 0.6rem;
-  }
-  .watchlist-btn span::before {
-    content: "See";
-    font-family: inherit;
-    font-weight: 500;
-    margin-inline: 0.3rem;
+    font-size: 12px;
+    margin-left: 0.65rem;
   }
 
   .nav-hr-tag {
@@ -1249,18 +1312,20 @@ footer {
     font-family: inherit;
     font-weight: 500;
     margin-left: 0.3rem;
+    font-size: 12px;
   }
   .logout-tag span::before {
     content: "\f08b";
     font-family: "Font Awesome 6 Free";
     font-weight: 600;
     margin-right: 0.6rem;
+    font-size: 10px;
   }
   .createListing span , .createListing i, .watchlist-btn span, .watchlist-btn i {
     color: #212529b2 !important;
   }
   .createListing:hover, .watchlist-btn:hover, .login-btn:hover, .logout-btn:hover {
-    background-color: #2125293a !important;
+    background-color: #49505726 !important;
     color: #000000d8 !important;
   }
   .createListing:hover span {
@@ -1292,7 +1357,9 @@ footer {
 }
 
 @media (max-width: 576px) {
-
+  .alert-success, .alert-danger {
+    top: 11.5%;
+  }
   #navbarNavAltMarkup {
     position: absolute;
     top: 0;
@@ -1323,6 +1390,8 @@ footer {
 
   .createListing, .watchlist-btn, .login-btn, .logout-btn {
     height: 50px;
+    font-size: 13px !important;
+    font-weight: 500;
   }
   .createListing a {
     height: 100%;
@@ -1332,7 +1401,7 @@ footer {
   .watchlist-btn a i {
     height: 100%;
     width: 100%;
-    padding-block: calc(0.77rem - -2px) !important;
+    padding-block: calc(0.77rem - -5px) !important;
   }
 
   .createListing:active, .watchlist-btn:active, .createListing:hover, .watchlist-btn:hover {
@@ -1355,7 +1424,7 @@ footer {
   .logout-tag span {
     width:100%;
     height:100%;
-    padding-block: calc(0.77rem - 1px);
+    padding-block: calc(0.77rem - -1px);
   }
 
   .login-btn a, .logout-tag {
@@ -1428,6 +1497,9 @@ footer {
 }
 
 @media (max-width:424px) {
+    #navbarNavAltMarkup {
+      padding: 1rem 0.5rem !important;
+    }
   .map-container .maps-card h4 {
     display: none;
   }

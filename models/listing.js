@@ -14,12 +14,12 @@ const listingSchema = new Schema({
     },
     propertyType: {
         type: String,
-        // required: true,
+        required: true,
         enum: [
-            "hotel",
-            "house",
-            "flat",
-            "guest house"
+            "Hotel",
+            "House",
+            "Flat",
+            "Guest House"
         ]
     },
     image: {

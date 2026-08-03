@@ -159,3 +159,23 @@ Wanderlust Hotels Team`;
     console.log("sendBookEmailError: ", e);
   }
 }
+
+module.exports.sendRefundEmail = async (refund, booking) => {
+  try{
+    const subject = `Refund Processed - Ref #${booking._id}`;
+    const text = `Hi ${booking.listing.name},
+We have initiated your refund for booking reference ${booking._id}. The amount of ₹${booking.listing.price + 500} will be credited back to your original payment method.
+Please allow 5–7 business days for the refund to reflect in your account.
+Wanderlust Hotels Team`;
+
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: booking.email,
+      subject,
+      text,
+    });
+    
+  } catch (e) {
+    console.log("sendRefundEmailError: ", e);
+  }
+}

@@ -1,12 +1,13 @@
 require("dotenv").config();
+const KEY_ID = process.env.RAZORPAY_KEY_ID;
+const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
+
 const Razorpay = require("razorpay");
 const Listing = require("../models/listing");
 const Booking = require("../models/booking");
 const {v4: uuidv4} = require("uuid");
 const crypto = require("crypto");
 
-const KEY_ID = process.env.RAZORPAY_KEY_ID;
-const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
 const razorpay = new Razorpay({ key_id: KEY_ID, key_secret: KEY_SECRET })
 const {sendBookingEmail, sendReceiptEmail, sendBookingAbandonEmail} = require("../utils/mails.js");
 
@@ -121,3 +122,36 @@ module.exports.markFailure = async (req, res) => {
   req.flash("error", "Payment was Unsuccessfull")
   res.json({ success: true });
 }
+
+module.exports.createRefund = async (req, res) => {
+    
+    const booking = await Booking.findOne({
+        listing: req.params.id,
+        user: req.user._id,
+        status: "confirmed"
+    }).populate("listing").sort({ createdAt: -1 }).lean();
+    
+    if (!booking) {
+        return res.status(404).json({ success: false, error: "Booking not found" });
+    }
+
+    try {
+
+        const refund = await razorpay.payments.refund(booking.payment_id, {
+            notes: { reason: "Booking cancelled" }
+        });
+        console.log("Refund: ", refund);
+        
+        if (refund.status === "initiated") {
+            await Booking.findByIdAndUpdate(booking._id, { status: "cancelled" });
+            await sendRefundEmail(refund, booking);
+            req.flash("success", "Booking Cancelled and Refund Initiated");
+            res.json({ success: true, refund });
+        }
+
+
+    } catch (err) {
+            console.error("Refund error:", err);
+            res.status(500).json({ success: false, error: err.message });
+    }
+};

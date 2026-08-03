@@ -6,5 +6,6 @@ const paymentsController = require("../controllers/payment.js");
 router.post("/mark-failed", wrapAsync(paymentsController.markFailure));
 router.post("/:id/create-order", wrapAsync(paymentsController.createOrder));
 router.post("/:id/verify-payment", wrapAsync(paymentsController.verifyPayment));
+router.post("/:id/create-refund", wrapAsync(paymentsController.createRefund));
 
 module.exports = router;

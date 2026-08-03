@@ -35,17 +35,19 @@
                   <i class="fa-solid fa-xmark"></i>
               </button>
 
-              <div class="createListing rounded-pill">
+              <div class="d-md-flex align-items-center justify-content-end w-100 gap-md-4">
+                <div class="createListing rounded-pill">
                 <a class="nav-link d-flex justify-content-center align-items-center gap-1 h-100" href="/listings/new">
-                  <i class="fa-solid fa-house-circle-check" style="color: #fff; font-size: 12px; padding-top: 2px;"></i>
-                  <span>home</span>
+                  <i class="fa-solid fa-house-circle-check" style="color: #fff; font-size: 10px; padding-top: 2px;"></i>
+                  <span style="font-size: 12px;">home</span>
                 </a>
               </div>
 
               <div class="watchlist-btn rounded-circle">
                 <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100" href="listings/savedlistings">
-                  <i class="fa-regular fa-bookmark" style="color: #fff; font-size: 12px; padding-top: 2px;"></i>
+                  <i class="fa-regular fa-bookmark" style="color: #fff; font-size: 10px; padding-top: 2px;"></i>
                 </a>
+              </div>
               </div>
 
               <hr class="nav-hr-tag">
@@ -53,13 +55,13 @@
               <% if(!currUser) { %>
                 <div class="login-btn rounded-pill">
                   <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100" href="/login">
-                    <span class="fw-semibold" style="font-size: 13px; width: 100%; text-align: left;">Login</span>
+                    <span class="fw-semibold" style="font-size: 12px; width: 100%; text-align: left;">Login</span>
                   </a>
                 </div>
               <% } else { %>
                 <div class="logout-btn rounded-pill">
                   <a class="nav-link d-flex justify-content-center align-items-center h-100 w-100 logout-tag" href="/logout">
-                    <span class="fw-semibold" style="font-size: 13px;">Logout</span>
+                    <span class="fw-semibold" style="font-size: 12px;">Logout</span>
                   </a>
                 </div>
               <% } %>
@@ -226,6 +228,15 @@
         if (value > MIN) input.value = value - 1;
       });
     }); 
+  });
+
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
   });
 
 </script>
