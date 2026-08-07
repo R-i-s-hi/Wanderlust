@@ -1,54 +1,195 @@
-<% layout("/layouts/boilerplate") -%>
-<body>
-    <div class="row mt-4">
-        <div class="col-8 offset-2" style="color: #212529; font-weight: 700;">
-            <h3 style="color: #373032; font-weight: 700; margin-bottom: 2rem;">Edit your Listing: </h3>
+<% layout("/layouts/boilerplate") -%>  
+    <div class="d-flex justify-content-between align-items-start edit-main-container">
+        <div class="w-100" style="color: #212529; font-weight: 700;">
+            <h3 style="color: #373032; font-weight: 700; margin-bottom: 2rem;">Edit your Property </h3>
             <form class="edit-form mb-5" method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
-                <div class="col mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" class="form-control" required>
-                    <div class="valid-feedback">Title looks good!</div>
-                </div>
-                <div class="col mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea style="font-size: 13.5px; font-weight: 500; color: #222222d9;" id="description" name="listing[description]" class="form-control" required><%= listing.description %></textarea>
-                    <div class="invalid-feedback">Please enter a description!</div>
-                </div>
-                <div class="col mb-3">
-                    Original Image <br>
-                    <img src="<%= originalImageUrl %>" alt="current-image" style="height: 200px; width: 200px;">
-                </div>
-                <div class="col mb-3">
-                    <label for="url" class="form-label">Upload Image</label>
-                    <input type="file" id="url" name="listing[image]" class="form-control">
-                </div>
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="price" class="form-label">Price</label>
-                        <input type="number" id="price" name="listing[price]" value="<%= listing.price %>" class="form-control" required>
-                        <div class="invalid-feedback">Price should be valid!</div>
-                    </div>
-                    <div class="col-md-8 mb-3">
-                        <label for="country" class="form-label">Country</label>
-                        <input type="text" id="country" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
-                        <div class="invalid-feedback">Country name should be valid!</div>
-                    </div>
-                </div>
-                <div class="col mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input type="text" id="location" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
-                    <div class="invalid-feedback">Location should be valid!</div>
-                </div>
-                <button class="btn btn-dark mb-3 mt-4 edit-btn">Edit</button>
-                <a href="/listings" class="nav-link">
+                <div class="accordion" id="accordionExample">
+                    
+                    <div class="accordion-item mb-3 property-container" style="border-radius: 13px;">
+                        <h2 class="accordion-header">
+                            <span class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="fa-solid fa-pen" style="font-size: 12px; margin-right: 0.5rem !important;"></i>
+                                <span>Basic Information</span>
+                            </span>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div class="accordion-body p-4">
+                                <div class="row mb-3 g-3">
+                                    <div class="col-md-6">
+                                        <label for="title" class="form-label">Title</label>
+                                        <input type="text" name="listing[title]" id="title" value="<%= listing.title %>" class="form-control" required>
+                                        <div class="valid-feedback">Title looks good!</div>
+                                    </div>
+                                    <div class="col-md-6 d-md-none d-block">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea style="font-size: 13.5px; font-weight: 500; color: #222222d9; min-width: auto !important;" id="description" name="listing[description]" class="form-control" rows="4" required><%= listing.description %></textarea>
+                                        <div class="invalid-feedback">Please enter a description!</div>
+                                    </div>
+                                    <div class="col-md-6 d-md-block d-none">
+                                        <label for="url" class="form-label">Upload Image</label>
+                                        <input type="file" id="url" name="listing[image]" class="form-control">
+                                    </div>
+                                </div>
 
-                    <button class="btn btn-outline-dark mb-3 w-100 d-flex justify-content-center align-items-center gap-2" style="font-size: 13.5px; font-weight: 500;">
-                        <i class="fa-solid fa-arrow-left mt-1"></i>
-                        <span>Go Back</span>
-    
+                                <div class="row g-3">
+                                    <div class="col-md-6 d-md-block d-none">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea style="font-size: 13.5px; font-weight: 500; color: #222222d9; min-width: auto !important;" id="description" name="listing[description]" class="form-control" rows="4" required><%= listing.description %></textarea>
+                                        <div class="invalid-feedback">Please enter a description!</div>
+                                    </div>
+                                    <div class="col-md-6 d-md-none d-block">
+                                        <label for="url" class="form-label">Upload Image</label>
+                                        <input type="file" id="url" name="listing[image]" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="fw-medium" style="font-size: 14px;">Original Image</span><br>
+                                        <img src="<%= originalImageUrl %>" alt="current-image" style="height: 100px; margin-top: 8px;     border-radius: 8px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-3 amenities-container" style="border-radius: 13px; border-top: 1px solid #cfd3d1;">
+                        <h2 class="accordion-header">
+                            <span class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <i class="fa-solid fa-tag" style="font-size: 12px; margin-right: 0.5rem !important;"></i>
+                                <span>Price and Location</span>
+                            </span>
+                        </h2>
+
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body p-4">
+
+                                <div class="row mb-3 g-3">
+                                    <div class="col-md-6">
+                                        <label for="country" class="form-label">Country</label>
+                                        <input type="text" id="country" name="listing[country]" value="<%= listing.country %>" class="form-control" required>
+                                        <div class="invalid-feedback">Country name should be valid!</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="location" class="form-label">Location</label>
+                                        <input type="text" id="location" name="listing[location]" value="<%= listing.location %>" class="form-control" required>
+                                        <div class="invalid-feedback">Location should be valid!</div>
+                                    </div>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="contactInfo" class="form-label">Contact Info</label>
+                                        <input class="form-control" type="tel" value="<%= listing.contactInfo %>" name="listing[contactInfo]" id="contactInfo" maxlength="10" inputmode="numeric" pattern="\d{10}" required>
+                                        <div class="invalid-feedback">Contact info should be valid!</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="price" class="form-label">Price</label>
+                                        <input class="form-control" type="tel" value="<%= listing.price %>" name="listing[price]" id="price" maxlength="10" inputmode="numeric" pattern="\d{1, 10}" required>
+                                        <div class="invalid-feedback">Price should be valid!</div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="capacity" class="form-label">Guest Capacity</label>
+                                        <input class="form-control" type="tel" value="<%= listing.guest_Capacity %>" name="listing[guest_Capacity]" id="capacity" maxlength="1" inputmode="numeric" pattern="\d{1}" required>
+                                        <div class="invalid-feedback">GuestCapacity should be valid!</div>
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-3 property-container" style="border-radius: 13px; border-top: 1px solid #cfd3d1;">
+                        
+                        <h2 class="accordion-header">
+                            <span class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <i class="fa-solid fa-tent-arrow-left-right" style="font-size: 12px; margin-right: 0.5rem !important;"></i>
+                                <span>Property Type</span>
+                            </span>
+                        </h2>
+
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body p-0">
+                                <div id="propertyTypeDropdown">
+                                    <ul class="rounded-4 p-3">
+                                        <% const propertyTypes = ["Hotel", "House", "Flat", "Guest House", "Other"]; %>
+                                        <% propertyTypes.forEach(property => { %>
+                                            <li class="item <%= listing.propertyType === property ? 'selected' : ''  %>">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="listing[propertyType]" value="<%= property %>" id="<%= property %>" <%= listing.propertyType === property ? 'checked' : '' %> >
+                                                    <label class="form-check-label" for="<%= property %>"><%= property %></label>
+                                                </div>
+                                            </li>
+                                        <% }) %>    
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="accordion-item amenities-container" style="border-radius: 13px; border-top: 1px solid #cfd3d1;">
+                        <h2 class="accordion-header">
+                            <span class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <i class="fa-solid fa-wine-glass" style="font-size: 12px; margin-right: 0.5rem !important;"></i>
+                                <span>Amenities</span>
+                            </span>
+                        </h2>
+
+                        <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="accordion-body p-0">
+                                <div id="amenitiesDropdown">
+                                    <ul class="rounded-4 p-3">
+                                        <% const amenities = ["WiFi", "Swimming Pool", "Mountains & Hills", "Air Conditioning", "Beach & Tent", "Lake & Rivers", "Boat house"]; %>
+                                        <% amenities.forEach(amenity => { %>
+                                            <li class="item2 <%= listing.amenities.includes(amenity) ? 'selected' : ''  %>">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="listing[amenities][]" value="<%= amenity %>" id="<%= amenity %>" <%= listing.amenities.includes(amenity) ? 'checked' : '' %> >
+                                                    <label class="form-check-label" for="<%= amenity %>"><%= amenity %></label>
+                                                </div>
+                                            </li>
+                                        <% }) %> 
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>  
+
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center my-3">
+            
+                    <button class="btn btn-outline-dark d-flex justify-content-center align-items-center gap-2 HomeBtn" type="button" onclick="() => {window.location.href = '/listing' }">
+                        <i class="fa-solid fa-arrow-left" style="font-size: 12px;"></i>
+                        <span>Back</span>
                     </button>
-                </a>
+                    
+                    <button class="btn btn-dark edit-btn rounded-pill" type="submit">Save changes</button>
+                </div>
             </form>
         </div>
+        
+        <img class="d-lg-flex d-none" src="/images/edit.gif" alt="..." style="width: 35%; min-width: 30%; max-width: auto;">
     </div>
-</body>
+
+
+<script>
+function enforceDigits(id, maxLength) {
+  const input = document.getElementById(id);
+  input.addEventListener("input", e => {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, maxLength);
+  });
+}
+enforceDigits("contactInfo", 10);
+enforceDigits("capacity", 1);
+enforceDigits("price", 10);
+
+ document.querySelectorAll("#propertyTypeDropdown .item").forEach(li => {
+        li.addEventListener("click", () => {
+            document.querySelectorAll("#propertyTypeDropdown .item").forEach(el => el.classList.remove("selected"));
+            li.classList.add("selected");
+        });
+    });
+
+    document.querySelectorAll("#amenitiesDropdown .item2").forEach(li => {
+        li.addEventListener("click", () => {
+            li.classList.toggle("selected");
+        });
+    });
+</script>

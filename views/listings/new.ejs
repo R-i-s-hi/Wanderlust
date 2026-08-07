@@ -1,107 +1,308 @@
 <% layout("/layouts/boilerplate") -%>
 <div class="d-flex justify-content-between align-items-center gap-5" style="padding-inline: 0.5rem; padding-top: 13px; margin-bottom: 4rem;">
     <div class="create-img-container">
-        <a href="/listings" class="nav-link" style="margin-top: -75px;">
-            <i class="fa-solid fa-arrow-left mt-1"></i>
+        <a href="/listings" class="nav-link" style="margin-top: 40px;">
+            <i class="fa-solid fa-arrow-left mt-1" style="font-size: 13px; background: #f2f2f2; padding: 0.5rem 0.54rem; border-radius: 17px; border: 1px solid #deece3;"></i>
         </a>
         <img class="createlisting-img" src="/images/createlisting_img.gif" style="min-width: 424px;" />
     </div>
 
     <div class="d-flex flex-column flex-fill gap-3">
-        <div class="mt-4" style="color: #212529; font-weight: 700;">
-            <h3 style="color: #373032; font-weight: 700;">Add Your Property</h3><br>
-            <form method="POST" action="/listings" novalidate class="needs-validation create-form" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input type="text" class="form-control" name="listing[title]" id="title" required>
-                    <div class="valid-feedback">Title looks good!</div>
-                    <div class="invalid-feedback">Title looks bad!</div>
+        <div class="mt-0 mt-md-4" style="color: #212529; font-weight: 700; padding-top: 2rem;">
+            
+            <div class="step-info d-flex justify-content-between align-items-center gap-3" style="flex-shrink: 0; min-width: 200px;">
+                <div class="step-num">
+                    <p class="fw-semibold" style="color: #212529; font-size: 13px; margin-bottom: 0.5rem;">
+                        Step 1 of 3
+                    </p>
+                    <p class="fw-semibold d-none" style="color: #212529; font-size: 13px; margin-bottom: 0.5rem;">
+                        Step 2 of 3
+                    </p>
+                    <p class="fw-semibold d-none" style="color: #212529; font-size: 13px; margin-bottom: 0.5rem;">
+                        Step 3 of 3
+                    </p>
                 </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" name="listing[description]" id="description" required></textarea>
-                    <div class="invalid-feedback">Please enter a description!</div>
+                <div class="step-progress">
+                    <p class="fw-semibold" style="color: #212529; font-size: 13px; margin-bottom: 0.5rem;">
+                        30% Complete
+                    </p>
+                    <p class="fw-semibold d-none" style="color: #212529; font-size: 13px; margin-bottom: 0.5rem;">
+                        50% Complete
+                    </p>
+                    <p class="fw-semibold d-none" style="color: #212529; font-size: 13px; margin-bottom: 0.5rem;">
+                        100% Complete
+                    </p>
                 </div>
-                <div class="mb-3">
-                    <label for="url" class="form-label">Upload Image</label>
-                    <input style="font-size: small; color: #212529b3;" class="form-control fw-medium" type="file" name="listing[image]" id="url" required>
+            </div>
+
+            <div class="progress mb-4">
+                <div class="progress-bar" role="progressbar" style="width: 33%;">
                 </div>
-                <div class="row">
-                    <div class="mb-3 col-md-4">
-                        <label for="price" class="form-label">Price</label>
-                        <input class="form-control" type="number" name="listing[price]" id="price" required>
-                        <div class="invalid-feedback">Price should be valid!</div>
+            </div>
+            <form method="POST" action="/listings" id="multiStepForm" novalidate class="needs-validation create-form" enctype="multipart/form-data">
+
+                <div class="form-step">
+
+                    <h4 style="text-align: center; font-weight: 700; margin-block: 2rem;">1. Basic Information</h4>
+                    <div class="row">
+
+                        <div class="mb-3 col-12">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" name="listing[title]" id="title" required>
+                            <div class="valid-feedback">Title looks good!</div>
+                            <div class="invalid-feedback">Title looks bad!</div>
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" name="listing[description]" id="description" required></textarea>
+                            <div class="invalid-feedback">Please enter a description!</div>
+                        </div>
+                        <div class="mb-3 col-12">
+                            <label for="url" class="form-label">Upload Image</label>
+                            <input style="font-size: small; color: #212529b3;" class="form-control fw-medium" type="file" name="listing[image]" id="url" required>
+                        </div>
                     </div>
-                    <div class="mb-3 col-md-8">
+                    <div class="d-flex justify-content-end w-100">
+                        <button class="btn btn-primary createFormNextBtn" type="submit" name="next" value="2">Next Step</button>
+                    </div>
+                </div>
+
+                <div class="form-step d-none">
+
+                    <h4 style="text-align: center; font-weight: 700; margin-block: 2rem;">2. Price and Location</h4>
+                    <div class="mb-3">
                         <label for="country" class="form-label">Country</label>
                         <input class="form-control" type="text" name="listing[country]" id="country" required>
                         <div class="invalid-feedback">Country name should be valid!</div>
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <input class="form-control" type="text" name="listing[location]" id="location" required>
-                    <div class="invalid-feedback">Location should be valid!</div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Amenities</label>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary rounded-pill fw-semibold dropdown-toggle" type="button" style="font-size: 13px;" data-bs-toggle="dropdown">
-                            Select Amenities
-                        </button>
-                        <ul class="dropdown-menu rounded-4 p-3" style="min-width: 250px;">
-                        <li>
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="amenities" value="WiFi" id="wifiDropdown">
-                            <label class="form-check-label" for="wifiDropdown">WiFi</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="amenities" value="Swimming Pool" id="poolDropdown">
-                            <label class="form-check-label" for="poolDropdown">Swimming Pool</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="amenities" value="Mountains & Hills" id="Mountain&HillsDropdown">
-                            <label class="form-check-label" for="Mountain&HillsDropdown">Mountains & Hills</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="amenities" value="Air Conditioning" id="ACDropdown">
-                            <label class="form-check-label" for="ACDropdown">Air Conditioning</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="amenities" value="Beach & Tent" id="B&TDropdown">
-                            <label class="form-check-label" for="B&TDropdown">Beach & Tent</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="amenities" value="Lake & Rivers" id="L&RDropdown">
-                            <label class="form-check-label" for="L&RDropdown">Lake & Rivers</label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="amenities" value="Boat house" id="BHDropdown">
-                            <label class="form-check-label" for="BHDropdown">Boat house</label>
-                            </div>
-                        </li>
-                        </ul>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input class="form-control" type="text" name="listing[location]" id="location" required>
+                        <div class="invalid-feedback">Location should be valid!</div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-4">
+                            <label for="contactInfo" class="form-label">Contact Info</label>
+                            <input class="form-control" type="tel" name="listing[contactInfo]" id="contactInfo" maxlength="10" inputmode="numeric" pattern="\d{10}" required>
+                            <div class="invalid-feedback">Contact info should be valid!</div>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="price" class="form-label">Price</label>
+                            <input class="form-control" type="tel" name="listing[price]" id="price" maxlength="10" inputmode="numeric" pattern="\d{1, 10}" required>
+                            <div class="invalid-feedback">Price should be valid!</div>
+                        </div>
+                        <div class="mb-3 col-md-4">
+                            <label for="capacity" class="form-label">Guest Capacity</label>
+                            <input class="form-control" type="tel" name="listing[guest_Capacity]" id="capacity" maxlength="1" inputmode="numeric" pattern="\d{1}" required>
+                            <div class="invalid-feedback">GuestCapacity should be valid!</div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="d-flex justify-content-between w-100">
+                        <button class="btn btn-secondary createFormPrevBtn" type="submit" name="prev" value="1">previous</button>
+                        <button class="btn btn-primary createFormNextBtn" type="submit" name="next" value="3">Next Step</button>
                     </div>
                 </div>
 
-                <div class="create-form-btns d-flex justify-content-start gap-3">
-                    <button class="btn btn-dark mb-3 add-btn">Add property</button>
-                    <a class="btn btn-outline-secondary" href="/listings">Go back</a>
-                </div>
+                <div class="form-step d-none">
 
+                    <h4 style="text-align: center; font-weight: 700; margin-block: 2rem;">3. Property Details</h4>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item mb-3 property-container" style="border-radius: 13px;">
+                            <h2 class="accordion-header">
+                                <span class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="fa-solid fa-tent-arrow-left-right" style="font-size: 12px; margin-right: 0.5rem !important;"></i>
+                                    <span>Property Type</span>
+                                </span>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                                <div class="accordion-body p-0">
+                                    <div id="propertyTypeDropdown">
+                                        <ul class="rounded-4 p-3">
+                                            <li class="item">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="listing[propertyType]" value="Hotel" id="Hotel">
+                                                <label class="form-check-label" for="Hotel">Hotel</label>
+                                                </div>
+                                            </li>
+                                            <li class="item">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="listing[propertyType]" value="House" id="House">
+                                                <label class="form-check-label" for="House">House</label>
+                                                </div>
+                                            </li>
+                                            <li class="item">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="listing[propertyType]" value="Flat" id="Flat">
+                                                <label class="form-check-label" for="Flat">Flat</label>
+                                                </div>
+                                            </li>
+                                            <li class="item">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="listing[propertyType]" value="Guest House" id="Guest House">
+                                                <label class="form-check-label" for="Guest House">Guest House</label>
+                                                </div>
+                                            </li>
+                                            <li class="item">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="listing[propertyType]" value="Other" id="Other">
+                                                <label class="form-check-label" for="Other">Other</label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item amenities-container" style="border-radius: 13px; border-top: 1px solid #cfd3d1;">
+                            <h2 class="accordion-header">
+                                <span class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <i class="fa-solid fa-wine-glass" style="font-size: 12px; margin-right: 0.5rem !important;"></i>
+                                    <span>Amenities</span>
+                                </span>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                                <div class="accordion-body p-0">
+                                    <div id="amenitiesDropdown">
+                                        <ul class="rounded-4 p-3">
+                                            <li class="item2">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="listing[amenities][]" value="WiFi" id="wifiDropdown">
+                                                <label class="form-check-label" for="wifiDropdown">WiFi</label>
+                                                </div>
+                                            </li>
+                                            <li class="item2">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="listing[amenities][]" value="Swimming Pool" id="poolDropdown">
+                                                <label class="form-check-label" for="poolDropdown">Swimming Pool</label>
+                                                </div>
+                                            </li>
+                                            <li class="item2">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="listing[amenities][]" value="Mountains & Hills" id="Mountain&HillsDropdown">
+                                                <label class="form-check-label" for="Mountain&HillsDropdown">Mountains & Hills</label>
+                                                </div>
+                                            </li>
+                                            <li class="item2">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="listing[amenities][]" value="Air Conditioning" id="ACDropdown">
+                                                <label class="form-check-label" for="ACDropdown">Air Conditioning</label>
+                                                </div>
+                                            </li>
+                                            <li class="item2">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="listing[amenities][]" value="Beach & Tent" id="B&TDropdown">
+                                                <label class="form-check-label" for="B&TDropdown">Beach & Tent</label>
+                                                </div>
+                                            </li>
+                                            <li class="item2">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="listing[amenities][]" value="Lake & Rivers" id="L&RDropdown">
+                                                <label class="form-check-label" for="L&RDropdown">Lake & Rivers</label>
+                                                </div>
+                                            </li>
+                                            <li class="item2">
+                                                <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="listing[amenities][]" value="Boat house" id="BHDropdown">
+                                                <label class="form-check-label" for="BHDropdown">Boat house</label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>           
+
+                    <div class="create-form-btns d-flex justify-content-between w-100">
+                        <button class="btn btn-secondary createFormPrevBtn px-0" type="submit" name="prev" value="2">previous</button>
+                        <button class="btn btn-dark mb-3 add-btn">Add property</button>
+                    </div>
+                </div>  
+                
             </form>
         </div>
     </div>
 </div>
+
+<script>
+function enforceDigits(id, maxLength) {
+  const input = document.getElementById(id);
+  input.addEventListener("input", e => {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, maxLength);
+  });
+}
+enforceDigits("contactInfo", 10);
+enforceDigits("capacity", 1);
+enforceDigits("price", 10);
+
+    const steps = document.querySelectorAll(".form-step");
+    const progressBar = document.querySelector(".progress-bar");
+    const stepInfo = document.querySelectorAll(".step-info .step-num p");
+    const stepProgressInfo = document.querySelectorAll(".step-info .step-progress p");
+    let currentStep = 0;
+
+
+    const progressValues = [30, 50, 100];
+
+    function showStep(step) {
+        steps.forEach((s, i) => s.classList.toggle("d-none", i !== step));
+        stepInfo.forEach((info, i) => info.classList.toggle("d-none", i !== step));
+        stepProgressInfo.forEach((info, i) => info.classList.toggle("d-none", i !== step));
+        progressBar.style.width = progressValues[step] + "%";
+    }
+
+    // Validate all inputs in the current step
+    function validateStep(step) {
+        const inputs = steps[step].querySelectorAll("input, textarea, select");
+        for (let input of inputs) {
+            if (!input.checkValidity()) {
+                input.reportValidity(); // show browser validation message
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Next buttons
+    document.querySelectorAll("button[name='next']").forEach(btn => {
+        btn.type = "button"; // prevent form submit
+        btn.addEventListener("click", () => {
+            // if (validateStep(currentStep)) {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    showStep(currentStep);
+                }
+            // }
+        });
+    });
+
+    // Back buttons
+    document.querySelectorAll("button[name='prev']").forEach(btn => {
+        btn.type = "button";
+        btn.addEventListener("click", () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        });
+    });
+
+    // Initialize
+    showStep(currentStep);
+
+    document.querySelectorAll("#propertyTypeDropdown .item").forEach(li => {
+        li.addEventListener("click", () => {
+            document.querySelectorAll("#propertyTypeDropdown .item").forEach(el => el.classList.remove("selected"));
+            li.classList.add("selected");
+        });
+    });
+
+    document.querySelectorAll("#amenitiesDropdown .item2").forEach(li => {
+        li.addEventListener("click", () => {
+            li.classList.toggle("selected");
+        });
+    });
+
+</script>

@@ -1,37 +1,43 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./review.js");
-const { required } = require("joi");
 
 const listingSchema = new Schema({
     title:{ 
         type: String,
-        required: true,
+        required: true
     },
     description:{ 
         type: String,
-        required: true,
+        required: true
     },
     propertyType: {
         type: String,
-        required: true,
         enum: [
             "Hotel",
             "House",
             "Flat",
-            "Guest House"
-        ]
+            "Guest House",
+            "Other"
+        ],
+        required: true
     },
     image: {
-        url: String,
-        filename: String,
+        url: { type: String, required: true },
+        filename: { type: String, required: true }
     },
     price: { 
         type: Number,
-        required: true,
+        required: true
     },
     guest_Capacity: {
         type: Number,
+        required: true
+    },
+    contactInfo: {
+        type: Number,
+        maxlength: 10,
+        minlength: 10,
         required: true
     },
     // interiorInfo: {
@@ -62,11 +68,17 @@ const listingSchema = new Schema({
     // },
     location:{ 
         type: String,
-        required: true,
+        required: true
     },
     country:{ 
         type: String,
-        required: true,
+        required: true
+    },
+    contactInfo: {
+        type: Number,
+        maxlength: 10,
+        minlength: 10,
+        required: true
     },
     reviews: [
         {
@@ -78,24 +90,22 @@ const listingSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
     },
-    amenities: [
-        {
-            type: String,
-            enum: [
-                "WiFi",
-                "Swimming Pool",
-                "Air Conditioning",
-                "Mountains & Hills",
-                "Beach & Tent",
-                "Lake & Rivers",
-                "Boat House",
-                "Personal Bar",
-                "Guest Favourite",
-                "Saved"
-            ],
-            default: []
-        }
-    ],
+    amenities: {
+        type: [String],
+        enum: [
+            "WiFi",
+            "Swimming Pool",
+            "Air Conditioning",
+            "Mountains & Hills",
+            "Beach & Tent",
+            "Lake & Rivers",
+            "Boat House",
+            "Personal Bar",
+            "Guest Favourite",
+            "Saved"
+        ],
+        required: true
+    },
     geometry: {
         type: {
             type: String,

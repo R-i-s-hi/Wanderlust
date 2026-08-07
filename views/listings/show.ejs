@@ -2,7 +2,7 @@
 
     <div class="d-flex justify-content-center">
         <div class="listing-single-card">
-            <div class="d-flex flex-lg-row flex-column justify-content-start justify-content-lg-between gap-4 position-relative" style="padding-top: 3rem;">
+            <div class="d-flex flex-lg-row flex-column justify-content-start justify-content-lg-between gap-4 position-relative" id="show-hero-container" style="padding-top: 3rem;">
                 <div class="single-card-img-overlay">
                     <a href="/listings" class="home-link nav-link d-flex justify-content-start align-items-center gap-1 mb-1 mt-4 position-absolute">
                         <i class="fa-solid fa-angle-left"></i>
@@ -18,18 +18,41 @@
                             <h3 class="mb-0" style="color: #373032; font-weight: 700; max-width: 381px;"><%= listing.title %></h3>
                             <p class="card-text" style="font-size: 10px;"><i> Owned by @<%= listing.owner.username %></i></p>
                         </div>
-                        <div class=""> 
+                        <div> 
                             <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
-                                <div class="btns">
+                                <div class="btns change-listing-btns">
                                     <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">
-                                        <i class="fa-solid fa-highlighter"></i>
+                                        <i class="fa-solid fa-pen"></i>
                                     </a>
                                     <div class="vr my-1"></div>
-                                    <form class="delete-form" method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-                                        <button class="btn del-btn">
-                                            <i class="fa-regular fa-trash-can"></i>
-                                        </button>
-                                    </form>
+
+                                    <button type="button" class="btn del-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered ">
+                                        <div class="modal-content mx-3 rounded-4">
+                                            <div class="modal-header d-flex">
+                                                <h4 class="modal-title flex-fill text-center" id="staticBackdropLabel" style="font-size: 1.2rem;">Delete Property</h4>
+                                                <button type="button" class="btn-close" style="font-size: 10px;" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body fw-medium" style="padding-block: 2rem 3rem !important; text-align: center;">
+                                                Are you sure you want to delete this property?
+                                            </div>
+                                            
+                                            <div class="modal-footer border-0" style="box-shadow: 0px -4px 18px 2px rgba(128, 128, 128, 0.194);">
+                                                <button type="button" class="btn px-2" id="cancelSearchButton" data-bs-dismiss="modal">Cancel</button>
+                                                <form class="delete-form" method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+                                                    <button class="btn modal-delete-btn">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                             <% } %>
                         </div>
@@ -47,7 +70,7 @@
                                     About
                                 </span>
                             </p>
-                            <p class="card-text" style="max-width: 400px;"><%= listing.description %></p>
+                            <p class="card-text" id="description"><%= listing.description %></p>
                         </div>
                         
                         <div class="">

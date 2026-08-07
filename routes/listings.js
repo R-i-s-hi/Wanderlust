@@ -12,10 +12,18 @@ const upload = multer({storage});
 
 router.route("/")
     .get(wrapAsync(listingController.index)) // index route
-    .post(isLoggedIn, upload.single("listing[image]"),  (req, res, next) => {
-        req.body.listing.price = Number(req.body.listing.price); 
-        next();
-     }, validateListing, wrapAsync(listingController.create)); //create route
+    .post(
+        isLoggedIn,
+        upload.single("listing[image]"),
+        (req, res, next) => {
+            req.body.listing.price = Number(req.body.listing.price); 
+            req.body.listing.guest_Capacity = Number(req.body.listing.guest_Capacity);
+            req.body.listing.contactInfo = Number(req.body.listing.contactInfo);
+            next();
+        },
+        validateListing,
+        wrapAsync(listingController.create)
+    ); //create route
 
 router.get("/savedlistings", isLoggedIn, listingController.savedListings)
 

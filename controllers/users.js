@@ -1,11 +1,9 @@
 const User = require("../models/user.js");
 
-// sign up
-// get
 module.exports.signUpPg = (req, res) => {
     res.render("users/signup.ejs");
 };
-// post
+
 module.exports.signUpPost = async (req, res, next) => {
     try {
         let {username, email, password} = req.body;
@@ -26,19 +24,16 @@ module.exports.signUpPost = async (req, res, next) => {
     }
 };
 
-// login
-// get
 module.exports.loginPg = (req, res) => {
     res.render("users/login.ejs");
 };
-// post
+
 module.exports.loginPost =  async (req, res) => {
     req.flash("success", "Welcome back to Wanderlust");
     let redirectUrl = res.locals.redirectUrl || "/listings";
     res.redirect(redirectUrl);
 };
 
-// logout
 module.exports.logOut = (req, res, next) => {
     req.logout((err) => {
         if(err) {
