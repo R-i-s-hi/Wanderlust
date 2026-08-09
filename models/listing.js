@@ -34,12 +34,6 @@ const listingSchema = new Schema({
         type: Number,
         required: true
     },
-    contactInfo: {
-        type: Number,
-        maxlength: 10,
-        minlength: 10,
-        required: true
-    },
     // interiorInfo: {
     //     capacity: {
     //         type: Number,
@@ -128,7 +122,8 @@ const listingSchema = new Schema({
         type: [{
             type: Schema.Types.ObjectId,
             ref: "Booking"
-        }]
+        }],
+        default: [],
     }
 })
 

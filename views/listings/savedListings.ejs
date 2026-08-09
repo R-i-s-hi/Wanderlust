@@ -4,10 +4,13 @@
     <div class="d-flex justify-content-center">
         <div class="btn-group rounded-pill my-3 pill-toggle" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-            <label class="btn btn-md rounded-start-pill px-4" for="btnradio1" onclick="toggleBooking(false)">Watchlist</label>
+            <label class="btn btn-md rounded-start-pill px-4" for="btnradio1" onclick="toggleSection('watchlist')">Watchlist</label>
 
             <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-            <label class="btn btn-md rounded-end-pill px-4" for="btnradio2" onclick="toggleBooking(true)">Bookings</label>
+            <label class="btn btn-md rounded-end-pill px-4" for="btnradio2" onclick="toggleSection('bookings')">Bookings</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-md rounded-end-pill px-4" for="btnradio3" onclick="toggleSection('myproperty')">Property</label>
         </div>
     </div>
 
@@ -72,9 +75,8 @@
         </a>
 
         <div class="row row-cols-md-4 row-cols-2 mt-lg-3 mt-2" id="listing-container">
-            <%=  console.log(bookings); %>
             
-            <% for (let booking of bookings) {  %>
+            <% for (let booking of bookings) { %>
 
                 <a href="/listings/<%= booking.listing._id %>" style="text-decoration: none;">
                     <div class="card listing-card">
@@ -82,26 +84,17 @@
     
                             <% if(currUser && booking && bookings) { %>
             
-                                        <div class="status-container">
+                                <div class="status-container">
 
-                                            <span class="booked-badge" style="<%= booking.status === "confirmed" ? '' : 'display:none;' %>">
-                                                <i class="fa-regular fa-circle-check"></i>
-                                                <p class="mb-0">Booked</p>
-                                            </span>
-                                            <span class="cancel-badge" style="<%= booking.status === "failed" ? '' : 'display:none;' %>">
-                                                <i class="fa-regular fa-circle-xmark"></i>
-                                                <p class="mb-0">Cancelled</p>
-                                            </span>
-                                        </div>
-
-                            <% } %>
-    
-                            <% if(!currUser) { %>
-                                <button class="index-save-btn" onclick="redirectToLogin(event)">
-                                        <svg class="outline" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" transform="rotate(0 0 0)">
-                                            <path d="M11.8227 4.77124L12 4.94862L12.1773 4.77135C14.4244 2.52427 18.0676 2.52427 20.3147 4.77134C22.5618 7.01842 22.5618 10.6616 20.3147 12.9087L13.591 19.6324C12.7123 20.5111 11.2877 20.5111 10.409 19.6324L3.6853 12.9086C1.43823 10.6615 1.43823 7.01831 3.6853 4.77124C5.93237 2.52417 9.5756 2.52417 11.8227 4.77124ZM10.762 5.8319C9.10073 4.17062 6.40725 4.17062 4.74596 5.8319C3.08468 7.49319 3.08468 10.1867 4.74596 11.848L11.4697 18.5718C11.7625 18.8647 12.2374 18.8647 12.5303 18.5718L19.254 11.8481C20.9153 10.1868 20.9153 7.49329 19.254 5.83201C17.5927 4.17072 14.8993 4.17072 13.238 5.83201L12.5304 6.53961C12.3897 6.68026 12.199 6.75928 12 6.75928C11.8011 6.75928 11.6104 6.68026 11.4697 6.53961L10.762 5.8319Z" fill="#fff"/>
-                                        </svg>
-                                </button>
+                                    <span class="booked-badge" style="<%= booking.status === "confirmed" ? '' : 'display:none;' %>">
+                                        <i class="fa-regular fa-circle-check"></i>
+                                        <p class="mb-0">Booked</p>
+                                    </span>
+                                    <span class="cancel-badge" style="<%= booking.status === "failed" ? '' : 'display:none;' %>">
+                                        <i class="fa-regular fa-circle-xmark"></i>
+                                        <p class="mb-0">Cancelled</p>
+                                    </span>
+                                </div>
                             <% } %>
                             <img src="<%= booking.listing.image.url %>" class="card-img-top" alt="listing-image" loading="lazy">
                         </div>
@@ -123,6 +116,82 @@
             <% } %>
         </div>
 
+    </div>
+
+    <div id="myproperty-container" class="myproperty-container" style="display: none;">
+        <a class="filter-btn optn-btn my-3 mt-sm-3 mb-sm-4" href="/listings" style="display: flex; align-items: center; padding: 5px 12px; width: fit-content; text-decoration: none;">
+            <i class="fa-solid fa-arrow-left" style="font-size: 11px; margin-bottom: -3.8px;"></i>
+            <span style="font-size: 11px; ">Back to home</span>
+        </a>
+
+        <div class="row row-cols-md-4 row-cols-2 mt-lg-3 mt-2" id="listing-container">
+            
+            <% for (let listing of myListings) { %>
+                <div class="col" >
+
+                    <div class="myPropertyCard" onclick="window.location.href='/listings/<%= listing._id %>'" style="text-decoration: none;">
+                        <div class="card listing-card">
+                            <div class="img-overlay">
+        
+                                <% if(currUser && listing && myListings) { %>
+                
+                                    <div class="btns change-listing-btns" style="position: absolute; top: 0; right: 7px; width: fit-content; border: 1px solid rgba(128, 128, 128, 0.5);
+                                        background: rgba(128, 128, 128, 0.2);
+                                        backdrop-filter: blur(6px);
+                                        box-shadow: 0 0 2px 0 rgba(128, 128, 128, 0.5);"
+                                    >
+                                        <a href="/listings/<%= listing._id %>/edit" class="btn edit-btn">
+                                            <i class="fa-solid fa-pen" style="color: white;"></i>
+                                        </a>
+                                        
+                                        <div class="vr my-1" style="background-color: rgba(128, 128, 128, 1);"></div>
+    
+                                        <button type="button" class="btn del-btn" data-bs-toggle="modal" data-bs-target="#deleteModal-<%= listing._id %>">
+                                            <i class="fa-regular fa-trash-can" style="color: white;"></i>
+                                        </button>
+    
+                                    </div>
+                                    <div class="modal fade" id="deleteModal-<%= listing._id %>" tabindex="-1" aria-labelledby="deleteModalLabel-<%= listing._id %>" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered ">
+                                            <div class="modal-content mx-3 rounded-4">
+                                                <div class="modal-header d-flex">
+                                                    <h4 class="modal-title flex-fill text-center" id="staticBackdropLabel" style="font-size: 1.2rem;">Delete Property</h4>
+                                                    <button type="button" class="btn-close" style="font-size: 10px;" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+
+                                                <div class="modal-body fw-medium" style="padding-block: 2rem 3rem !important; text-align: center;">
+                                                    Are you sure you want to delete this property?
+                                                </div>
+                                                
+                                                <div class="modal-footer border-0" style="box-shadow: 0px -4px 18px 2px rgba(128, 128, 128, 0.194);">
+                                                    <button type="button" class="btn px-2" id="cancelSearchButton" data-bs-dismiss="modal">Cancel</button>
+                                                    <form class="delete-form" method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+                                                        <button class="btn modal-delete-btn">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                <% } %>
+        
+                                <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-image" loading="lazy">
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text mb-0">
+                                <b class="truncate"><%= listing.title %></b> <br>
+                                &#8377; <%= listing.price.toLocaleString("en-IN") %>/night 
+                                <i class="tax-info"> &nbsp;-&nbsp; <b>&#8377; <%= listing.price + (18*listing.price/100)  %> (after tax)</b></i> in
+                                <%= listing.country %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
     </div>
 
     <script>
@@ -167,19 +236,27 @@
                 .catch(err => console.error("Error toggling save:", err));
         }
 
-        let booked = false;
-        function toggleBooking(value) {
+        let booked = "";
+        function toggleSection(value) {
             booked = value;
 
             const bookingContainer = document.getElementById("booking-container");
             const savedListingContainer = document.getElementById("savedlisting-container");
+            const myPropertyContainer = document.getElementById("myproperty-container");
 
-            if (booked) {
-                bookingContainer.style.display = "block";
-                savedListingContainer.style.display = "none";
-            } else {
+            if (booked === "watchlist") {
                 bookingContainer.style.display = "none";
                 savedListingContainer.style.display = "block";
+                myPropertyContainer.style.display = "none";
+                
+            } else if (booked === "bookings") {
+                bookingContainer.style.display = "block";
+                savedListingContainer.style.display = "none";
+                myPropertyContainer.style.display = "none";
+            } else if (booked === "myproperty"){
+                myPropertyContainer.style.display = "block";
+                bookingContainer.style.display = "none";
+                savedListingContainer.style.display = "none";
             }
         }
 

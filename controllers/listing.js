@@ -75,7 +75,6 @@ module.exports.index = async (req, res) => {
   }
 };
 
-
 module.exports.new = (req, res) => {
     res.render("listings/new.ejs");
 };
@@ -143,12 +142,12 @@ module.exports.show = async (req, res) => {
 module.exports.savedListings = async (req, res) => {
 
     try {
-        const savedListings = await Listing.find({isSaved: req.user._id})
-
+        const savedListings = await Listing.find({isSaved: req.user._id}).sort({ updatedAt: -1 });
         const bookings = await Booking.find({user: req.user._id}).populate("listing").sort({ createdAt: -1 });
+        const myListings = await Listing.find({owner: req.user._id});
         
-        if (savedListings || bookings) {
-            res.render("listings/savedListings.ejs", {savedListings, bookings});
+        if (savedListings || bookings || myListings) {
+            res.render("listings/savedListings.ejs", {savedListings, bookings, myListings});
         }
     } catch (e) {
         req.flash("error", "Something went wrong!");

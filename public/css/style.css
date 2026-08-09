@@ -912,7 +912,7 @@ li.selected label.form-check-label::after {
   border-bottom-left-radius: 20px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  background-color: inherit !important;
+  background-color: transparent !important;
   border-color: transparent !important;
 }
 
@@ -958,6 +958,9 @@ li.selected label.form-check-label::after {
 
 .del-btn i {
   font-size: 8px;
+}
+.myPropertyCard:hover {
+  cursor: pointer;
 }
 /* error page */
 .alert-heading {
@@ -1069,7 +1072,7 @@ li.selected label.form-check-label::after {
   position: absolute;
   top: 4px;
   left: 4px;
-  width: calc(50% - 4px);
+  width: calc(34.2% - 4px);
   height: calc(100% - 8px);
   background-color: #fe424d;
   border-radius: 999px;
@@ -1078,9 +1081,12 @@ li.selected label.form-check-label::after {
   z-index: 0;
 }
 
-/* when the second radio is checked, slide the pill to the right */
 .pill-toggle:has(#btnradio2:checked)::before {
   transform: translateX(100%);
+  width: calc(34% - 4px);
+}
+.pill-toggle:has(#btnradio3:checked)::before {
+  transform: translateX(196%);
 }
 
 .pill-toggle .btn {
