@@ -269,12 +269,12 @@ enforceDigits("price", 10);
     document.querySelectorAll("button[name='next']").forEach(btn => {
         btn.type = "button"; // prevent form submit
         btn.addEventListener("click", () => {
-            // if (validateStep(currentStep)) {
+            if (validateStep(currentStep)) {
                 if (currentStep < steps.length - 1) {
                     currentStep++;
                     showStep(currentStep);
                 }
-            // }
+            }
         });
     });
 

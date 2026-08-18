@@ -94,17 +94,12 @@
         <div class="vr my-2 mx-1"></div>
         
         <div class="d-flex gap-2 overflow-x-auto optns">
-            <% const filters = ["WiFi", "Swimming Pool", "Mountains & Hills", "Air Conditioning", "Beach & Tent", "Lake & Rivers", "Boat House"]; %>
+            <% const filters = ["Swimming Pool", "WiFi", "Mountains & Hills", "Air Conditioning", "Beach & Tent", "Lake & Rivers", "Boat House"]; %>
             <a class="filter-btn optn-btn" href="/listings/savedlistings" style="text-decoration: none;">
                 <span>
                     Saved
                 </span>
             </a>
-            <button class="filter-btn optn-btn" data-amenities="guest favourite">
-                <span>
-                    Guest Favourite
-                </span>
-            </button>
             <% filters.forEach(filter => { %>
                 <button class="filter-btn optn-btn <%= selectedAmenities.includes(filter) ? 'optn-selected' : '' %>" data-amenities="<%= filter %>">
                     <span>
